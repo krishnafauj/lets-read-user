@@ -65,13 +65,10 @@ export default function LearningCenterPage() {
         <div className="flex flex-col md:flex-row md:items-center gap-8">
           {/* Text */}
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1.5 rounded-lg bg-indigo-500/10">
-                <Brain className="w-5 h-5 text-indigo-500" />
-              </div>
-              <span className="text-[12px] font-bold text-indigo-500 uppercase tracking-widest">Learning Center</span>
+            <div className="mb-3">
+              <span className="text-[12px] font-medium text-indigo-500 uppercase tracking-widest">Learning Center</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3 leading-tight tracking-tight drop-shadow-sm">
+            <h1 className="text-3xl md:text-4xl font-light text-foreground mb-3 leading-tight tracking-tight drop-shadow-sm">
               Test your knowledge,
               <br />
               <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
@@ -90,7 +87,7 @@ export default function LearningCenterPage() {
                     {s.icon}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[16px] font-bold text-foreground leading-tight">{s.value}</div>
+                    <div className="text-[16px] font-medium text-foreground leading-tight">{s.value}</div>
                     <div className="text-[11px] text-text-muted font-medium truncate">{s.label}</div>
                   </div>
                 </div>
@@ -102,7 +99,7 @@ export default function LearningCenterPage() {
           <div className="flex flex-col items-center gap-2 shrink-0 bg-surface/50 p-6 rounded-[24px] border border-border/40 shadow-sm relative overflow-hidden">
              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-[40px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
             <MasteryRing value={78} />
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-text-muted uppercase tracking-widest mt-2 relative z-10">
+            <div className="flex items-center gap-1.5 text-[11px] font-medium text-text-muted uppercase tracking-widest mt-2 relative z-10">
               <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
               <span className="text-emerald-500">+6%</span>
               <span className="opacity-70">this week</span>

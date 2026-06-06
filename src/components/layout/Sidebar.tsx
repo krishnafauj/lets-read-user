@@ -21,7 +21,8 @@ import {
   Moon,
   ChevronDown,
   ChevronRight,
-  MessageSquare
+  MessageSquare,
+  SquarePen
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SmallLogo } from '@/components/ui/SmallLogo'
@@ -42,6 +43,12 @@ const navItems: NavItem[] = [
   { label: 'Learning Center', href: '/learning-center', icon: Target },
   { label: 'For You', href: '/for-you', icon: Sparkles },
   { label: 'Library', href: '/library', icon: Library },
+]
+
+const recentItems = [
+  { label: 'Explain confounding compounding', href: '/chat/uuid-1' },
+  { label: 'Strategies for minimizing distraction', href: '/chat/uuid-2' },
+  { label: 'Newport\'s 4 rules summarized', href: '/chat/uuid-3' },
 ]
 
 const aiBooks = [
@@ -299,6 +306,42 @@ export function Sidebar({ className }: SidebarProps) {
           </React.Fragment>
           )
         })}
+
+        {/* Chat History Section */}
+        {!collapsed && recentItems.length > 0 && (
+          <div className="mt-1 mb-2">
+            <div className="flex flex-col gap-0.5 mb-6">
+              <Link 
+                href={`/chat`}
+                className={cn(
+                  "relative flex items-center cursor-pointer transition-colors duration-200 rounded-xl group select-none",
+                  collapsed ? 'justify-center w-10 h-10 mx-auto' : 'gap-3 px-3 py-2 mx-2',
+                  "text-foreground hover:bg-surface-hover font-medium"
+                )}
+              >
+                <div className="relative shrink-0 flex items-center justify-center w-5 h-5">
+                  <SquarePen className="w-[18px] h-[18px] opacity-90 transition-opacity" />
+                </div>
+                {!collapsed && (
+                  <span className="text-[13px] font-medium flex-1 truncate">New chat</span>
+                )}
+              </Link>
+            </div>
+            <h4 className="text-[10px] font-semibold text-text-muted uppercase tracking-widest px-4 mb-2">Chat History</h4>
+            <div className="flex flex-col gap-0.5">
+              {recentItems.map((item, idx) => (
+                <Link 
+                  key={idx}
+                  href={item.href} 
+                  title={item.label}
+                  className="relative flex items-center px-4 py-1.5 mx-2 text-text-muted hover:bg-surface-hover hover:text-foreground font-medium transition-colors duration-200 rounded-lg group select-none"
+                >
+                  <span className="text-[12px] font-light truncate">{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Footer Section */}

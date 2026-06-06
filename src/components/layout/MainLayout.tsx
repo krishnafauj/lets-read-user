@@ -12,7 +12,7 @@ interface MainLayoutProps {
 
 export function MainLayout({ children, className }: MainLayoutProps) {
   const pathname = usePathname()
-  const isAiChat = pathname.startsWith('/ai-workspace/');
+  const isAiChat = pathname.startsWith('/ai-workspace/') || pathname.startsWith('/chat/');
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

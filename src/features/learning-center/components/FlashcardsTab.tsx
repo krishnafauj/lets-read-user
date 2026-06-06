@@ -116,7 +116,7 @@ export function FlashcardsTab() {
                   </div>
                 </div>
                 {deck.dueCards > 0 && (
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-bold tracking-wider text-rose-500 uppercase">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-medium tracking-wider text-rose-500 uppercase">
                     <AlertCircle className="w-3 h-3" />
                     Due: {deck.dueCards}
                   </span>

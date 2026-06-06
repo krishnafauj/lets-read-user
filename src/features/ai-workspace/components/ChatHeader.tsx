@@ -11,22 +11,25 @@ interface ChatHeaderProps {
   isContextOpen: boolean;
   onToggleContext: () => void;
   bookId: string;
+  hideSidebarToggle?: boolean;
 }
 
-export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onToggleContext, bookId }: ChatHeaderProps) {
+export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onToggleContext, bookId, hideSidebarToggle = false }: ChatHeaderProps) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [activeBook, setActiveBook] = useState("Deep Work — Cal Newport"); // In reality, this would be derived from bookId
 
   return (
     <div className="h-20 shrink-0 border-b border-border flex items-center justify-between px-8 bg-background/80 backdrop-blur-md z-10 sticky top-0">
       <div className="flex items-center gap-3">
-        <button 
-          onClick={onToggleSidebar}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border text-text-muted hover:text-foreground transition-colors"
-          title={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-        >
-          {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
-        </button>
+        {!hideSidebarToggle && (
+          <button 
+            onClick={onToggleSidebar}
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border text-text-muted hover:text-foreground transition-colors"
+            title={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+          >
+            {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
+          </button>
+        )}
 
         <Link
           href="/ai-workspace"

@@ -96,10 +96,10 @@ function QuizTimer({ seconds }: { seconds: number }) {
 
   return (
     <div
-      className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-mono font-semibold transition-colors ${
+      className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-mono font-semibold transition-colors shadow-sm ${
         isLow
-          ? "border-rose-500/50 bg-rose-500/15 text-rose-400"
-          : "border-zinc-700 bg-zinc-900 text-zinc-300"
+          ? "border-rose-500/50 bg-rose-500/10 text-rose-500"
+          : "border-border/40 bg-surface text-text-muted"
       }`}
     >
       <Timer className={`w-4 h-4 ${isLow ? "animate-pulse" : ""}`} />
@@ -172,7 +172,7 @@ export default function QuizPage() {
   if (finished) {
     const pct = Math.round((score / totalQ) * 100);
     return (
-      <div className="min-h-full flex items-center justify-center p-6">
+      <div className="min-h-full flex items-center justify-center p-6 bg-background">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -180,12 +180,12 @@ export default function QuizPage() {
           className="max-w-md w-full text-center"
         >
           <div className="text-6xl mb-4">{pct >= 80 ? "🎉" : pct >= 60 ? "👍" : "💪"}</div>
-          <h2 className="text-2xl font-bold text-white mb-2">Quiz Complete!</h2>
-          <p className="text-zinc-400 mb-6 text-sm">You answered {score} out of {totalQ} correctly</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Quiz Complete!</h2>
+          <p className="text-text-muted mb-6 text-sm">You answered {score} out of {totalQ} correctly</p>
 
           <div className="relative w-36 h-36 mx-auto mb-6">
             <svg width={144} height={144} className="-rotate-90">
-              <circle cx={72} cy={72} r={62} fill="none" stroke="#27272A" strokeWidth={10} />
+              <circle cx={72} cy={72} r={62} fill="none" className="stroke-surface-hover" strokeWidth={10} />
               <motion.circle
                 cx={72} cy={72} r={62} fill="none"
                 stroke={pct >= 80 ? "#10B981" : pct >= 60 ? "#F59E0B" : "#EF4444"}
@@ -197,7 +197,7 @@ export default function QuizPage() {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-bold text-white">{pct}%</span>
+              <span className="text-3xl font-bold text-foreground">{pct}%</span>
             </div>
           </div>
 
@@ -205,7 +205,7 @@ export default function QuizPage() {
             <Link href="/learning-center">
               <motion.button
                 whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                className="px-5 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm font-semibold hover:bg-zinc-800 transition-colors"
+                className="px-5 py-2.5 rounded-[12px] border border-border/40 bg-surface text-foreground text-sm font-medium hover:bg-surface-hover transition-colors shadow-sm"
               >
                 Back to Learning Center
               </motion.button>
@@ -213,7 +213,7 @@ export default function QuizPage() {
             <motion.button
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={() => { setCurrentQ(0); setSelected(null); setConfirmed(false); setAnswers(Array(questions.length).fill(null)); setTimeLeft(15 * 60); setFinished(false); }}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-[12px] bg-primary hover:bg-primary-dark text-white text-sm font-medium transition-colors shadow-sm"
             >
               Try Again
             </motion.button>
@@ -224,10 +224,10 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-full flex flex-col p-4 md:p-6 max-w-3xl mx-auto">
+    <div className="min-h-full flex flex-col p-4 md:p-6 max-w-3xl mx-auto bg-background">
       {/* Top bar */}
       <div className="flex items-center justify-between mb-4">
-        <Link href="/learning-center" className="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+        <Link href="/learning-center" className="flex items-center gap-1.5 text-text-muted hover:text-foreground text-sm font-medium transition-colors">
           <ChevronLeft className="w-4 h-4" />
           Learning Center
         </Link>
@@ -235,14 +235,14 @@ export default function QuizPage() {
       </div>
 
       {/* Progress bar */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between text-xs text-zinc-500 mb-2">
-          <span className="font-semibold text-white">Q{currentQ + 1} of {totalQ}</span>
+      <div className="mb-8">
+        <div className="flex items-center justify-between text-xs text-text-muted mb-2">
+          <span className="font-semibold text-foreground">Q{currentQ + 1} of {totalQ}</span>
           <span>{Math.round(progress)}% complete</span>
         </div>
-        <div className="h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-surface-hover overflow-hidden border border-border/20">
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500"
+            className="h-full rounded-full bg-primary"
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           />
@@ -256,8 +256,8 @@ export default function QuizPage() {
                 idx < currentQ
                   ? answers[idx] === questions[idx].correctIndex ? "bg-emerald-500" : "bg-rose-500"
                   : idx === currentQ
-                  ? "bg-indigo-400"
-                  : "bg-zinc-800"
+                  ? "bg-primary/70"
+                  : "bg-surface-hover"
               }`}
             />
           ))}
@@ -275,8 +275,8 @@ export default function QuizPage() {
           className="flex-1"
         >
           <div className="mb-6">
-            <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Deep Work · Question {currentQ + 1}</span>
-            <h2 className="text-xl md:text-2xl font-bold text-white mt-2 leading-snug">{question.text}</h2>
+            <span className="text-[11px] font-semibold text-primary uppercase tracking-widest">Deep Work · Question {currentQ + 1}</span>
+            <h2 className="text-xl md:text-[22px] font-medium text-foreground mt-2 leading-snug tracking-tight">{question.text}</h2>
           </div>
 
           {/* Options */}
@@ -296,32 +296,32 @@ export default function QuizPage() {
                   onClick={() => handleSelect(idx)}
                   whileHover={confirmed ? {} : { scale: 1.01, x: 2 }}
                   whileTap={confirmed ? {} : { scale: 0.99 }}
-                  className={`w-full text-left p-4 rounded-xl border text-sm font-medium transition-all flex items-center gap-3 ${
+                  className={`w-full text-left p-4 rounded-[14px] border text-[14px] font-medium transition-all flex items-center gap-4 shadow-sm ${
                     state === "correct"
-                      ? "border-emerald-500/70 bg-emerald-500/15 text-emerald-300"
+                      ? "border-emerald-500/70 bg-emerald-500/10 text-emerald-600"
                       : state === "wrong"
-                      ? "border-rose-500/70 bg-rose-500/15 text-rose-300"
+                      ? "border-rose-500/70 bg-rose-500/10 text-rose-600"
                       : state === "selected"
-                      ? "border-indigo-500 bg-indigo-500/20 text-white"
-                      : "border-zinc-700 bg-zinc-900/60 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800/60"
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-border/40 bg-surface text-text-muted hover:border-border hover:bg-surface-hover hover:text-foreground"
                   }`}
                 >
                   <span
-                    className={`w-7 h-7 rounded-lg border text-xs font-bold flex items-center justify-center shrink-0 transition-colors ${
+                    className={`w-8 h-8 rounded-[10px] border text-xs font-bold flex items-center justify-center shrink-0 transition-colors ${
                       state === "correct"
-                        ? "border-emerald-500 bg-emerald-500/30 text-emerald-300"
+                        ? "border-emerald-500/30 bg-emerald-500/20 text-emerald-600"
                         : state === "wrong"
-                        ? "border-rose-500 bg-rose-500/30 text-rose-300"
+                        ? "border-rose-500/30 bg-rose-500/20 text-rose-600"
                         : state === "selected"
-                        ? "border-indigo-500 bg-indigo-500/30 text-indigo-300"
-                        : "border-zinc-600 bg-zinc-800 text-zinc-400"
+                        ? "border-primary/30 bg-primary/10 text-primary"
+                        : "border-border/40 bg-surface-hover text-text-muted"
                     }`}
                   >
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="flex-1">{option}</span>
-                  {state === "correct" && <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />}
-                  {state === "wrong" && <XCircle className="w-4 h-4 text-rose-400 shrink-0" />}
+                  <span className="flex-1 leading-snug">{option}</span>
+                  {state === "correct" && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
+                  {state === "wrong" && <XCircle className="w-5 h-5 text-rose-500 shrink-0" />}
                 </motion.button>
               );
             })}
@@ -334,10 +334,12 @@ export default function QuizPage() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mb-5 p-4 rounded-xl border border-zinc-700 bg-zinc-900/60 overflow-hidden"
+                className="mb-5 overflow-hidden"
               >
-                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1">Explanation</div>
-                <p className="text-sm text-zinc-300 leading-relaxed">{question.explanation}</p>
+                <div className="p-5 rounded-[16px] border border-primary/20 bg-primary/5">
+                  <div className="text-[11px] font-bold text-primary uppercase tracking-widest mb-2">Explanation</div>
+                  <p className="text-[14px] text-foreground leading-relaxed font-light">{question.explanation}</p>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -345,11 +347,11 @@ export default function QuizPage() {
       </AnimatePresence>
 
       {/* Bottom actions */}
-      <div className="flex items-center justify-between pt-2 border-t border-zinc-800 mt-auto">
+      <div className="flex items-center justify-between pt-4 border-t border-border/40 mt-auto">
         <motion.button
           whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
           onClick={handleSkip}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-white text-sm font-medium transition-colors"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-[12px] border border-border/40 bg-surface text-text-muted hover:text-foreground hover:bg-surface-hover text-sm font-medium transition-colors shadow-sm"
         >
           <SkipForward className="w-4 h-4" />
           Skip
@@ -360,7 +362,7 @@ export default function QuizPage() {
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={handleSubmit}
             disabled={selected === null}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-[12px] bg-primary hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors shadow-sm"
           >
             Submit Answer
           </motion.button>
@@ -370,7 +372,7 @@ export default function QuizPage() {
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={handleNext}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-[12px] bg-primary hover:bg-primary-dark text-white text-sm font-medium transition-colors shadow-sm"
           >
             {currentQ + 1 >= totalQ ? "See Results" : "Next Question"}
             <ArrowRight className="w-4 h-4" />

@@ -56,7 +56,7 @@ export function MockTestsTab() {
                   </div>
                   {test.bestScore !== null && (
                     <div className="text-right shrink-0">
-                      <div className="text-[18px] font-bold text-foreground leading-none">{test.bestScore}%</div>
+                      <div className="text-[18px] font-medium text-foreground leading-none">{test.bestScore}%</div>
                       <div className="text-[10px] font-medium text-text-muted mt-1 uppercase tracking-widest">Best</div>
                     </div>
                   )}

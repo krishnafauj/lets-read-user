@@ -79,7 +79,7 @@ export function QuizzesTab() {
           </div>
         </div>
 
-        <Link href="/learning-center/quiz">
+        <Link href={`/learning-center/quiz/${Math.random().toString(36).substring(2, 15)}`}>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -107,7 +107,7 @@ export function QuizzesTab() {
                 <div className="flex items-center gap-3 mb-1">
                   <span className="text-[15px] font-medium text-foreground truncate tracking-tight">{result.space}</span>
                   <span
-                    className={`flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase ${
+                    className={`flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase ${
                       result.trend > 0 ? "text-emerald-500 bg-emerald-500/10 border border-emerald-500/20" : "text-rose-500 bg-rose-500/10 border border-rose-500/20"
                     }`}
                   >
@@ -122,7 +122,7 @@ export function QuizzesTab() {
               </div>
               <div className="flex items-center gap-5">
                 <div className="text-right">
-                  <div className="text-[18px] font-bold text-foreground leading-none">{result.score}</div>
+                  <div className="text-[18px] font-medium text-foreground leading-none">{result.score}</div>
                   <div className="text-[11px] font-medium text-text-muted mt-1">/{result.total}</div>
                 </div>
                 <motion.button

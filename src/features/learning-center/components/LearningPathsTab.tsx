@@ -41,7 +41,7 @@ export function LearningPathsTab() {
             <p className="text-[13px] font-light text-text-muted ml-[52px]">Structured curriculum based on Cal Newport's principles</p>
           </div>
           <div className="text-right hidden sm:block">
-            <div className="text-[24px] font-bold text-foreground">50%</div>
+            <div className="text-[24px] font-medium text-foreground">50%</div>
             <div className="text-[10px] font-medium text-text-muted uppercase tracking-widest mt-1">Completion</div>
           </div>
         </div>
