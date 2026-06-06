@@ -17,11 +17,12 @@ export function MainLayout({ children, className }: MainLayoutProps) {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
-      <div className="flex flex-col flex-1 min-w-0">
+      <div className="flex flex-col flex-1 min-w-0 min-h-0">
         {!isAiChat && <Header />}
         <main
           className={cn(
-            'flex-1 overflow-y-auto overflow-x-hidden bg-background',
+            'flex-1 min-h-0 overflow-x-hidden bg-background',
+            isAiChat ? 'flex flex-col overflow-hidden' : 'overflow-y-auto',
             className
           )}
         >

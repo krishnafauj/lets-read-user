@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, PanelLeftClose, PanelLeftOpen, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChatHeaderProps {
@@ -27,9 +28,15 @@ export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onTo
           {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
         </button>
 
-        <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shadow-inner">
-          <BookOpen size={16} />
-        </div>
+        <Link
+          href="/ai-workspace"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border text-text-muted hover:text-foreground transition-colors shrink-0"
+          title="Back to Workspace"
+        >
+          <ArrowLeft size={16} />
+        </Link>
+
+
         <div className="relative">
           <button 
             onClick={() => setDropdownOpen(!isDropdownOpen)}

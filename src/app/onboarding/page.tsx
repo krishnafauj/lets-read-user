@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Check, ArrowRight, ChevronRight, Sparkles, BookOpen } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -109,13 +109,13 @@ const sampleSpaces: Space[] = [
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
-const pageVariants = {
+const pageVariants: Variants = {
   enter: { opacity: 0, x: 40 },
   center: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
   exit: { opacity: 0, x: -40, transition: { duration: 0.25, ease: "easeIn" } },
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -123,7 +123,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };

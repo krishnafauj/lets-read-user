@@ -120,7 +120,7 @@ export const DiscoverHero = () => {
                   <div>
                     <h4 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3 px-2 flex items-center gap-2"><User size={12}/> Authors</h4>
                     <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover cursor-pointer transition-colors" onClick={() => router.push('/search?q=George R.R. Martin')}>
+                      <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover cursor-pointer transition-colors" onClick={() => router.push('/search?q=George R.R. Martin&tab=authors')}>
                         <div className="w-10 h-10 bg-surface rounded-full shadow-sm border border-border overflow-hidden shrink-0">
                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&fit=crop" className="w-full h-full object-cover" alt="George R.R. Martin" />
                         </div>
@@ -129,7 +129,7 @@ export const DiscoverHero = () => {
                           <p className="text-xs text-text-muted">Epic Fantasy</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover cursor-pointer transition-colors" onClick={() => router.push('/search?q=J.K. Rowling')}>
+                      <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover cursor-pointer transition-colors" onClick={() => router.push('/search?q=J.K. Rowling&tab=authors')}>
                         <div className="w-10 h-10 bg-surface rounded-full shadow-sm border border-border overflow-hidden shrink-0">
                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&fit=crop" className="w-full h-full object-cover" alt="J.K. Rowling" />
                         </div>

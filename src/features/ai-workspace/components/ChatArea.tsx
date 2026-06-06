@@ -29,11 +29,11 @@ export function ChatArea() {
     }
   ];
   return (
-    <div className="flex-1 flex flex-col min-w-0 bg-transparent h-full">
+    <div className="flex-1 flex flex-col min-w-0 min-h-0 bg-transparent h-full">
 
       {/* Messages Feed */}
       <div className="flex-1 overflow-y-auto px-8 py-10">
-        <div className="max-w-4xl mx-auto flex flex-col">
+        <div className="max-w-5xl mx-auto flex flex-col w-full">
           {messages.map((msg, i) => (
             <ChatBubble 
               key={i}

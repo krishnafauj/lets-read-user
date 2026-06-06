@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { fadeUp, hoverScale } from "../utils/animations";
 
+import { useRouter } from "next/navigation";
+
 const GENRES = [
   { name: "Science Fiction", count: "12K+", color: "bg-blue-500", icon: "🌌" },
   { name: "Fantasy & Magic", count: "8.5K+", color: "bg-purple-500", icon: "🔮" },
@@ -15,6 +17,8 @@ const GENRES = [
 ];
 
 export const GenreGrid = () => {
+  const router = useRouter();
+
   return (
     <motion.section variants={fadeUp} className="mb-16 w-full">
       <h2 className="text-2xl font-bold text-foreground mb-8">Explore by Genre</h2>
@@ -26,6 +30,7 @@ export const GenreGrid = () => {
             variants={hoverScale}
             initial="rest"
             whileHover="hover"
+            onClick={() => router.push(`/search?tab=books&genre=${encodeURIComponent(genre.name)}`)}
             className="relative overflow-hidden rounded-3xl cursor-pointer group aspect-[4/3] border border-border shadow-sm"
           >
             {/* Colored Base */}

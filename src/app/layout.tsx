@@ -39,7 +39,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${sohne.variable} h-full antialiased`} data-scroll-behavior="smooth">
       <body suppressHydrationWarning className="h-full font-sans bg-background text-foreground transition-colors duration-200">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem
+          themes={['light', 'dark', 'light-rose', 'light-ocean', 'light-amber', 'light-sage', 'light-lavender']}
+        >
           <MainLayout>{children}</MainLayout>
         </ThemeProvider>
       </body>

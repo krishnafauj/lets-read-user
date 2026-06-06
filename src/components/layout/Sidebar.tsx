@@ -26,6 +26,7 @@ import {
 import { cn } from '@/lib/utils'
 import { SmallLogo } from '@/components/ui/SmallLogo'
 import Image from 'next/image'
+import { ThemePicker } from './ThemePicker'
 
 interface NavItem {
   label: string
@@ -41,7 +42,6 @@ const navItems: NavItem[] = [
   { label: 'Learning Center', href: '/learning-center', icon: Target },
   { label: 'For You', href: '/for-you', icon: Sparkles },
   { label: 'Library', href: '/library', icon: Library },
-  { label: 'Inbox', href: '/inbox', icon: Bell, badge: 3 },
 ]
 
 const aiBooks = [
@@ -141,7 +141,18 @@ export function Sidebar({ className }: SidebarProps) {
 
           return (
           <React.Fragment key={item.href}>
-            <Link href={item.href} title={collapsed ? item.label : undefined}>
+            <Link 
+              href={item.href} 
+              title={collapsed ? item.label : undefined}
+              onClick={(e) => {
+                if (item.label === 'AI Workspace') {
+                  setAiWorkspaceExpanded(!aiWorkspaceExpanded);
+                } else {
+                  setAiWorkspaceExpanded(false);
+                  setExpandedBookId(null);
+                }
+              }}
+            >
               <div
                 className={cn(
                   'relative flex items-center cursor-pointer transition-colors duration-200 rounded-xl group select-none',
@@ -241,6 +252,9 @@ export function Sidebar({ className }: SidebarProps) {
                         <Link 
                           href={`/ai-workspace/${book.id}`}
                           className="truncate py-1.5 px-2 flex-1 hover:text-foreground transition-colors"
+                          onClick={() => {
+                            setExpandedBookId(expandedBookId === book.id ? null : book.id);
+                          }}
                         >
                           {book.title}
                         </Link>
@@ -291,63 +305,8 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="shrink-0 p-2 border-t border-border flex flex-col space-y-[2px]">
         
         {/* Theme Toggle */}
-        {mounted && (
-          <div
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className={cn(
-              "flex items-center cursor-pointer group hover:bg-surface-hover transition-colors duration-150 text-foreground rounded-xl",
-              collapsed ? "justify-center w-10 h-10 mx-auto" : "gap-3 px-3 py-2.5 mx-2"
-            )}
-            title="Toggle theme"
-          >
-            <div className="relative shrink-0 flex items-center justify-center w-5 h-5">
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-text-muted group-hover:text-foreground transition-colors duration-150" />
-              ) : (
-                <Moon className="w-4 h-4 text-text-muted group-hover:text-foreground transition-colors duration-150" />
-              )}
-            </div>
-            <AnimatePresence initial={false}>
-              {!collapsed && (
-                <motion.span
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="relative text-sm whitespace-nowrap overflow-hidden"
-                >
-                  {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
+        {mounted && <ThemePicker collapsed={collapsed} />}
 
-        {/* Profile */}
-        <Link href="/profile">
-          <div className={cn(
-            "flex items-center cursor-pointer group hover:bg-surface-hover transition-colors duration-150 rounded-xl",
-            collapsed ? "justify-center w-10 h-10 mx-auto" : "gap-3 px-3 py-2.5 mx-2"
-          )}>
-            <div className="w-7 h-7 shrink-0 flex items-center justify-center text-xs font-semibold bg-primary text-background rounded-sm">
-              U
-            </div>
-            <AnimatePresence initial={false}>
-              {!collapsed && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <p className="text-sm font-semibold text-foreground whitespace-nowrap">User</p>
-                  <p className="text-xs text-text-muted whitespace-nowrap">user@letsread.ai</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </Link>
       </div>
 
     </motion.aside>

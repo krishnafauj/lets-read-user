@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import {
   Brain,
@@ -28,7 +28,7 @@ import {
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -36,12 +36,12 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-const tabContentVariants = {
+const tabContentVariants: Variants = {
   hidden: { opacity: 0, x: 12 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
   exit: { opacity: 0, x: -12, transition: { duration: 0.2 } },
