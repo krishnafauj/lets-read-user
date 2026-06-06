@@ -216,7 +216,7 @@ function ProgressBar({ value }: { value: number }) {
       : "from-amber-500 to-orange-500";
 
   return (
-    <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: "#27272A" }}>
+    <div className="w-full h-1.5 rounded-full overflow-hidden bg-surface-hover">
       <motion.div
         className={`h-full rounded-full bg-gradient-to-r ${color}`}
         initial={{ width: 0 }}
@@ -235,140 +235,196 @@ function SpaceCardGrid({ space }: { space: KnowledgeSpace }) {
       variants={cardHover}
       initial="rest"
       whileHover="hover"
-      className="rounded-2xl border overflow-hidden flex flex-col cursor-pointer group"
-      style={{ background: "#111113", borderColor: "#27272A" }}
+      className="relative rounded-[20px] border border-border/40 flex flex-col cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-[260px] overflow-visible"
     >
-      {/* Banner */}
-      <div className={`relative h-28 bg-gradient-to-br ${space.bannerGradient} flex-shrink-0`}>
-        {/* Noise overlay */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-          }}
-        />
-        {/* Status badge */}
-        {space.status === "completed" && (
-          <div
-            className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-semibold"
-            style={{ background: "rgba(0,0,0,0.4)", color: "#34d399", backdropFilter: "blur(8px)" }}
-          >
-            Completed
-          </div>
-        )}
-        {space.status === "archived" && (
-          <div
-            className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-semibold"
-            style={{ background: "rgba(0,0,0,0.4)", color: "#71717A", backdropFilter: "blur(8px)" }}
-          >
-            Archived
-          </div>
-        )}
-        {/* Emoji + Name overlay at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 flex items-end gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-            style={{ background: "rgba(0,0,0,0.35)", backdropFilter: "blur(8px)" }}
-          >
-            {space.emoji}
+      <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.03] rounded-[20px] pointer-events-none`} />
+
+      {/* Header */}
+      <div className="px-5 pt-5 pb-2 flex items-start justify-between relative z-10">
+        <div className="flex gap-3.5 items-center min-w-0">
+          <div className="w-[52px] h-[52px] rounded-[16px] flex-shrink-0 flex items-center justify-center text-[28px] bg-background border border-border/40 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
+            <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-10`} />
+            <span className="relative z-10">{space.emoji}</span>
           </div>
           <div className="min-w-0">
-            <p className="font-semibold text-white text-sm leading-tight truncate drop-shadow-md">
-              {space.name}
-            </p>
-            <p className="text-xs mt-0.5 drop-shadow-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+            <div className="flex items-center gap-2">
+              <h3 className="font-medium text-foreground text-[16px] tracking-tight truncate">
+                {space.name}
+              </h3>
+              {space.status === "completed" && (
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" title="Completed" />
+              )}
+            </div>
+            <p className="text-[13px] font-light text-text-muted truncate mt-0.5">
               {space.author}
             </p>
           </div>
         </div>
+        
+        <div className="relative shrink-0">
+          <motion.button
+            whileTap={{ scale: 0.94 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setMenuOpen((p) => !p);
+            }}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-text-muted hover:bg-surface-hover transition-colors"
+          >
+            <MoreHorizontal size={16} />
+          </motion.button>
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: -4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: -4 }}
+                transition={{ duration: 0.15 }}
+                className="absolute top-full right-0 mt-1 w-40 rounded-[14px] border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
+                onMouseLeave={() => setMenuOpen(false)}
+              >
+                {["View Details", "Share", "Archive", "Remove"].map(
+                  (item, i) => (
+                    <button
+                      key={item}
+                      className={`w-full px-4 py-2.5 text-left text-[13px] font-light transition-colors hover:bg-surface-hover ${i === 3 ? 'text-red-500' : 'text-foreground/80'} ${i < 3 ? 'border-b border-border/40' : ''}`}
+                    >
+                      {item}
+                    </button>
+                  )
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Body */}
-      <div className="p-4 flex flex-col gap-3 flex-1">
-        {/* Progress */}
-        <div className="flex items-center justify-between text-xs mb-0.5">
-          <span style={{ color: "#71717A" }}>Progress</span>
-          <span className="font-semibold" style={{ color: "#A1A1AA" }}>
-            {space.progress}% complete
-          </span>
-        </div>
-        <ProgressBar value={space.progress} />
-
-        {/* Stats */}
-        <div className="flex items-center gap-3 text-xs" style={{ color: "#71717A" }}>
-          <span>{space.chats} chats</span>
-          <span style={{ color: "#3F3F46" }}>·</span>
-          <span>{space.timeSpent}</span>
-          <span style={{ color: "#3F3F46" }}>·</span>
-          <span style={{ color: "#a78bfa" }}>{space.mastery}% mastery</span>
+      <div className="px-5 pb-5 flex flex-col flex-1 relative z-10">
+        
+        <div className="mt-2 mb-4">
+          <div className="flex items-center justify-between text-[11px] font-medium tracking-widest uppercase text-text-muted mb-2">
+            <span>Progress</span>
+            <span className="text-foreground/70">{space.progress}%</span>
+          </div>
+          <ProgressBar value={space.progress} />
         </div>
 
-        {/* Tags */}
-        <div className="flex gap-2 flex-wrap">
-          {space.tags.map((tag) => (
+        <div className="flex items-center gap-3 text-[12px] font-light text-text-muted">
+          <span className="flex items-center gap-1.5"><MessageSquare size={12} className="opacity-60"/> {space.chats}</span>
+          <span className="text-border">·</span>
+          <span className="flex items-center gap-1.5"><Clock size={12} className="opacity-60"/> {space.timeSpent}</span>
+          <span className="text-border">·</span>
+          <span>{space.mastery}% mastery</span>
+        </div>
+
+        <div className="flex gap-1.5 flex-wrap mt-auto pt-4">
+          {space.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2.5 py-0.5 rounded-full"
-              style={{ background: "#1E1E22", color: "#A1A1AA", border: "1px solid #27272A" }}
+              className="text-[11px] font-light px-2.5 py-1 rounded-md bg-surface-hover/50 text-text-muted border border-border/30"
             >
               {tag}
             </span>
           ))}
+          {space.tags.length > 3 && (
+            <span className="text-[11px] font-light px-2 py-1 rounded-md bg-surface-hover/50 text-text-muted border border-border/30">
+              +{space.tags.length - 3}
+            </span>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function SpaceCardList({ space }: { space: KnowledgeSpace }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <motion.div
+      variants={cardHover}
+      initial="rest"
+      whileHover="hover"
+      className="relative rounded-[16px] border border-border/40 overflow-hidden flex items-center cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-[100px]"
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.02] pointer-events-none`} />
+
+      {/* Thumbnail */}
+      <div className="w-[100px] h-full flex-shrink-0 flex items-center justify-center text-[32px] relative border-r border-border/30 bg-background/50">
+        <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.05]`} />
+        <span className="relative z-10 group-hover:scale-110 transition-transform duration-300">{space.emoji}</span>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 px-5 flex items-center justify-between min-w-0 gap-6 relative z-10">
+        
+        {/* Name & Author */}
+        <div className="flex-1 min-w-0 max-w-[240px]">
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium text-[15px] truncate text-foreground tracking-tight">
+              {space.name}
+            </h3>
+            {space.status === "completed" && (
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" title="Completed" />
+            )}
+          </div>
+          <p className="text-[12px] font-light text-text-muted mt-0.5 truncate">
+            {space.author}
+          </p>
+        </div>
+
+        {/* Progress */}
+        <div className="w-[180px] hidden sm:block">
+           <div className="flex justify-between text-[10px] font-medium tracking-widest uppercase text-text-muted mb-1.5">
+             <span>Progress</span>
+             <span className="text-foreground/70">{space.progress}%</span>
+           </div>
+           <ProgressBar value={space.progress} />
+        </div>
+
+        {/* Stats */}
+        <div className="hidden md:flex items-center gap-4 text-[12px] font-light text-text-muted w-[160px]">
+           <span className="flex items-center gap-1.5"><MessageSquare size={12} className="opacity-60"/> {space.chats}</span>
+           <span className="flex items-center gap-1.5"><Clock size={12} className="opacity-60"/> {space.timeSpent}</span>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 mt-auto pt-1">
-          <Link href={`/ai-workspace/${space.id}/chat-0`} className="flex-1">
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <Link href={`/ai-workspace/${space.id}/chat-0`}>
             <motion.button
               whileTap={{ scale: 0.97 }}
-              className="w-full py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
-              style={{
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                color: "#fff",
-                boxShadow: "0 0 12px rgba(99,102,241,0.3)",
-              }}
+              className="px-4 py-2 rounded-[10px] text-[12px] font-medium flex items-center gap-1.5 bg-surface-hover border border-border/50 text-foreground hover:bg-surface-hover/80 transition-colors"
             >
-              <MessageSquare size={13} />
-              Open AI Chat
+              Open
             </motion.button>
           </Link>
-          <div className="relative">
+          
+          <div className="relative shrink-0">
             <motion.button
               whileTap={{ scale: 0.94 }}
               onClick={(e) => {
                 e.stopPropagation();
                 setMenuOpen((p) => !p);
               }}
-              className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{ background: "#1E1E22", border: "1px solid #27272A", color: "#71717A" }}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-text-muted hover:bg-surface-hover transition-colors"
             >
               <MoreHorizontal size={14} />
             </motion.button>
             <AnimatePresence>
               {menuOpen && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.92, y: -4 }}
+                  initial={{ opacity: 0, scale: 0.96, y: -4 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.92, y: -4 }}
+                  exit={{ opacity: 0, scale: 0.96, y: -4 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute bottom-full right-0 mb-2 w-40 rounded-xl border overflow-hidden z-20"
-                  style={{ background: "#18181B", borderColor: "#3F3F46" }}
+                  className="absolute bottom-full right-0 mb-1 w-40 rounded-[14px] border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
                   onMouseLeave={() => setMenuOpen(false)}
                 >
-                  {["View Details", "Share Space", "Export Notes", "Archive", "Remove"].map(
+                  {["View Details", "Share", "Archive", "Remove"].map(
                     (item, i) => (
                       <button
                         key={item}
-                        className="w-full px-4 py-2.5 text-left text-xs transition-colors"
-                        style={{
-                          color: i === 4 ? "#f87171" : "#A1A1AA",
-                          borderBottom: i < 4 ? "1px solid #27272A" : "none",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.background = "rgba(255,255,255,0.04)")
-                        }
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                        className={`w-full px-4 py-2.5 text-left text-[13px] font-light transition-colors hover:bg-surface-hover ${i === 3 ? 'text-red-500' : 'text-foreground/80'} ${i < 3 ? 'border-b border-border/40' : ''}`}
                       >
                         {item}
                       </button>
@@ -377,117 +433,6 @@ function SpaceCardGrid({ space }: { space: KnowledgeSpace }) {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function SpaceCardList({ space }: { space: KnowledgeSpace }) {
-  return (
-    <motion.div
-      variants={cardHover}
-      initial="rest"
-      whileHover="hover"
-      className="rounded-2xl border overflow-hidden flex cursor-pointer"
-      style={{ background: "#111113", borderColor: "#27272A" }}
-    >
-      {/* Thumbnail */}
-      <div
-        className={`relative w-28 flex-shrink-0 bg-gradient-to-br ${space.bannerGradient} flex items-center justify-center text-3xl`}
-      >
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-          }}
-        />
-        <span className="relative z-10">{space.emoji}</span>
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 px-5 py-4 flex flex-col justify-between min-w-0 gap-2">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <p className="font-semibold text-sm truncate" style={{ color: "#FAFAFA" }}>
-                {space.name}
-              </p>
-              {space.status === "completed" && (
-                <span
-                  className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"
-                  style={{ background: "rgba(52,211,153,0.1)", color: "#34d399" }}
-                >
-                  Completed
-                </span>
-              )}
-              {space.status === "archived" && (
-                <span
-                  className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"
-                  style={{ background: "#1E1E22", color: "#71717A" }}
-                >
-                  Archived
-                </span>
-              )}
-            </div>
-            <p className="text-xs mt-0.5" style={{ color: "#71717A" }}>
-              {space.author}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <Link href={`/ai-workspace/${space.id}/chat-0`}>
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5"
-                style={{
-                  background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                  color: "#fff",
-                }}
-              >
-                <MessageSquare size={12} />
-                Open
-              </motion.button>
-            </Link>
-            <motion.button
-              whileTap={{ scale: 0.94 }}
-              className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: "#1E1E22", border: "1px solid #27272A", color: "#71717A" }}
-            >
-              <MoreHorizontal size={13} />
-            </motion.button>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="flex-1 max-w-48">
-            <ProgressBar value={space.progress} />
-          </div>
-          <span className="text-xs font-medium" style={{ color: "#A1A1AA" }}>
-            {space.progress}%
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 text-xs" style={{ color: "#71717A" }}>
-            <span>{space.chats} chats</span>
-            <span>·</span>
-            <span>{space.timeSpent}</span>
-            <span>·</span>
-            <span style={{ color: "#a78bfa" }}>{space.mastery}% mastery</span>
-          </div>
-          <div className="flex gap-1.5 ml-auto">
-            {space.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-0.5 rounded-full"
-                style={{ background: "#1E1E22", color: "#71717A", border: "1px solid #27272A" }}
-              >
-                {tag}
-              </span>
-            ))}
           </div>
         </div>
       </div>
@@ -563,10 +508,10 @@ function EmptyState({ filter }: { filter: FilterTab }) {
       </div>
 
       <div className="text-center space-y-2">
-        <h3 className="text-lg font-semibold" style={{ color: "#FAFAFA" }}>
+        <h3 className="text-lg font-semibold text-foreground">
           {msg.title}
         </h3>
-        <p className="text-sm max-w-xs" style={{ color: "#71717A" }}>
+        <p className="text-sm max-w-xs text-text-muted">
           {msg.subtitle}
         </p>
       </div>
@@ -630,7 +575,7 @@ export function WorkspaceGrid() {
   });
 
   return (
-    <div className="min-h-screen" style={{ background: "#09090B", color: "#FAFAFA" }}>
+    <div className="min-h-screen bg-background text-foreground">
       <motion.div
         className="max-w-7xl mx-auto px-6 py-10 space-y-8"
         variants={containerVariants}
@@ -642,7 +587,7 @@ export function WorkspaceGrid() {
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-semibold tracking-tight">AI Workspace</h1>
-              <p className="mt-1.5 text-base" style={{ color: "#A1A1AA" }}>
+              <p className="mt-1.5 text-base text-text-muted">
                 Your AI-powered learning library
               </p>
             </div>
@@ -666,14 +611,14 @@ export function WorkspaceGrid() {
             {STATS.map((stat, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div style={{ color: "#6366f1" }}>{stat.icon}</div>
-                <span className="text-sm font-semibold" style={{ color: "#FAFAFA" }}>
+                <span className="text-sm font-semibold text-foreground">
                   {stat.value}
                 </span>
-                <span className="text-sm" style={{ color: "#71717A" }}>
+                <span className="text-sm text-text-muted">
                   {stat.label}
                 </span>
                 {i < STATS.length - 1 && (
-                  <span className="ml-4" style={{ color: "#3F3F46" }}>
+                  <span className="ml-4 text-border">
                     ·
                   </span>
                 )}
@@ -685,37 +630,30 @@ export function WorkspaceGrid() {
         {/* ── 2. FILTER BAR ────────────────────────────────────────────────── */}
         <motion.section variants={itemVariants}>
           <div
-            className="rounded-2xl border p-4 flex flex-col sm:flex-row sm:items-center gap-4"
-            style={{ background: "#111113", borderColor: "#27272A" }}
+            className="rounded-2xl border p-4 flex flex-col sm:flex-row sm:items-center gap-4 bg-surface border-border/40"
           >
             {/* Tabs */}
             <div
-              className="flex items-center gap-1 p-1 rounded-xl flex-shrink-0"
-              style={{ background: "#0A0A0B" }}
+              className="flex items-center gap-1 p-1 rounded-xl flex-shrink-0 bg-surface-hover/30"
             >
               {tabs.map((tab) => (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   whileTap={{ scale: 0.96 }}
-                  className="relative px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
-                  style={{
-                    color: activeTab === tab.id ? "#FAFAFA" : "#71717A",
-                  }}
+                  className={`relative px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${activeTab === tab.id ? 'text-foreground' : 'text-text-muted'}`}
                 >
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 rounded-lg"
-                      style={{ background: "#18181B", border: "1px solid #3F3F46" }}
+                      className="absolute inset-0 rounded-lg bg-surface border border-border/40"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
                   <span className="relative z-10">
                     {tab.label}
                     <span
-                      className="ml-1.5 text-xs"
-                      style={{ color: activeTab === tab.id ? "#6366f1" : "#52525B" }}
+                      className={`ml-1.5 text-xs ${activeTab === tab.id ? 'text-indigo-500' : 'text-text-muted'}`}
                     >
                       {tab.count}
                     </span>
@@ -731,20 +669,14 @@ export function WorkspaceGrid() {
             <div className="relative">
               <Search
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2"
-                style={{ color: "#52525B" }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
               />
               <input
                 type="text"
                 placeholder="Search spaces..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 pr-4 py-2 rounded-xl text-sm outline-none w-44"
-                style={{
-                  background: "#0A0A0B",
-                  border: "1px solid #27272A",
-                  color: "#FAFAFA",
-                }}
+                className="pl-8 pr-4 py-2 rounded-xl text-sm outline-none w-44 bg-surface-hover/50 border border-border/40 text-foreground"
               />
             </div>
 
@@ -753,15 +685,10 @@ export function WorkspaceGrid() {
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setSortOpen((p) => !p)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm"
-                style={{
-                  background: "#0A0A0B",
-                  border: "1px solid #27272A",
-                  color: "#A1A1AA",
-                }}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm bg-surface-hover/50 border border-border/40 text-text-muted hover:text-foreground transition-colors"
               >
                 <span>{SORT_LABELS[sortBy]}</span>
-                <ChevronDown size={13} style={{ color: "#52525B" }} />
+                <ChevronDown size={13} className="text-zinc-600" />
               </motion.button>
               <AnimatePresence>
                 {sortOpen && (
@@ -770,8 +697,7 @@ export function WorkspaceGrid() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.93, y: -4 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-1 w-44 rounded-xl border overflow-hidden z-20"
-                    style={{ background: "#18181B", borderColor: "#3F3F46" }}
+                    className="absolute top-full right-0 mt-1 w-44 rounded-xl border overflow-hidden z-20 bg-surface border-border/60 shadow-lg"
                     onMouseLeave={() => setSortOpen(false)}
                   >
                     {(Object.keys(SORT_LABELS) as SortOption[]).map((opt, i, arr) => (
@@ -781,15 +707,7 @@ export function WorkspaceGrid() {
                           setSortBy(opt);
                           setSortOpen(false);
                         }}
-                        className="w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors"
-                        style={{
-                          color: sortBy === opt ? "#6366f1" : "#A1A1AA",
-                          borderBottom: i < arr.length - 1 ? "1px solid #27272A" : "none",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.background = "rgba(255,255,255,0.04)")
-                        }
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors hover:bg-surface-hover ${sortBy === opt ? 'text-indigo-500' : 'text-foreground/80'} ${i < arr.length - 1 ? 'border-b border-border/40' : ''}`}
                       >
                         {SORT_LABELS[opt]}
                         {sortBy === opt && (
@@ -804,22 +722,19 @@ export function WorkspaceGrid() {
 
             {/* View toggle */}
             <div
-              className="flex items-center gap-1 p-1 rounded-xl"
-              style={{ background: "#0A0A0B", border: "1px solid #27272A" }}
+              className="flex items-center gap-1 p-1 rounded-xl bg-surface-hover/30 border border-border/40"
             >
               {(["grid", "list"] as ViewMode[]).map((mode) => (
                 <motion.button
                   key={mode}
                   onClick={() => setViewMode(mode)}
                   whileTap={{ scale: 0.94 }}
-                  className="relative w-8 h-7 rounded-lg flex items-center justify-center"
-                  style={{ color: viewMode === mode ? "#FAFAFA" : "#52525B" }}
+                  className={`relative w-8 h-7 rounded-lg flex items-center justify-center transition-colors ${viewMode === mode ? 'text-foreground' : 'text-text-muted hover:text-foreground'}`}
                 >
                   {viewMode === mode && (
                     <motion.div
                       layoutId="viewToggle"
-                      className="absolute inset-0 rounded-lg"
-                      style={{ background: "#18181B", border: "1px solid #3F3F46" }}
+                      className="absolute inset-0 rounded-lg bg-surface border border-border/40"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}

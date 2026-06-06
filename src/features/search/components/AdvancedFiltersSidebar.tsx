@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { FilterDropdown } from "./SearchFilters";
+import { FilterPills, FilterStars, SearchableTags } from "./FilterControls";
 import { X } from "lucide-react";
 
 interface AdvancedFiltersSidebarProps {
   activeTab: "books" | "authors" | "genres";
-  activeFilters: Record<string, string>;
-  onFilterChange: (key: string, value: string) => void;
+  activeFilters: Record<string, string[]>;
+  onFilterChange: (key: string, value: string[]) => void;
   onClearFilters: () => void;
   onClose: () => void;
 }
@@ -33,10 +34,10 @@ export const AdvancedFiltersSidebar = ({
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        className="fixed inset-y-0 right-0 w-[340px] max-w-full bg-background/80 backdrop-blur-3xl border-l border-white/5 shadow-[auto_-20px_50px_rgba(0,0,0,0.3)] z-50 flex flex-col"
+        className="fixed inset-y-0 right-0 w-[380px] max-w-full bg-background/90 backdrop-blur-3xl border-l border-white/5 shadow-[auto_-20px_50px_rgba(0,0,0,0.3)] z-50 flex flex-col"
       >
-        <div className="p-6 flex items-center justify-between border-b border-border/40 bg-transparent">
-          <h3 className="text-xl font-black tracking-tight bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">
+        <div className="p-6 flex items-center justify-between border-b border-border bg-transparent">
+          <h3 className="text-xl font-medium tracking-tight text-foreground">
             Advanced {activeTab === 'books' ? 'Book' : activeTab === 'authors' ? 'Author' : 'Collection'} Search
           </h3>
           <button 
@@ -49,45 +50,59 @@ export const AdvancedFiltersSidebar = ({
 
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           {activeTab === "books" && (
-            <div className="flex flex-col gap-4">
-              <FilterDropdown label="Format" options={["Any Format", "Physical Book", "eBook", "Audiobook", "PDF / Digital"]} value={activeFilters["Format"] || "Any Format"} onChange={(v) => onFilterChange("Format", v)} />
-              <FilterDropdown label="Publication Year" options={["Any Year", "2020s", "2010s", "2000s", "20th Century", "19th Century", "Older"]} value={activeFilters["Publication Year"] || "Any Year"} onChange={(v) => onFilterChange("Publication Year", v)} />
-              <FilterDropdown label="Language" options={["Any Language", "English", "Spanish", "French", "German", "Mandarin", "Japanese", "Arabic", "Hindi", "Russian"]} value={activeFilters["Language"] || "Any Language"} onChange={(v) => onFilterChange("Language", v)} />
-              <FilterDropdown label="Target Audience" options={["All Ages", "Children", "Middle Grade", "Young Adult", "Adult"]} value={activeFilters["Target Audience"] || "All Ages"} onChange={(v) => onFilterChange("Target Audience", v)} />
-              <FilterDropdown label="Rating" options={["Any Rating", "4.5+ Stars", "4.0+ Stars", "3.0+ Stars"]} value={activeFilters["Rating"] || "Any Rating"} onChange={(v) => onFilterChange("Rating", v)} />
-              <FilterDropdown label="Length" options={["Any Length", "Under 200 pages", "200-400 pages", "Over 400 pages"]} value={activeFilters["Length"] || "Any Length"} onChange={(v) => onFilterChange("Length", v)} />
-              <FilterDropdown label="Awards & Accolades" options={["Any", "Award Winners Only", "Pulitzer Prize", "Booker Prize", "Hugo Award", "National Book Award"]} value={activeFilters["Awards & Accolades"] || "Any"} onChange={(v) => onFilterChange("Awards & Accolades", v)} />
-              <FilterDropdown label="Sort By" options={["Relevance", "Popularity", "Highest Rated", "Newest First", "Oldest First"]} value={activeFilters["Sort By"] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v)} />
+            <div className="flex flex-col gap-5">
+              <FilterPills label="Format" options={["Physical Book", "eBook", "Audiobook", "PDF / Digital"]} selected={activeFilters["Format"] || []} onChange={(v) => onFilterChange("Format", v)} />
+              <SearchableTags label="Primary Genre" options={[
+                "Art & Photography", "Biography", "Business", "Children's", "Cookbooks", 
+                "Comics & Graphic Novels", "Crafts & Hobbies", "Fantasy", "Health & Wellness", 
+                "Historical Fiction", "History", "Horror", "Humor", "Literary Fiction", 
+                "Memoir", "Mystery / Thriller", "Non-Fiction", "Philosophy", "Poetry", 
+                "Politics", "Religion & Spirituality", "Romance", "Sci-Fi", "Science & Nature", 
+                "Self-Help", "Sports", "Travel", "True Crime", "Young Adult"
+              ]} selected={activeFilters["Primary Genre"] || []} onChange={(v) => onFilterChange("Primary Genre", v)} />
+              <FilterPills label="Publication Year" options={["2020s", "2010s", "2000s", "20th Century", "Older"]} selected={activeFilters["Publication Year"] || []} onChange={(v) => onFilterChange("Publication Year", v)} />
+              <SearchableTags label="Language" options={["English", "Spanish", "French", "German", "Mandarin", "Japanese", "Arabic", "Hindi", "Russian", "Italian", "Portuguese"]} selected={activeFilters["Language"] || []} onChange={(v) => onFilterChange("Language", v)} />
+              <FilterPills label="Target Audience" options={["Children", "Middle Grade", "Young Adult", "Adult"]} selected={activeFilters["Target Audience"] || []} onChange={(v) => onFilterChange("Target Audience", v)} />
+              <FilterStars label="Rating" selected={activeFilters["Rating"] || []} onChange={(v) => onFilterChange("Rating", v)} />
+              <FilterPills label="Length" options={["Under 200 pages", "200-400 pages", "Over 400 pages"]} selected={activeFilters["Length"] || []} onChange={(v) => onFilterChange("Length", v)} />
+              <FilterPills label="Awards & Accolades" options={["Award Winners Only", "Pulitzer Prize", "Booker Prize", "Hugo Award", "National Book Award"]} selected={activeFilters["Awards & Accolades"] || []} onChange={(v) => onFilterChange("Awards & Accolades", v)} />
+              <FilterDropdown label="Sort By" options={["Relevance", "Popularity", "Highest Rated", "Newest First", "Oldest First"]} value={activeFilters["Sort By"]?.[0] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v === "Relevance" ? [] : [v])} />
             </div>
           )}
 
           {activeTab === "authors" && (
-            <div className="flex flex-col gap-4">
-              <FilterDropdown label="Literary Era" options={["Any Era", "Contemporary (1945-Present)", "Modernist (1900-1945)", "Victorian", "Romantic", "Renaissance", "Classical", "Ancient"]} value={activeFilters["Literary Era"] || "Any Era"} onChange={(v) => onFilterChange("Literary Era", v)} />
-              <FilterDropdown label="Primary Genre" options={["Any Genre", "Literary Fiction", "Fantasy", "Sci-Fi", "Mystery / Thriller", "Romance", "Historical", "Non-Fiction", "Poetry", "Biography"]} value={activeFilters["Primary Genre"] || "Any Genre"} onChange={(v) => onFilterChange("Primary Genre", v)} />
-              <FilterDropdown label="Region / Nationality" options={["Any Region", "North America", "Latin America", "Europe", "Asia", "Africa", "Oceania"]} value={activeFilters["Region / Nationality"] || "Any Region"} onChange={(v) => onFilterChange("Region / Nationality", v)} />
-              <FilterDropdown label="Language" options={["Any Language", "English", "Spanish", "French", "German", "Mandarin", "Japanese", "Arabic", "Hindi", "Russian"]} value={activeFilters["Language"] || "Any Language"} onChange={(v) => onFilterChange("Language", v)} />
-              <FilterDropdown label="Accolades" options={["Any", "Nobel Laureate", "Pulitzer Winner", "NYT Bestseller", "Booker Prize Winner"]} value={activeFilters["Accolades"] || "Any"} onChange={(v) => onFilterChange("Accolades", v)} />
-              <FilterDropdown label="Sort By" options={["Relevance", "Popularity", "A-Z", "Z-A", "Most Published"]} value={activeFilters["Sort By"] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v)} />
+            <div className="flex flex-col gap-5">
+              <FilterPills label="Literary Era" options={["Contemporary", "Modernist", "Victorian", "Romantic", "Renaissance", "Classical", "Ancient"]} selected={activeFilters["Literary Era"] || []} onChange={(v) => onFilterChange("Literary Era", v)} />
+              <SearchableTags label="Primary Genre" options={[
+                "Art & Photography", "Biography", "Business", "Children's", "Cookbooks", 
+                "Comics & Graphic Novels", "Crafts & Hobbies", "Fantasy", "Health & Wellness", 
+                "Historical Fiction", "History", "Horror", "Humor", "Literary Fiction", 
+                "Memoir", "Mystery / Thriller", "Non-Fiction", "Philosophy", "Poetry", 
+                "Politics", "Religion & Spirituality", "Romance", "Sci-Fi", "Science & Nature", 
+                "Self-Help", "Sports", "Travel", "True Crime", "Young Adult"
+              ]} selected={activeFilters["Primary Genre"] || []} onChange={(v) => onFilterChange("Primary Genre", v)} />
+              <FilterPills label="Region / Nationality" options={["North America", "Latin America", "Europe", "Asia", "Africa", "Oceania"]} selected={activeFilters["Region / Nationality"] || []} onChange={(v) => onFilterChange("Region / Nationality", v)} />
+              <SearchableTags label="Language" options={["English", "Spanish", "French", "German", "Mandarin", "Japanese", "Arabic", "Hindi", "Russian"]} selected={activeFilters["Language"] || []} onChange={(v) => onFilterChange("Language", v)} />
+              <FilterPills label="Accolades" options={["Nobel Laureate", "Pulitzer Winner", "NYT Bestseller", "Booker Prize Winner"]} selected={activeFilters["Accolades"] || []} onChange={(v) => onFilterChange("Accolades", v)} />
+              <FilterDropdown label="Sort By" options={["Relevance", "Popularity", "A-Z", "Z-A", "Most Published"]} value={activeFilters["Sort By"]?.[0] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v === "Relevance" ? [] : [v])} />
             </div>
           )}
 
           {activeTab === "genres" && (
-            <div className="flex flex-col gap-4">
-              <FilterDropdown label="Collection Type" options={["Any Type", "Editor's Picks", "User Created", "Seasonal", "Award Lists"]} value={activeFilters["Collection Type"] || "Any Type"} onChange={(v) => onFilterChange("Collection Type", v)} />
-              <FilterDropdown label="Size" options={["Any Size", "Under 10 Books", "10-50 Books", "50+ Books"]} value={activeFilters["Size"] || "Any Size"} onChange={(v) => onFilterChange("Size", v)} />
-              <FilterDropdown label="Sort By" options={["Relevance", "Most Followed", "Recently Updated", "Highest Rated"]} value={activeFilters["Sort By"] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v)} />
+            <div className="flex flex-col gap-5">
+              <FilterPills label="Collection Type" options={["Editor's Picks", "User Created", "Seasonal", "Award Lists"]} selected={activeFilters["Collection Type"] || []} onChange={(v) => onFilterChange("Collection Type", v)} />
+              <FilterPills label="Size" options={["Under 10 Books", "10-50 Books", "50+ Books"]} selected={activeFilters["Size"] || []} onChange={(v) => onFilterChange("Size", v)} />
+              <FilterDropdown label="Sort By" options={["Relevance", "Most Followed", "Recently Updated", "Highest Rated"]} value={activeFilters["Sort By"]?.[0] || "Relevance"} onChange={(v) => onFilterChange("Sort By", v === "Relevance" ? [] : [v])} />
             </div>
           )}
         </div>
         
-        <div className="p-6 border-t border-border/40 bg-background/40 flex flex-col gap-3 shrink-0">
-          <button onClick={onClearFilters} className="w-full py-2.5 rounded-xl text-sm font-bold bg-surface-hover/50 text-foreground border border-border/50 hover:bg-surface hover:border-primary/30 transition-all hover:shadow-md active:scale-[0.98]">
+        <div className="p-6 border-t border-border bg-transparent flex flex-col gap-3 shrink-0">
+          <button onClick={onClearFilters} className="w-full py-2.5 rounded-xl text-sm font-medium bg-transparent text-text-muted border border-transparent hover:bg-surface-hover hover:text-foreground transition-all">
             Reset Filters
           </button>
-          <button onClick={onClose} className="relative w-full py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-[0_0_30px_rgba(var(--primary),0.4)] active:scale-[0.98] overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark transition-transform group-hover:scale-105" />
-            <span className="relative z-10">Show Results</span>
+          <button onClick={onClose} className="w-full py-2.5 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-all shadow-sm">
+            Show Results
           </button>
         </div>
       </motion.div>

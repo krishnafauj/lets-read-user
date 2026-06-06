@@ -15,10 +15,10 @@ export default function SearchPage() {
   const [activeTab, setActiveTab] = useState<"books" | "authors" | "genres">(tabParam || "books");
   
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<Record<string, string>>(() => {
+  const [activeFilters, setActiveFilters] = useState<Record<string, string[]>>(() => {
     const initialGenre = searchParams.get('genre');
     if (initialGenre) {
-      return { "Primary Genre": initialGenre };
+      return { "Primary Genre": [initialGenre] };
     }
     return {};
   });
@@ -31,27 +31,38 @@ export default function SearchPage() {
 
   useEffect(() => {
     const genre = searchParams.get('genre');
-    if (genre && !activeFilters["Primary Genre"]) {
-      setActiveFilters(prev => ({ ...prev, "Primary Genre": genre }));
+    if (genre && (!activeFilters["Primary Genre"] || !activeFilters["Primary Genre"].includes(genre))) {
+      setActiveFilters(prev => ({ 
+        ...prev, 
+        "Primary Genre": prev["Primary Genre"] ? [...new Set([...prev["Primary Genre"], genre])] : [genre] 
+      }));
       setShowAdvanced(true);
     }
   }, [searchParams]);
 
-  const handleFilterChange = (key: string, value: string) => {
+  const handleFilterChange = (key: string, values: string[]) => {
     setActiveFilters(prev => {
-      if (value.startsWith("Any") || value === "All Languages") {
-        const next = { ...prev };
+      const next = { ...prev };
+      if (values.length === 0) {
         delete next[key];
-        return next;
+      } else {
+        next[key] = values;
       }
-      return { ...prev, [key]: value };
+      return next;
     });
   };
 
-  const removeFilter = (key: string) => {
+  const removeFilter = (key: string, valueToRemove?: string) => {
     setActiveFilters(prev => {
       const next = { ...prev };
-      delete next[key];
+      if (valueToRemove && next[key]) {
+        next[key] = next[key].filter(v => v !== valueToRemove);
+        if (next[key].length === 0) {
+          delete next[key];
+        }
+      } else {
+        delete next[key];
+      }
       return next;
     });
   };

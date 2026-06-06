@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { SlidersHorizontal, BookOpen, Users, LayoutGrid, Clock, Star, Flame, ChevronDown, X } from "lucide-react";
+import { SlidersHorizontal, BookOpen, Users, LayoutGrid, Clock, Star, Flame, ChevronDown, X, Search } from "lucide-react";
 
 interface SearchFiltersProps {
   activeTab: "books" | "authors" | "genres";
   setActiveTab: (tab: "books" | "authors" | "genres") => void;
-  activeFilters: Record<string, string>;
-  onRemoveFilter: (key: string) => void;
+  activeFilters: Record<string, string[]>;
+  onRemoveFilter: (key: string, valueToRemove?: string) => void;
   showAdvanced: boolean;
   setShowAdvanced: (show: boolean) => void;
 }
@@ -60,13 +60,15 @@ export const SearchFilters = ({
         <span className="text-xs font-semibold uppercase tracking-wider text-text-muted mr-2">Quick Filters:</span>
         
         {/* Render Active Advanced Filters */}
-        {Object.entries(activeFilters).map(([key, value]) => (
-          <FilterChip 
-            key={key} 
-            label={`${key}: ${value}`} 
-            onRemove={() => onRemoveFilter(key)}
-          />
-        ))}
+        {Object.entries(activeFilters).map(([key, values]) => 
+          (Array.isArray(values) ? values : [values]).map((value) => (
+            <FilterChip 
+              key={`${key}-${value}`} 
+              label={`${key}: ${value}`} 
+              onRemove={() => onRemoveFilter(key, value)}
+            />
+          ))
+        )}
 
         {activeTab === "books" && (
           <>

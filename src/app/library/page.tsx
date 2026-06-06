@@ -11,15 +11,20 @@ import {
   SortAsc,
   Grid3X3,
   List,
-  Star,
-  Clock,
   BookMarked,
-  Library,
-  ChevronDown,
   X,
   Calendar,
+  Heart,
+  Clock,
+  Bookmark,
+  Library,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
+import { Tab, ViewMode } from "@/features/library/types";
+import { libraryItems } from "@/features/library/data/mockData";
+import { LibraryCard } from "@/features/library/components/LibraryCard";
+import { EmptyState } from "@/features/library/components/EmptyState";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -36,324 +41,23 @@ const itemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-const cardHover: Variants = {
-  rest: { scale: 1, y: 0 },
-  hover: { scale: 1.02, y: -4, transition: { duration: 0.2, ease: "easeOut" } },
-};
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type Tab = "all" | "books" | "notes" | "highlights" | "downloads";
-type ViewMode = "grid" | "list";
-
-interface LibraryItem {
-  id: number;
-  type: "book" | "note" | "highlight" | "download";
-  title: string;
-  author?: string;
-  space: string;
-  spaceColor: string;
-  date: string;
-  progress?: number;
-  starred: boolean;
-  emoji: string;
-  excerpt?: string;
-  readTime?: string;
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const libraryItems: LibraryItem[] = [
-  {
-    id: 1,
-    type: "book",
-    title: "Deep Work",
-    author: "Cal Newport",
-    space: "Productivity",
-    spaceColor: "#6366F1",
-    date: "2 days ago",
-    progress: 68,
-    starred: true,
-    emoji: "📘",
-    readTime: "4h 20m left",
-  },
-  {
-    id: 2,
-    type: "book",
-    title: "Thinking, Fast and Slow",
-    author: "Daniel Kahneman",
-    space: "Psychology",
-    spaceColor: "#8B5CF6",
-    date: "1 week ago",
-    progress: 35,
-    starred: false,
-    emoji: "🧠",
-    readTime: "8h left",
-  },
-  {
-    id: 3,
-    type: "note",
-    title: "Key Insights on Flow States",
-    space: "Psychology",
-    spaceColor: "#8B5CF6",
-    date: "3 days ago",
-    starred: true,
-    emoji: "📝",
-    excerpt: "Flow is the mental state of being fully immersed in an activity with energized focus...",
-  },
-  {
-    id: 4,
-    type: "highlight",
-    title: "\"The ability to perform deep work is becoming increasingly rare...\"",
-    space: "Productivity",
-    spaceColor: "#6366F1",
-    date: "2 days ago",
-    starred: false,
-    emoji: "✏️",
-    excerpt: "From: Deep Work — Cal Newport",
-  },
-  {
-    id: 5,
-    type: "book",
-    title: "Atomic Habits",
-    author: "James Clear",
-    space: "Self Improvement",
-    spaceColor: "#22C55E",
-    date: "2 weeks ago",
-    progress: 100,
-    starred: true,
-    emoji: "⚡",
-    readTime: "Completed",
-  },
-  {
-    id: 6,
-    type: "download",
-    title: "The Psychology of Money — PDF",
-    author: "Morgan Housel",
-    space: "Finance",
-    spaceColor: "#F59E0B",
-    date: "5 days ago",
-    starred: false,
-    emoji: "💰",
-    readTime: "Offline",
-  },
-  {
-    id: 7,
-    type: "note",
-    title: "Habit Stack Template",
-    space: "Self Improvement",
-    spaceColor: "#22C55E",
-    date: "1 week ago",
-    starred: false,
-    emoji: "📋",
-    excerpt: "Morning: Meditate → Journal → Exercise. The key is attaching new habits to existing ones...",
-  },
-  {
-    id: 8,
-    type: "highlight",
-    title: "\"You do not rise to the level of your goals, you fall to the level of your systems.\"",
-    space: "Self Improvement",
-    spaceColor: "#22C55E",
-    date: "2 weeks ago",
-    starred: true,
-    emoji: "✏️",
-    excerpt: "From: Atomic Habits — James Clear",
-  },
-  {
-    id: 9,
-    type: "book",
-    title: "Zero to One",
-    author: "Peter Thiel",
-    space: "Entrepreneurship",
-    spaceColor: "#EC4899",
-    date: "3 weeks ago",
-    progress: 55,
-    starred: false,
-    emoji: "🚀",
-    readTime: "3h 10m left",
-  },
-];
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const TABS: { key: Tab; label: string; icon: React.ReactNode }[] = [
-  { key: "all", label: "All", icon: <Grid3X3 size={14} /> },
-  { key: "books", label: "Books", icon: <BookOpen size={14} /> },
-  { key: "notes", label: "Notes", icon: <FileText size={14} /> },
-  { key: "highlights", label: "Highlights", icon: <Highlighter size={14} /> },
-  { key: "downloads", label: "Downloads", icon: <Download size={14} /> },
+  { key: "all", label: "All", icon: <Grid3X3 size={16} /> },
+  { key: "books", label: "Books", icon: <BookOpen size={16} /> },
+  { key: "favorites", label: "Favorites", icon: <Heart size={16} /> },
+  { key: "owned", label: "Owned", icon: <Library size={16} /> },
+  { key: "rented", label: "Rented", icon: <Clock size={16} /> },
+  { key: "ai-workspace", label: "AI Workspace", icon: <Sparkles size={16} /> },
+  { key: "wishlist", label: "Wishlist", icon: <Bookmark size={16} /> },
+  { key: "notes", label: "Notes", icon: <FileText size={16} /> },
+  { key: "highlights", label: "Highlights", icon: <Highlighter size={16} /> },
+  { key: "downloads", label: "Downloads", icon: <Download size={16} /> },
 ];
 
 const SPACES = ["All Spaces", "Productivity", "Psychology", "Self Improvement", "Finance", "Entrepreneurship"];
 const SORT_OPTIONS = ["Recently Added", "A–Z", "Progress", "Starred First"];
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-function ProgressBar({ value }: { value: number }) {
-  return (
-    <div className="h-1 w-full rounded-full bg-white/10 overflow-hidden">
-      <motion.div
-        className="h-full rounded-full bg-primary"
-        initial={{ width: 0 }}
-        animate={{ width: `${value}%` }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-      />
-    </div>
-  );
-}
-
-function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
-  const [starred, setStarred] = useState(item.starred);
-
-  if (view === "list") {
-    return (
-      <motion.div
-        variants={itemVariants}
-        initial="rest"
-        whileHover="hover"
-        animate="rest"
-        className="group flex items-center gap-4 p-4 rounded-xl bg-surface border border-border hover:border-primary/30 transition-colors cursor-pointer"
-      >
-        <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
-          style={{ background: item.spaceColor + "20" }}
-        >
-          {item.emoji}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-foreground truncate">{item.title}</h3>
-          {item.author && (
-            <p className="text-xs text-text-muted mt-0.5">{item.author}</p>
-          )}
-          {item.excerpt && (
-            <p className="text-xs text-text-muted mt-0.5 truncate">{item.excerpt}</p>
-          )}
-        </div>
-        <div className="hidden sm:flex flex-col items-end gap-1 shrink-0">
-          <span
-            className="px-2 py-0.5 rounded-full text-xs font-medium"
-            style={{ background: item.spaceColor + "20", color: item.spaceColor }}
-          >
-            {item.space}
-          </span>
-          <span className="text-xs text-text-muted flex items-center gap-1">
-            <Clock size={10} /> {item.date}
-          </span>
-        </div>
-        {item.progress !== undefined && (
-          <div className="hidden md:block w-24 shrink-0">
-            <ProgressBar value={item.progress} />
-            <p className="text-xs text-text-muted mt-1 text-right">{item.progress}%</p>
-          </div>
-        )}
-        <button
-          onClick={(e) => { e.stopPropagation(); setStarred(!starred); }}
-          className="shrink-0"
-        >
-          <Star
-            size={16}
-            className={starred ? "text-warning fill-warning" : "text-text-muted group-hover:text-text-muted"}
-          />
-        </button>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      variants={cardHover}
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
-      className="group relative p-5 rounded-2xl bg-surface border border-border hover:border-primary/40 transition-colors cursor-pointer flex flex-col gap-3"
-    >
-      {/* Space badge */}
-      <div className="flex items-center justify-between">
-        <span
-          className="px-2 py-0.5 rounded-full text-xs font-medium"
-          style={{ background: item.spaceColor + "20", color: item.spaceColor }}
-        >
-          {item.space}
-        </span>
-        <button onClick={(e) => { e.stopPropagation(); setStarred(!starred); }}>
-          <Star
-            size={15}
-            className={starred ? "text-warning fill-warning" : "text-text-muted opacity-0 group-hover:opacity-100 transition-opacity"}
-          />
-        </button>
-      </div>
-
-      {/* Emoji + title */}
-      <div className="flex items-start gap-3">
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shrink-0"
-          style={{ background: item.spaceColor + "15" }}
-        >
-          {item.emoji}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{item.title}</h3>
-          {item.author && (
-            <p className="text-xs text-text-muted mt-1">{item.author}</p>
-          )}
-          {item.excerpt && (
-            <p className="text-xs text-text-muted mt-1 line-clamp-2">{item.excerpt}</p>
-          )}
-        </div>
-      </div>
-
-      {/* Progress */}
-      {item.progress !== undefined && (
-        <div>
-          <ProgressBar value={item.progress} />
-          <div className="flex items-center justify-between mt-1.5">
-            <span className="text-xs text-text-muted">{item.progress}% complete</span>
-            {item.readTime && (
-              <span className="text-xs text-text-muted">{item.readTime}</span>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Footer */}
-      <div className="flex items-center justify-between mt-auto pt-1 border-t border-border">
-        <span className="text-xs text-text-muted flex items-center gap-1">
-          <Clock size={10} /> {item.date}
-        </span>
-        <span
-          className="text-xs px-2 py-0.5 rounded-full font-medium capitalize"
-          style={{ background: "rgba(255,255,255,0.05)", color: "var(--color-text-muted)" }}
-        >
-          {item.type}
-        </span>
-      </div>
-    </motion.div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center py-24 text-center"
-    >
-      <div className="w-24 h-24 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
-        <Library size={36} className="text-primary" />
-      </div>
-      <h3 className="text-xl font-bold text-foreground mb-2">Your library is empty</h3>
-      <p className="text-text-muted text-sm max-w-xs">
-        Start exploring spaces and saving content — books, notes, and highlights will appear here.
-      </p>
-      <motion.button
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.97 }}
-        className="mt-6 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 transition-colors"
-      >
-        Explore Spaces
-      </motion.button>
-    </motion.div>
-  );
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -369,6 +73,11 @@ export default function LibraryPage() {
     const matchesTab =
       activeTab === "all" ||
       (activeTab === "books" && item.type === "book") ||
+      (activeTab === "favorites" && item.starred === true) ||
+      (activeTab === "owned" && item.ownership === "owned") ||
+      (activeTab === "rented" && item.ownership === "rented") ||
+      (activeTab === "ai-workspace" && item.type === "ai-workspace") ||
+      (activeTab === "wishlist" && item.ownership === "wishlist") ||
       (activeTab === "notes" && item.type === "note") ||
       (activeTab === "highlights" && item.type === "highlight") ||
       (activeTab === "downloads" && item.type === "download");
@@ -383,133 +92,146 @@ export default function LibraryPage() {
   const counts: Record<Tab, number> = {
     all: libraryItems.length,
     books: libraryItems.filter((i) => i.type === "book").length,
+    favorites: libraryItems.filter((i) => i.starred === true).length,
+    owned: libraryItems.filter((i) => i.ownership === "owned").length,
+    rented: libraryItems.filter((i) => i.ownership === "rented").length,
+    "ai-workspace": libraryItems.filter((i) => i.type === "ai-workspace").length,
+    wishlist: libraryItems.filter((i) => i.ownership === "wishlist").length,
     notes: libraryItems.filter((i) => i.type === "note").length,
     highlights: libraryItems.filter((i) => i.type === "highlight").length,
     downloads: libraryItems.filter((i) => i.type === "download").length,
   };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="min-h-screen p-6 lg:p-8 max-w-7xl mx-auto"
-    >
-      {/* Header */}
-      <motion.div variants={itemVariants} className="mb-8">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              <BookMarked className="text-primary" size={28} />
-              Your Library
-            </h1>
-            <p className="text-text-muted text-sm mt-1">
+    <div className="relative min-h-screen">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute top-[30%] -left-[10%] w-[40%] h-[40%] rounded-full bg-secondary/5 blur-[120px]" />
+        <div className="absolute bottom-[10%] right-[20%] w-[30%] h-[30%] rounded-full bg-primary/5 blur-[100px]" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+      </div>
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative pt-4 pb-20 px-6 lg:px-12 max-w-7xl mx-auto"
+      >
+        {/* Header */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h1 className="text-3xl font-medium text-foreground flex items-center gap-3">
+                Your Library
+              </h1>
+            <p className="text-text-muted text-sm mt-2 font-medium">
               {libraryItems.length} items saved across your spaces
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          <div className="flex items-center gap-2 p-1 bg-surface-hover/30 border border-border/50 rounded-xl">
+            <button
               onClick={() => setViewMode("grid")}
-              className={`p-2 rounded-lg border transition-colors ${
+              className={`p-2.5 rounded-lg transition-all ${
                 viewMode === "grid"
-                  ? "bg-primary/10 border-primary/40 text-primary"
-                  : "border-border text-text-muted hover:text-foreground"
+                  ? "bg-surface shadow-sm text-foreground"
+                  : "text-text-muted hover:text-foreground"
               }`}
             >
-              <Grid3X3 size={16} />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              <Grid3X3 size={18} />
+            </button>
+            <button
               onClick={() => setViewMode("list")}
-              className={`p-2 rounded-lg border transition-colors ${
+              className={`p-2.5 rounded-lg transition-all ${
                 viewMode === "list"
-                  ? "bg-primary/10 border-primary/40 text-primary"
-                  : "border-border text-text-muted hover:text-foreground"
+                  ? "bg-surface shadow-sm text-foreground"
+                  : "text-text-muted hover:text-foreground"
               }`}
             >
-              <List size={16} />
-            </motion.button>
+              <List size={18} />
+            </button>
           </div>
         </div>
       </motion.div>
 
       {/* Tabs */}
-      <motion.div variants={itemVariants} className="flex gap-1 p-1 bg-surface rounded-xl border border-border w-fit mb-6 flex-wrap">
-        {TABS.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              activeTab === tab.key
-                ? "text-white"
-                : "text-text-muted hover:text-foreground"
-            }`}
-          >
-            {activeTab === tab.key && (
-              <motion.div
-                layoutId="activeLibTab"
-                className="absolute inset-0 rounded-lg bg-primary"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-              />
-            )}
-            <span className="relative z-10 flex items-center gap-1.5">
-              {tab.icon}
-              {tab.label}
-              <span className={`text-xs px-1.5 py-0.5 rounded-full ${activeTab === tab.key ? "bg-white/20" : "bg-white/5"}`}>
-                {counts[tab.key]}
+      <motion.div variants={itemVariants} className="w-full overflow-x-auto scrollbar-hide mb-8 pb-2">
+        <div className="flex gap-1.5 p-1.5 bg-surface-hover/30 rounded-2xl border border-border/40 w-fit min-w-max">
+          {TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                activeTab === tab.key
+                  ? "text-background"
+                  : "text-text-muted hover:text-foreground"
+              }`}
+            >
+              {activeTab === tab.key && (
+                <motion.div
+                  layoutId="activeLibTab"
+                  className="absolute inset-0 rounded-xl bg-foreground shadow-sm"
+                  transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center gap-2 whitespace-nowrap">
+                {tab.icon}
+                {tab.label}
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${activeTab === tab.key ? "bg-background/20 text-background" : "bg-border text-text-muted"}`}>
+                  {counts[tab.key]}
+                </span>
               </span>
-            </span>
-          </button>
-        ))}
+            </button>
+          ))}
+        </div>
       </motion.div>
 
       {/* Search + Filter bar */}
-      <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6 flex-wrap">
-        <div className="relative flex-1 min-w-56">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+      <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+        <div className="relative flex-1 w-full sm:min-w-64">
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search your library..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors"
+            className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-surface/50 border border-border/60 text-sm font-medium text-foreground placeholder:text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 transition-all shadow-sm"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-foreground">
+            <button onClick={() => setQuery("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-foreground transition-colors p-1 bg-surface-hover rounded-full">
               <X size={14} />
             </button>
           )}
         </div>
 
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
-            showFilters || selectedSpace !== "All Spaces"
-              ? "bg-primary/10 border-primary/40 text-primary"
-              : "bg-surface border-border text-text-muted hover:text-foreground"
-          }`}
-        >
-          <Filter size={14} />
-          Filter
-          {selectedSpace !== "All Spaces" && (
-            <span className="w-2 h-2 rounded-full bg-primary" />
-          )}
-        </button>
-
-        <div className="relative">
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="appearance-none flex items-center gap-2 px-4 py-2.5 pr-8 rounded-xl bg-surface border border-border text-sm text-text-muted focus:outline-none focus:border-primary/50 cursor-pointer transition-colors"
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl border text-sm font-medium transition-all shadow-sm ${
+              showFilters || selectedSpace !== "All Spaces"
+                ? "bg-foreground text-background border-foreground"
+                : "bg-surface border-border/60 text-text-muted hover:text-foreground hover:bg-surface-hover/50 hover:border-foreground/20"
+            }`}
           >
-            {SORT_OPTIONS.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-          <SortAsc size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+            <Filter size={16} />
+            Filter
+            {selectedSpace !== "All Spaces" && (
+              <span className="w-2 h-2 rounded-full bg-background" />
+            )}
+          </button>
+
+          <div className="relative flex-1 sm:flex-none">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="w-full appearance-none flex items-center gap-2 px-5 py-3.5 pr-10 rounded-2xl bg-surface border border-border/60 text-sm font-medium text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 cursor-pointer transition-all shadow-sm hover:border-foreground/20"
+            >
+              {SORT_OPTIONS.map((opt) => (
+               <option key={opt} value={opt} className="bg-surface text-foreground font-medium">{opt}</option>
+              ))}
+            </select>
+            <SortAsc size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+          </div>
         </div>
       </motion.div>
 
@@ -517,24 +239,24 @@ export default function LibraryPage() {
       <AnimatePresence>
         {showFilters && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="mb-6 overflow-hidden"
+            initial={{ opacity: 0, height: 0, scale: 0.98 }}
+            animate={{ opacity: 1, height: "auto", scale: 1 }}
+            exit={{ opacity: 0, height: 0, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="mb-8 origin-top"
           >
-            <div className="p-4 rounded-xl bg-surface border border-border flex flex-wrap gap-4">
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Space</label>
+            <div className="p-6 rounded-3xl bg-surface-hover/30 border border-border/40 flex flex-wrap gap-8 shadow-sm">
+              <div className="flex-1 min-w-[200px]">
+                <label className="text-[11px] font-medium text-text-muted uppercase tracking-wider block mb-3 pl-1">Space</label>
                 <div className="flex flex-wrap gap-2">
                   {SPACES.map((space) => (
                     <button
                       key={space}
                       onClick={() => setSelectedSpace(space)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all border ${
                         selectedSpace === space
-                          ? "bg-primary text-white"
-                          : "bg-white/5 text-text-muted hover:text-foreground hover:bg-white/10"
+                          ? "bg-foreground text-background border-foreground shadow-sm"
+                          : "bg-surface-hover/50 text-text-muted border-border/40 hover:text-foreground hover:bg-surface hover:border-foreground/30"
                       }`}
                     >
                       {space}
@@ -542,15 +264,15 @@ export default function LibraryPage() {
                   ))}
                 </div>
               </div>
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Date Added</label>
+              <div className="flex-1 min-w-[200px]">
+                <label className="text-[11px] font-medium text-text-muted uppercase tracking-wider block mb-3 pl-1">Date Added</label>
                 <div className="flex flex-wrap gap-2">
                   {["Today", "This Week", "This Month", "All Time"].map((d) => (
                     <button
                       key={d}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-text-muted hover:text-foreground hover:bg-white/10 transition-colors flex items-center gap-1"
+                      className="px-3.5 py-2 rounded-xl text-xs font-medium transition-all border bg-surface-hover/50 text-text-muted border-border/40 hover:text-foreground hover:bg-surface hover:border-foreground/30 flex items-center gap-1.5"
                     >
-                      <Calendar size={10} />
+                      <Calendar size={12} className="opacity-70" />
                       {d}
                     </button>
                   ))}
@@ -573,7 +295,7 @@ export default function LibraryPage() {
             animate="visible"
             className={
               viewMode === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
                 : "flex flex-col gap-3"
             }
           >
@@ -584,5 +306,6 @@ export default function LibraryPage() {
         )}
       </AnimatePresence>
     </motion.div>
+    </div>
   );
 }
