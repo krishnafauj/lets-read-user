@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sohne.variable} h-full antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${sohne.variable} h-full antialiased`} data-scroll-behavior="smooth">
       <body suppressHydrationWarning className="h-full font-sans bg-background text-foreground transition-colors duration-200">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <MainLayout>{children}</MainLayout>

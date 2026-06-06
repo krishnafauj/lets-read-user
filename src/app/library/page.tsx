@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   Search,
   BookOpen,
@@ -23,7 +23,7 @@ import { useState } from "react";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -31,14 +31,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-const cardHover = {
+const cardHover: Variants = {
   rest: { scale: 1, y: 0 },
-  hover: { scale: 1.02, y: -3, transition: { duration: 0.2, ease: "easeOut" } },
+  hover: { scale: 1.02, y: -4, transition: { duration: 0.2, ease: "easeOut" } },
 };
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -191,7 +191,7 @@ function ProgressBar({ value }: { value: number }) {
   return (
     <div className="h-1 w-full rounded-full bg-white/10 overflow-hidden">
       <motion.div
-        className="h-full rounded-full bg-[var(--color-primary)]"
+        className="h-full rounded-full bg-primary"
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -210,7 +210,7 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
         initial="rest"
         whileHover="hover"
         animate="rest"
-        className="group flex items-center gap-4 p-4 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/30 transition-colors cursor-pointer"
+        className="group flex items-center gap-4 p-4 rounded-xl bg-surface border border-border hover:border-primary/30 transition-colors cursor-pointer"
       >
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
@@ -219,12 +219,12 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
           {item.emoji}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-[var(--color-text)] truncate">{item.title}</h3>
+          <h3 className="text-sm font-semibold text-foreground truncate">{item.title}</h3>
           {item.author && (
-            <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{item.author}</p>
+            <p className="text-xs text-text-muted mt-0.5">{item.author}</p>
           )}
           {item.excerpt && (
-            <p className="text-xs text-[var(--color-text-muted)] mt-0.5 truncate">{item.excerpt}</p>
+            <p className="text-xs text-text-muted mt-0.5 truncate">{item.excerpt}</p>
           )}
         </div>
         <div className="hidden sm:flex flex-col items-end gap-1 shrink-0">
@@ -234,14 +234,14 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
           >
             {item.space}
           </span>
-          <span className="text-xs text-[var(--color-text-muted)] flex items-center gap-1">
+          <span className="text-xs text-text-muted flex items-center gap-1">
             <Clock size={10} /> {item.date}
           </span>
         </div>
         {item.progress !== undefined && (
           <div className="hidden md:block w-24 shrink-0">
             <ProgressBar value={item.progress} />
-            <p className="text-xs text-[var(--color-text-muted)] mt-1 text-right">{item.progress}%</p>
+            <p className="text-xs text-text-muted mt-1 text-right">{item.progress}%</p>
           </div>
         )}
         <button
@@ -250,7 +250,7 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
         >
           <Star
             size={16}
-            className={starred ? "text-[var(--color-warning)] fill-[var(--color-warning)]" : "text-[var(--color-text-muted)] group-hover:text-[var(--color-text-subtle)]"}
+            className={starred ? "text-warning fill-warning" : "text-text-muted group-hover:text-text-muted"}
           />
         </button>
       </motion.div>
@@ -263,7 +263,7 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
       initial="rest"
       whileHover="hover"
       animate="rest"
-      className="group relative p-5 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 transition-colors cursor-pointer flex flex-col gap-3"
+      className="group relative p-5 rounded-2xl bg-surface border border-border hover:border-primary/40 transition-colors cursor-pointer flex flex-col gap-3"
     >
       {/* Space badge */}
       <div className="flex items-center justify-between">
@@ -276,7 +276,7 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
         <button onClick={(e) => { e.stopPropagation(); setStarred(!starred); }}>
           <Star
             size={15}
-            className={starred ? "text-[var(--color-warning)] fill-[var(--color-warning)]" : "text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity"}
+            className={starred ? "text-warning fill-warning" : "text-text-muted opacity-0 group-hover:opacity-100 transition-opacity"}
           />
         </button>
       </div>
@@ -290,12 +290,12 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
           {item.emoji}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-[var(--color-text)] leading-snug line-clamp-2">{item.title}</h3>
+          <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{item.title}</h3>
           {item.author && (
-            <p className="text-xs text-[var(--color-text-muted)] mt-1">{item.author}</p>
+            <p className="text-xs text-text-muted mt-1">{item.author}</p>
           )}
           {item.excerpt && (
-            <p className="text-xs text-[var(--color-text-subtle)] mt-1 line-clamp-2">{item.excerpt}</p>
+            <p className="text-xs text-text-muted mt-1 line-clamp-2">{item.excerpt}</p>
           )}
         </div>
       </div>
@@ -305,17 +305,17 @@ function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode }) {
         <div>
           <ProgressBar value={item.progress} />
           <div className="flex items-center justify-between mt-1.5">
-            <span className="text-xs text-[var(--color-text-muted)]">{item.progress}% complete</span>
+            <span className="text-xs text-text-muted">{item.progress}% complete</span>
             {item.readTime && (
-              <span className="text-xs text-[var(--color-text-muted)]">{item.readTime}</span>
+              <span className="text-xs text-text-muted">{item.readTime}</span>
             )}
           </div>
         </div>
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between mt-auto pt-1 border-t border-[var(--color-border)]">
-        <span className="text-xs text-[var(--color-text-muted)] flex items-center gap-1">
+      <div className="flex items-center justify-between mt-auto pt-1 border-t border-border">
+        <span className="text-xs text-text-muted flex items-center gap-1">
           <Clock size={10} /> {item.date}
         </span>
         <span
@@ -337,17 +337,17 @@ function EmptyState() {
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center justify-center py-24 text-center"
     >
-      <div className="w-24 h-24 rounded-3xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 flex items-center justify-center mb-6">
-        <Library size={36} className="text-[var(--color-primary)]" />
+      <div className="w-24 h-24 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+        <Library size={36} className="text-primary" />
       </div>
-      <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Your library is empty</h3>
-      <p className="text-[var(--color-text-muted)] text-sm max-w-xs">
+      <h3 className="text-xl font-bold text-foreground mb-2">Your library is empty</h3>
+      <p className="text-text-muted text-sm max-w-xs">
         Start exploring spaces and saving content — books, notes, and highlights will appear here.
       </p>
       <motion.button
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
-        className="mt-6 px-5 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-colors"
+        className="mt-6 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 transition-colors"
       >
         Explore Spaces
       </motion.button>
@@ -399,11 +399,11 @@ export default function LibraryPage() {
       <motion.div variants={itemVariants} className="mb-8">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[var(--color-text)] flex items-center gap-3">
-              <BookMarked className="text-[var(--color-primary)]" size={28} />
+            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+              <BookMarked className="text-primary" size={28} />
               Your Library
             </h1>
-            <p className="text-[var(--color-text-muted)] text-sm mt-1">
+            <p className="text-text-muted text-sm mt-1">
               {libraryItems.length} items saved across your spaces
             </p>
           </div>
@@ -414,8 +414,8 @@ export default function LibraryPage() {
               onClick={() => setViewMode("grid")}
               className={`p-2 rounded-lg border transition-colors ${
                 viewMode === "grid"
-                  ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)]/40 text-[var(--color-primary)]"
-                  : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                  ? "bg-primary/10 border-primary/40 text-primary"
+                  : "border-border text-text-muted hover:text-foreground"
               }`}
             >
               <Grid3X3 size={16} />
@@ -426,8 +426,8 @@ export default function LibraryPage() {
               onClick={() => setViewMode("list")}
               className={`p-2 rounded-lg border transition-colors ${
                 viewMode === "list"
-                  ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)]/40 text-[var(--color-primary)]"
-                  : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                  ? "bg-primary/10 border-primary/40 text-primary"
+                  : "border-border text-text-muted hover:text-foreground"
               }`}
             >
               <List size={16} />
@@ -437,7 +437,7 @@ export default function LibraryPage() {
       </motion.div>
 
       {/* Tabs */}
-      <motion.div variants={itemVariants} className="flex gap-1 p-1 bg-[var(--color-card)] rounded-xl border border-[var(--color-border)] w-fit mb-6 flex-wrap">
+      <motion.div variants={itemVariants} className="flex gap-1 p-1 bg-surface rounded-xl border border-border w-fit mb-6 flex-wrap">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -445,13 +445,13 @@ export default function LibraryPage() {
             className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
               activeTab === tab.key
                 ? "text-white"
-                : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                : "text-text-muted hover:text-foreground"
             }`}
           >
             {activeTab === tab.key && (
               <motion.div
                 layoutId="activeLibTab"
-                className="absolute inset-0 rounded-lg bg-[var(--color-primary)]"
+                className="absolute inset-0 rounded-lg bg-primary"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
               />
             )}
@@ -469,16 +469,16 @@ export default function LibraryPage() {
       {/* Search + Filter bar */}
       <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6 flex-wrap">
         <div className="relative flex-1 min-w-56">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search your library..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)]/50 transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]">
+            <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-foreground">
               <X size={14} />
             </button>
           )}
@@ -488,14 +488,14 @@ export default function LibraryPage() {
           onClick={() => setShowFilters(!showFilters)}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
             showFilters || selectedSpace !== "All Spaces"
-              ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)]/40 text-[var(--color-primary)]"
-              : "bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+              ? "bg-primary/10 border-primary/40 text-primary"
+              : "bg-surface border-border text-text-muted hover:text-foreground"
           }`}
         >
           <Filter size={14} />
           Filter
           {selectedSpace !== "All Spaces" && (
-            <span className="w-2 h-2 rounded-full bg-[var(--color-primary)]" />
+            <span className="w-2 h-2 rounded-full bg-primary" />
           )}
         </button>
 
@@ -503,13 +503,13 @@ export default function LibraryPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="appearance-none flex items-center gap-2 px-4 py-2.5 pr-8 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)] text-sm text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)]/50 cursor-pointer transition-colors"
+            className="appearance-none flex items-center gap-2 px-4 py-2.5 pr-8 rounded-xl bg-surface border border-border text-sm text-text-muted focus:outline-none focus:border-primary/50 cursor-pointer transition-colors"
           >
             {SORT_OPTIONS.map((opt) => (
               <option key={opt} value={opt}>{opt}</option>
             ))}
           </select>
-          <SortAsc size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none" />
+          <SortAsc size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
         </div>
       </motion.div>
 
@@ -523,9 +523,9 @@ export default function LibraryPage() {
             transition={{ duration: 0.25 }}
             className="mb-6 overflow-hidden"
           >
-            <div className="p-4 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)] flex flex-wrap gap-4">
+            <div className="p-4 rounded-xl bg-surface border border-border flex flex-wrap gap-4">
               <div>
-                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">Space</label>
+                <label className="text-xs text-text-muted mb-2 block">Space</label>
                 <div className="flex flex-wrap gap-2">
                   {SPACES.map((space) => (
                     <button
@@ -533,8 +533,8 @@ export default function LibraryPage() {
                       onClick={() => setSelectedSpace(space)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                         selectedSpace === space
-                          ? "bg-[var(--color-primary)] text-white"
-                          : "bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-white/10"
+                          ? "bg-primary text-white"
+                          : "bg-white/5 text-text-muted hover:text-foreground hover:bg-white/10"
                       }`}
                     >
                       {space}
@@ -543,12 +543,12 @@ export default function LibraryPage() {
                 </div>
               </div>
               <div>
-                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">Date Added</label>
+                <label className="text-xs text-text-muted mb-2 block">Date Added</label>
                 <div className="flex flex-wrap gap-2">
                   {["Today", "This Week", "This Month", "All Time"].map((d) => (
                     <button
                       key={d}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-white/10 transition-colors flex items-center gap-1"
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-text-muted hover:text-foreground hover:bg-white/10 transition-colors flex items-center gap-1"
                     >
                       <Calendar size={10} />
                       {d}

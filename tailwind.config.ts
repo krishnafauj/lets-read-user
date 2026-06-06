@@ -5,12 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#0A0A0B',
-        surface: '#111113',
-        card: '#18181B',
-        border: '#27272A',
-        primary: { DEFAULT: '#6366F1', hover: '#4F46E5' },
-        text: { DEFAULT: '#FAFAFA', muted: '#71717A', subtle: '#A1A1AA' },
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        surface: 'var(--surface)',
+        'surface-hover': 'var(--surface-hover)',
+        border: 'var(--border)',
+        'border-strong': 'var(--border-strong)',
+        'text-muted': 'var(--text-muted)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          dark: 'var(--primary-dark)',
+        },
+        secondary: 'var(--secondary)',
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        destructive: 'var(--destructive)',
+        'dark-forest': 'var(--dark-forest)',
       },
       fontFamily: { sans: ['var(--font-inter)', 'system-ui', 'sans-serif'] },
       animation: {

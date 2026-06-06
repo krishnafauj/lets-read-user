@@ -1,0 +1,132 @@
+<style>
+.icon-wrap {
+  display: flex; gap: 32px; align-items: center; justify-content: center;
+  padding: 40px 0;
+  flex-wrap: wrap;
+}
+.icon-box { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px; letter-spacing: 2px; color: #888780; text-transform: uppercase;
+}
+
+@keyframes openLeft {
+  0%   { transform: perspective(200px) rotateY(-5deg); }
+  30%  { transform: perspective(200px) rotateY(-50deg); }
+  70%  { transform: perspective(200px) rotateY(-50deg); }
+  100% { transform: perspective(200px) rotateY(-5deg); }
+}
+@keyframes openRight {
+  0%   { transform: perspective(200px) rotateY(5deg); }
+  30%  { transform: perspective(200px) rotateY(50deg); }
+  70%  { transform: perspective(200px) rotateY(50deg); }
+  100% { transform: perspective(200px) rotateY(5deg); }
+}
+@keyframes flip {
+  0%   { transform: perspective(200px) rotateY(0deg); opacity:1; }
+  20%  { transform: perspective(200px) rotateY(-90deg); opacity:0.3; }
+  40%  { transform: perspective(200px) rotateY(-180deg); opacity:1; }
+  60%  { transform: perspective(200px) rotateY(-180deg); opacity:1; }
+  80%  { transform: perspective(200px) rotateY(-90deg); opacity:0.3; }
+  100% { transform: perspective(200px) rotateY(0deg); opacity:1; }
+}
+
+.book { position: relative; }
+
+.cover-l, .cover-r {
+  position: absolute; bottom: 0;
+  background: #007F78; border-radius: 2px;
+}
+.page-l, .page-r {
+  position: absolute; bottom: 0;
+  background: #fff; border: 0.5px solid #D3D1C7;
+}
+.spine-bar {
+  position: absolute; bottom: 0; z-index: 2;
+  background: #203233; border-radius: 1px;
+}
+.flip-page {
+  position: absolute; bottom: 0;
+  background: #FFDE68;
+  transform-origin: left center;
+  z-index: 3;
+}
+.dot-accent {
+  position: absolute;
+  background: #FFB018; border-radius: 50%;
+}
+
+/* ── 48px ── */
+.b48 { width: 48px; height: 36px; }
+.b48 .cover-l  { left:0; width:21px; height:28px; transform-origin:right center; animation: openLeft 2.4s ease-in-out infinite; }
+.b48 .cover-r  { right:0; width:21px; height:28px; transform-origin:left center; animation: openRight 2.4s ease-in-out infinite; }
+.b48 .page-l   { left:1px; width:20px; height:26px; border-radius:2px 0 0 2px; }
+.b48 .page-r   { right:1px; width:20px; height:26px; border-radius:0 2px 2px 2px; }
+.b48 .spine-bar{ left:50%; transform:translateX(-50%); width:3px; height:28px; }
+.b48 .flip-page{ left:50%; width:19px; height:25px; border-radius:0 1px 1px 0; animation: flip 2.4s ease-in-out infinite; }
+.b48 .dot-accent{ width:4px; height:4px; right:6px; bottom:14px; }
+
+/* ── 32px ── */
+.b32 { width: 32px; height: 24px; }
+.b32 .cover-l  { left:0; width:14px; height:20px; transform-origin:right center; animation: openLeft 2.4s ease-in-out infinite; }
+.b32 .cover-r  { right:0; width:14px; height:20px; transform-origin:left center; animation: openRight 2.4s ease-in-out infinite; }
+.b32 .page-l   { left:1px; width:13px; height:18px; border-radius:1px 0 0 1px; }
+.b32 .page-r   { right:1px; width:13px; height:18px; border-radius:0 1px 1px 1px; }
+.b32 .spine-bar{ left:50%; transform:translateX(-50%); width:2px; height:20px; }
+.b32 .flip-page{ left:50%; width:12px; height:17px; border-radius:0 1px 1px 0; animation: flip 2.4s ease-in-out infinite; }
+.b32 .dot-accent{ width:3px; height:3px; right:4px; bottom:8px; }
+
+/* ── 20px ── */
+.b20 { width: 20px; height: 15px; }
+.b20 .cover-l  { left:0; width:9px; height:12px; transform-origin:right center; animation: openLeft 2.4s ease-in-out infinite; }
+.b20 .cover-r  { right:0; width:9px; height:12px; transform-origin:left center; animation: openRight 2.4s ease-in-out infinite; }
+.b20 .page-l   { left:0.5px; width:8px; height:11px; border-radius:1px 0 0 1px; }
+.b20 .page-r   { right:0.5px; width:8px; height:11px; border-radius:0 1px 1px 1px; }
+.b20 .spine-bar{ left:50%; transform:translateX(-50%); width:1.5px; height:12px; }
+.b20 .flip-page{ left:50%; width:7px; height:10px; animation: flip 2.4s ease-in-out infinite; }
+.b20 .dot-accent{ display:none; }
+</style>
+
+<h2 class="sr-only">LetsRead book icon in three small sizes: 48px, 32px, and 20px</h2>
+
+<div class="icon-wrap">
+
+  <div class="icon-box">
+    <div class="book b48">
+      <div class="cover-l"></div>
+      <div class="cover-r"></div>
+      <div class="page-l"></div>
+      <div class="page-r"></div>
+      <div class="flip-page"></div>
+      <div class="spine-bar"></div>
+      <div class="dot-accent"></div>
+    </div>
+    <span class="label">48px</span>
+  </div>
+
+  <div class="icon-box">
+    <div class="book b32">
+      <div class="cover-l"></div>
+      <div class="cover-r"></div>
+      <div class="page-l"></div>
+      <div class="page-r"></div>
+      <div class="flip-page"></div>
+      <div class="spine-bar"></div>
+      <div class="dot-accent"></div>
+    </div>
+    <span class="label">32px</span>
+  </div>
+
+  <div class="icon-box">
+    <div class="book b20">
+      <div class="cover-l"></div>
+      <div class="cover-r"></div>
+      <div class="page-l"></div>
+      <div class="page-r"></div>
+      <div class="flip-page"></div>
+      <div class="spine-bar"></div>
+    </div>
+    <span class="label">20px</span>
+  </div>
+
+</div>

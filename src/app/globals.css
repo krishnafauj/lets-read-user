@@ -25,39 +25,43 @@
 /* Base styles */
 :root {
   /* Light mode (Off-white canvas) */
-  --background: #f8fafc;
-  --foreground: #020617;
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
+  --background: #f8fafc; /* Keep off-white background */
+  --foreground: #000000; /* Black from palette */
+  --surface: #ffffff; /* White from palette */
+  --surface-hover: #F4F4F4; /* Gray from palette */
   --border: #e2e8f0;
   --border-strong: #cbd5e1;
   --text-muted: #64748b;
 
   /* Core Palette */
-  --primary: #4F46E5;      /* Indigo 600 */
-  --secondary: #8B5CF6;    /* Violet 500 */
-  --success: #10B981;      /* Emerald 500 */
-  --warning: #F59E0B;      /* Amber 500 */
-  --destructive: #EF4444;  /* Red 500 */
+  --primary: #00BEAA;      /* Teal */
+  --primary-dark: #007F78; /* Dark Teal */
+  --secondary: #FFB018;    /* Orange */
+  --success: #00BEAA;      /* Teal */
+  --warning: #FFDE68;      /* Yellow */
+  --destructive: #EF4444;  /* Red (keep default for errors) */
+  --dark-forest: #203233;  /* Dark Forest */
   color-scheme: light;
 }
 
 .dark {
   /* Ultra-Dark OLED Theme */
   --background: #000000;      /* Pure black */
-  --foreground: #f8fafc;      /* Soft off-white */
+  --foreground: #ffffff;      /* White */
   --surface: #0a0a0a;         /* Extremely dark gray */
-  --surface-hover: #171717;   /* Hover gray */
+  --surface-hover: #203233;   /* Dark Forest as hover */
   --border: #262626;          /* Dark gray borders */
   --border-strong: #404040;   /* Strong borders */
   --text-muted: #a3a3a3;      /* Neutral muted */
 
-  /* Core Palette (adjusted for dark mode luminescence) */
-  --primary: #6366f1;      /* Indigo 500 */
-  --secondary: #a78bfa;    /* Violet 400 */
-  --success: #10b981;      /* Emerald 500 */
-  --warning: #fbbf24;      /* Amber 400 */
-  --destructive: #f87171;  /* Red 400 */
+  /* Core Palette */
+  --primary: #00BEAA;      /* Teal */
+  --primary-dark: #007F78; /* Dark Teal */
+  --secondary: #FFB018;    /* Orange */
+  --success: #00BEAA;      
+  --warning: #FFDE68;      /* Yellow */
+  --destructive: #f87171;  
+  --dark-forest: #203233;
   color-scheme: dark;
 }
 
@@ -112,4 +116,15 @@ body {
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* Hide scrollbar for elements with scrollbar-hide */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
 }

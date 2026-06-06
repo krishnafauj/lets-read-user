@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   MessageSquare,
   MoreHorizontal,
@@ -19,7 +19,7 @@ import Link from "next/link";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -27,12 +27,12 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-const cardHover = {
+const cardHover: Variants = {
   rest: { scale: 1, y: 0 },
   hover: { scale: 1.015, y: -3, transition: { duration: 0.2, ease: "easeOut" } },
 };
@@ -319,7 +319,7 @@ function SpaceCardGrid({ space }: { space: KnowledgeSpace }) {
 
         {/* Actions */}
         <div className="flex items-center gap-2 mt-auto pt-1">
-          <Link href={`/knowledge-spaces/${space.id}`} className="flex-1">
+          <Link href={`/ai-workspace/${space.id}/chat-0`} className="flex-1">
             <motion.button
               whileTap={{ scale: 0.97 }}
               className="w-full py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
@@ -438,7 +438,7 @@ function SpaceCardList({ space }: { space: KnowledgeSpace }) {
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
-            <Link href={`/knowledge-spaces/${space.id}`}>
+            <Link href={`/ai-workspace/${space.id}/chat-0`}>
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5"
@@ -592,7 +592,7 @@ function EmptyState({ filter }: { filter: FilterTab }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-export default function KnowledgeSpacesPage() {
+export function WorkspaceGrid() {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const [sortBy, setSortBy] = useState<SortOption>("recently-active");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
@@ -641,7 +641,7 @@ export default function KnowledgeSpacesPage() {
         <motion.section variants={itemVariants} className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight">Knowledge Spaces</h1>
+              <h1 className="text-3xl font-semibold tracking-tight">AI Workspace</h1>
               <p className="mt-1.5 text-base" style={{ color: "#A1A1AA" }}>
                 Your AI-powered learning library
               </p>
