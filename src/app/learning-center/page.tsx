@@ -693,12 +693,14 @@ export default function LearningCenterPage() {
       </motion.div>
 
       {/* Tab Content */}
-      <AnimatePresence mode="wait">
-        {activeTab === "quizzes" && <QuizzesTab key="quizzes" />}
-        {activeTab === "flashcards" && <FlashcardsTab key="flashcards" />}
-        {activeTab === "mock-tests" && <MockTestsTab key="mock-tests" />}
-        {activeTab === "learning-paths" && <LearningPathsTab key="learning-paths" />}
-      </AnimatePresence>
+      <div className="min-h-[600px] relative">
+        <AnimatePresence mode="wait">
+          {activeTab === "quizzes" && <QuizzesTab key="quizzes" />}
+          {activeTab === "flashcards" && <FlashcardsTab key="flashcards" />}
+          {activeTab === "mock-tests" && <MockTestsTab key="mock-tests" />}
+          {activeTab === "learning-paths" && <LearningPathsTab key="learning-paths" />}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }

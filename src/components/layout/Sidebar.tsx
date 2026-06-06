@@ -36,7 +36,9 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/', icon: Home },
+  { label: 'Discover', href: '/discover', icon: Search },
   { label: 'AI Workspace', href: '/ai-workspace', icon: Brain },
+  { label: 'Learning Center', href: '/learning-center', icon: Target },
   { label: 'For You', href: '/for-you', icon: Sparkles },
   { label: 'Library', href: '/library', icon: Library },
   { label: 'Inbox', href: '/inbox', icon: Bell, badge: 3 },
