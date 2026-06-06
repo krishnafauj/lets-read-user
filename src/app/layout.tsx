@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { MainLayout } from '@/components/layout/MainLayout'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import './globals.css'
 
 const sohne = localFont({
@@ -36,9 +37,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${sohne.variable} h-full antialiased`}>
-      <body className="h-full font-sans bg-background text-foreground transition-colors duration-200">
-        <MainLayout>{children}</MainLayout>
+    <html lang="en" suppressHydrationWarning className={`${sohne.variable} h-full antialiased`}>
+      <body suppressHydrationWarning className="h-full font-sans bg-background text-foreground transition-colors duration-200">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <MainLayout>{children}</MainLayout>
+        </ThemeProvider>
       </body>
     </html>
   )

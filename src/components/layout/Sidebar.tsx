@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from 'next-themes'
 import {
   Home,
   Brain,
@@ -13,9 +14,11 @@ import {
   Library,
   Bell,
   User,
-  ChevronLeft,
-  ChevronRight,
+  PanelLeftClose,
+  PanelLeftOpen,
   Sparkles,
+  Sun,
+  Moon,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -34,7 +37,6 @@ const navItems: NavItem[] = [
   { label: 'Discover', href: '/discover', icon: Search },
   { label: 'Library', href: '/library', icon: Library },
   { label: 'Inbox', href: '/inbox', icon: Bell, badge: 3 },
-  { label: 'Profile', href: '/profile', icon: User },
 ]
 
 interface SidebarProps {
@@ -44,6 +46,13 @@ interface SidebarProps {
 export function Sidebar({ className }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <motion.aside
@@ -56,11 +65,25 @@ export function Sidebar({ className }: SidebarProps) {
         className
       )}
     >
-      {/* Logo */}
-      <div className="flex items-center h-[60px] px-4 shrink-0 border-b border-border">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="flex items-center justify-center w-8 h-8 shrink-0 bg-primary text-background">
-            <Sparkles className="w-4 h-4" />
+      {/* Header / Logo */}
+      <div className="flex items-center justify-between h-[60px] px-3 shrink-0">
+        <button 
+          onClick={() => collapsed && setCollapsed(false)}
+          className={cn(
+            "flex items-center gap-3 min-w-0 transition-opacity outline-none group", 
+            collapsed ? "cursor-pointer" : "cursor-default"
+          )}
+          title={collapsed ? "Expand sidebar" : undefined}
+        >
+          <div className="flex items-center justify-center w-8 h-8 shrink-0 bg-primary text-background rounded-md">
+            {collapsed ? (
+              <>
+                <Sparkles className="w-4 h-4 group-hover:hidden" />
+                <PanelLeftOpen className="w-4 h-4 hidden group-hover:block" />
+              </>
+            ) : (
+              <Sparkles className="w-4 h-4" />
+            )}
           </div>
           <AnimatePresence initial={false}>
             {!collapsed && (
@@ -75,11 +98,21 @@ export function Sidebar({ className }: SidebarProps) {
               </motion.span>
             )}
           </AnimatePresence>
-        </div>
+        </button>
+
+        {!collapsed && (
+          <button
+            onClick={() => setCollapsed(true)}
+            className="flex items-center justify-center w-8 h-8 text-text-muted hover:text-foreground hover:bg-surface-hover transition-colors duration-150 outline-none"
+            title="Close sidebar"
+          >
+            <PanelLeftClose className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-3 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
+      <nav className="flex-1 py-2 px-2 space-y-[2px] overflow-y-auto overflow-x-hidden">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
@@ -88,7 +121,7 @@ export function Sidebar({ className }: SidebarProps) {
             <Link key={item.href} href={item.href} title={collapsed ? item.label : undefined}>
               <div
                 className={cn(
-                  'relative flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors duration-150',
+                  'relative flex items-center gap-2 px-2 py-2 cursor-pointer transition-colors duration-150 rounded-md',
                   'group select-none',
                   isActive
                     ? 'bg-surface-hover text-foreground font-semibold'
@@ -99,7 +132,7 @@ export function Sidebar({ className }: SidebarProps) {
                 <div className="relative shrink-0 flex items-center justify-center w-5 h-5">
                   <Icon
                     className={cn(
-                      'w-5 h-5 transition-colors duration-150',
+                      'w-4 h-4 transition-colors duration-150',
                       isActive ? 'text-foreground' : 'text-text-muted group-hover:text-foreground'
                     )}
                   />
@@ -129,7 +162,7 @@ export function Sidebar({ className }: SidebarProps) {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0 }}
-                        className="absolute top-2 right-2 w-2 h-2 rounded-none bg-primary shrink-0"
+                        className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0"
                       />
                     ) : (
                       <motion.span
@@ -137,7 +170,7 @@ export function Sidebar({ className }: SidebarProps) {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
-                        className="relative ml-auto text-xs px-2 py-0.5 bg-border text-foreground shrink-0"
+                        className="relative ml-auto text-[10px] px-1.5 py-0.5 rounded-sm bg-border text-foreground shrink-0"
                       >
                         {item.badge}
                       </motion.span>
@@ -150,11 +183,43 @@ export function Sidebar({ className }: SidebarProps) {
         })}
       </nav>
 
-      {/* User section */}
-      <div className="shrink-0 p-3 border-t border-border">
+      {/* Footer Section */}
+      <div className="shrink-0 p-2 border-t border-border flex flex-col space-y-[2px]">
+        
+        {/* Theme Toggle */}
+        {mounted && (
+          <div
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="flex items-center gap-2 px-2 py-2 cursor-pointer group hover:bg-surface-hover transition-colors duration-150 text-foreground rounded-md"
+            title="Toggle theme"
+          >
+            <div className="relative shrink-0 flex items-center justify-center w-5 h-5">
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-text-muted group-hover:text-foreground transition-colors duration-150" />
+              ) : (
+                <Moon className="w-4 h-4 text-text-muted group-hover:text-foreground transition-colors duration-150" />
+              )}
+            </div>
+            <AnimatePresence initial={false}>
+              {!collapsed && (
+                <motion.span
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative text-sm whitespace-nowrap overflow-hidden"
+                >
+                  {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+
+        {/* Profile */}
         <Link href="/profile">
-          <div className="flex items-center gap-3 px-3 py-3 cursor-pointer group hover:bg-surface-hover transition-colors duration-150">
-            <div className="w-8 h-8 shrink-0 flex items-center justify-center text-sm font-semibold bg-primary text-background">
+          <div className="flex items-center gap-2 px-2 py-2 cursor-pointer group hover:bg-surface-hover transition-colors duration-150 rounded-md">
+            <div className="w-7 h-7 shrink-0 flex items-center justify-center text-xs font-semibold bg-primary text-background rounded-sm">
               U
             </div>
             <AnimatePresence initial={false}>
@@ -175,18 +240,6 @@ export function Sidebar({ className }: SidebarProps) {
         </Link>
       </div>
 
-      {/* Collapse toggle */}
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        className="absolute top-[18px] -right-3 z-10 flex items-center justify-center w-6 h-6 bg-surface border border-border text-text-muted hover:text-foreground transition-colors duration-150"
-        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-      >
-        {collapsed ? (
-          <ChevronRight className="w-3 h-3" />
-        ) : (
-          <ChevronLeft className="w-3 h-3" />
-        )}
-      </button>
     </motion.aside>
   )
 }

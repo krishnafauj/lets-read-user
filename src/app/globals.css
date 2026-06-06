@@ -10,35 +10,55 @@
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
-  --color-primary: var(--primary);
+  --color-border-strong: var(--border-strong);
+  
   --color-text-muted: var(--text-muted);
+
+  /* Core 5-Color System */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
 }
 
 /* Base styles */
 :root {
-  /* Light mode (default) */
-  --background: #ffffff;
-  --foreground: #000000;
-  --surface: #f9f9f9;
-  --surface-hover: #ecece1;
-  --border: #e5e5e5;
-  --primary: #000000;
-  --text-muted: #6b6b6b;
+  /* Light mode (Off-white canvas) */
+  --background: #f8fafc;
+  --foreground: #020617;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text-muted: #64748b;
+
+  /* Core Palette */
+  --primary: #4F46E5;      /* Indigo 600 */
+  --secondary: #8B5CF6;    /* Violet 500 */
+  --success: #10B981;      /* Emerald 500 */
+  --warning: #F59E0B;      /* Amber 500 */
+  --destructive: #EF4444;  /* Red 500 */
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark mode */
-    --background: #202123;
-    --foreground: #ececf1;
-    --surface: #202123;
-    --surface-hover: #2A2B32;
-    --border: #4d4d4f;
-    --primary: #ffffff;
-    --text-muted: #8e8ea0;
-    color-scheme: dark;
-  }
+.dark {
+  /* Ultra-Dark OLED Theme */
+  --background: #000000;      /* Pure black */
+  --foreground: #f8fafc;      /* Soft off-white */
+  --surface: #0a0a0a;         /* Extremely dark gray */
+  --surface-hover: #171717;   /* Hover gray */
+  --border: #262626;          /* Dark gray borders */
+  --border-strong: #404040;   /* Strong borders */
+  --text-muted: #a3a3a3;      /* Neutral muted */
+
+  /* Core Palette (adjusted for dark mode luminescence) */
+  --primary: #6366f1;      /* Indigo 500 */
+  --secondary: #a78bfa;    /* Violet 400 */
+  --success: #10b981;      /* Emerald 500 */
+  --warning: #fbbf24;      /* Amber 400 */
+  --destructive: #f87171;  /* Red 400 */
+  color-scheme: dark;
 }
 
 * {
