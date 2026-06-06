@@ -1,12 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MoreHorizontal, Plus, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 export const SidebarWidgetContainer = ({ children, title, action }: { children: React.ReactNode, title: string, action?: React.ReactNode }) => {
   const [isSearching, setIsSearching] = useState(false);
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
 
   return (
     <div className="bg-surface-hover rounded-3xl p-5 shadow-sm border border-border">
@@ -28,8 +38,9 @@ export const SidebarWidgetContainer = ({ children, title, action }: { children: 
               </div>
             </motion.div>
           ) : (
-            <motion.div
+            <motion.form
               key="search"
+              onSubmit={handleSearch}
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
@@ -40,14 +51,16 @@ export const SidebarWidgetContainer = ({ children, title, action }: { children: 
               <input 
                 autoFocus
                 type="text" 
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Search ${title.toLowerCase()}...`}
                 className="w-full bg-transparent text-sm text-foreground placeholder:text-text-muted/70 p-0"
                 style={{ outline: 'none', border: 'none', boxShadow: 'none' }}
               />
-              <button onClick={() => setIsSearching(false)} className="text-text-muted hover:text-foreground shrink-0 transition-transform hover:scale-110">
+              <button type="button" onClick={() => setIsSearching(false)} className="text-text-muted hover:text-foreground shrink-0 transition-transform hover:scale-110">
                 <Plus size={16} className="rotate-45" />
               </button>
-            </motion.div>
+            </motion.form>
           )}
         </AnimatePresence>
       </div>
