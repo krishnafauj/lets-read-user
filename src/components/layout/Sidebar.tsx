@@ -22,8 +22,13 @@ import {
   ChevronDown,
   ChevronRight,
   MessageSquare,
-  SquarePen
+  SquarePen,
+  MoreHorizontal,
+  PenLine,
+  Share2,
+  Trash2
 } from 'lucide-react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { cn } from '@/lib/utils'
 import { SmallLogo } from '@/components/ui/SmallLogo'
 import Image from 'next/image'
@@ -79,10 +84,10 @@ interface SidebarProps {
 }
 
 export function Sidebar({ className }: SidebarProps) {
+  const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
   const [expandedBookId, setExpandedBookId] = useState<string | null>(null)
-  const [aiWorkspaceExpanded, setAiWorkspaceExpanded] = useState(true)
-  const pathname = usePathname()
+  const [aiWorkspaceExpanded, setAiWorkspaceExpanded] = useState(() => pathname.startsWith('/ai-workspace'))
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -90,6 +95,13 @@ export function Sidebar({ className }: SidebarProps) {
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Auto-collapse sidebar when entering an AI workspace chat
+  useEffect(() => {
+    if (pathname.match(/^\/ai-workspace\/[^\/]+\/[^\/]+$/)) {
+      setCollapsed(true)
+    }
+  }, [pathname])
 
   return (
     <motion.aside
@@ -328,16 +340,48 @@ export function Sidebar({ className }: SidebarProps) {
               </Link>
             </div>
             <h4 className="text-[10px] font-semibold text-text-muted uppercase tracking-widest px-4 mb-2">Chat History</h4>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col gap-0.5 overflow-y-auto max-h-[160px] scrollbar-hide pb-2">
               {recentItems.map((item, idx) => (
-                <Link 
-                  key={idx}
-                  href={item.href} 
-                  title={item.label}
-                  className="relative flex items-center px-4 py-1.5 mx-2 text-text-muted hover:bg-surface-hover hover:text-foreground font-medium transition-colors duration-200 rounded-lg group select-none"
-                >
-                  <span className="text-[12px] font-light truncate">{item.label}</span>
-                </Link>
+                <div key={idx} className="relative group/item flex items-center mx-2 rounded-lg hover:bg-surface-hover">
+                  <Link 
+                    href={item.href} 
+                    title={item.label}
+                    onClick={() => setAiWorkspaceExpanded(false)}
+                    className="flex-1 flex items-center px-4 py-1.5 text-text-muted hover:text-foreground font-medium transition-colors duration-200 select-none min-w-0"
+                  >
+                    <span className="text-[12px] font-light truncate">{item.label}</span>
+                  </Link>
+                  
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                      <button 
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute right-1 p-1 rounded-md text-text-muted hover:text-foreground transition-all duration-200 opacity-0 group-hover/item:opacity-100 hover:bg-surface data-[state=open]:opacity-100 data-[state=open]:bg-surface data-[state=open]:border data-[state=open]:border-border"
+                      >
+                        <MoreHorizontal size={14} />
+                      </button>
+                    </DropdownMenu.Trigger>
+                    
+                    <DropdownMenu.Portal>
+                      <DropdownMenu.Content 
+                        align="end" 
+                        sideOffset={4}
+                        className="w-32 bg-surface border border-border rounded-xl shadow-lg z-50 py-1 overflow-hidden animate-in fade-in-80 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+                      >
+                        <DropdownMenu.Item className="w-full flex items-center gap-2 px-3 py-1.5 text-[12px] text-text-muted hover:text-foreground hover:bg-surface-hover data-[highlighted]:text-foreground data-[highlighted]:bg-surface-hover transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer">
+                          <PenLine size={12} /> Rename
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item className="w-full flex items-center gap-2 px-3 py-1.5 text-[12px] text-text-muted hover:text-foreground hover:bg-surface-hover data-[highlighted]:text-foreground data-[highlighted]:bg-surface-hover transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer">
+                          <Share2 size={12} /> Share
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Separator className="h-[1px] bg-border my-1 w-full" />
+                        <DropdownMenu.Item className="w-full flex items-center gap-2 px-3 py-1.5 text-[12px] text-red-500 hover:bg-red-500/10 data-[highlighted]:bg-red-500/10 transition-colors outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer">
+                          <Trash2 size={12} /> Delete
+                        </DropdownMenu.Item>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                  </DropdownMenu.Root>
+                </div>
               ))}
             </div>
           </div>

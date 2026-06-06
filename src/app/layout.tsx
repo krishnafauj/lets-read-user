@@ -29,6 +29,9 @@ const sohne = localFont({
 export const metadata: Metadata = {
   title: "Let'sRead",
   description: 'AI-powered reading and learning platform',
+  icons: {
+    icon: '/icon.svg',
+  },
 }
 
 export default function RootLayout({

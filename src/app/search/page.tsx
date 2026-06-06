@@ -20,7 +20,7 @@ export default function SearchPage() {
     if (initialGenre) {
       return { "Primary Genre": [initialGenre] };
     }
-    return {};
+    return {} as Record<string, string[]>;
   });
 
   useEffect(() => {

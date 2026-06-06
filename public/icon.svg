@@ -1,0 +1,29 @@
+<svg viewBox="210 5 260 260" role="img" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(340, 150)">
+    <!-- left cover shadow/edge -->
+    <rect x="-115" y="-85" width="112" height="118" rx="4" fill="#007F78" />
+    <!-- right cover shadow/edge -->
+    <rect x="3" y="-85" width="112" height="118" rx="4" fill="#007F78" />
+    <!-- left white page -->
+    <rect x="-112" y="-82" width="108" height="112" rx="3" fill="#ffffff" />
+    <!-- right yellow-tinted page (slightly warm) -->
+    <rect x="4" y="-82" width="108" height="112" rx="3" fill="#FFFEF5" />
+    <!-- left page text lines -->
+    <line x1="-96" y1="-52" x2="-20" y2="-52" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-96" y1="-36" x2="-20" y2="-36" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-96" y1="-20" x2="-20" y2="-20" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-96" y1="-4" x2="-40" y2="-4" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-96" y1="12" x2="-20" y2="12" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <!-- right page text lines -->
+    <line x1="20" y1="-52" x2="96" y2="-52" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="20" y1="-36" x2="96" y2="-36" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <!-- orange highlight line -->
+    <line x1="20" y1="-20" x2="80" y2="-20" stroke="#FFB018" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="20" y1="-4" x2="96" y2="-4" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="20" y1="12" x2="72" y2="12" stroke="#C8C8C8" stroke-width="2.5" stroke-linecap="round" />
+    <!-- spine -->
+    <rect x="-6" y="-85" width="12" height="118" rx="3" fill="#203233" />
+    <!-- bottom oval shadow -->
+    <ellipse cx="0" cy="44" rx="95" ry="10" fill="#C0C0C0" opacity="0.35" />
+  </g>
+</svg>

@@ -1,13 +1,8 @@
 import { use } from 'react';
-import { ChatArea } from '@/features/ai-workspace/components/ChatArea';
-import { ChatLayout } from '@/features/ai-workspace/components/ChatLayout';
+import { BookDashboard } from '@/features/ai-workspace/components/BookDashboard';
 
-export default function BookChatPage({ params }: { params: Promise<{ id: string }> }) {
+export default function BookWorkspacePage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   
-  return (
-    <ChatLayout bookId={resolvedParams.id}>
-      <ChatArea />
-    </ChatLayout>
-  );
+  return <BookDashboard bookId={resolvedParams.id} />;
 }

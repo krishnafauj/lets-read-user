@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatBubble } from './ChatBubble';
 import { ChatInput } from './ChatInput';
 
 export function ChatArea() {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   const messages = [
     {
       role: 'user' as const,
@@ -28,6 +30,15 @@ export function ChatArea() {
       time: "15m ago"
     }
   ];
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="flex-1 flex flex-col min-w-0 min-h-0 bg-transparent h-full">
 
@@ -43,6 +54,7 @@ export function ChatArea() {
               citations={msg.citations}
             />
           ))}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

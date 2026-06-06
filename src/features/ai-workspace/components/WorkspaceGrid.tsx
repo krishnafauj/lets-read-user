@@ -208,17 +208,12 @@ const STATS = [
 // ─── Sub-Components ───────────────────────────────────────────────────────────
 
 function ProgressBar({ value }: { value: number }) {
-  const color =
-    value === 100
-      ? "from-emerald-500 to-teal-500"
-      : value >= 60
-      ? "from-indigo-500 to-purple-500"
-      : "from-amber-500 to-orange-500";
+  const color = value === 100 ? "bg-success" : "bg-primary";
 
   return (
     <div className="w-full h-1.5 rounded-full overflow-hidden bg-surface-hover">
       <motion.div
-        className={`h-full rounded-full bg-gradient-to-r ${color}`}
+        className={`h-full rounded-full ${color}`}
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
@@ -235,24 +230,18 @@ function SpaceCardGrid({ space }: { space: KnowledgeSpace }) {
       variants={cardHover}
       initial="rest"
       whileHover="hover"
-      className="relative rounded-[20px] border border-border/40 flex flex-col cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-[260px] overflow-visible"
+      className="relative rounded border border-border/40 flex flex-col cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-[260px] overflow-visible"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.03] rounded-[20px] pointer-events-none`} />
-
       {/* Header */}
       <div className="px-5 pt-5 pb-2 flex items-start justify-between relative z-10">
         <div className="flex gap-3.5 items-center min-w-0">
-          <div className="w-[52px] h-[52px] rounded-[16px] flex-shrink-0 flex items-center justify-center text-[28px] bg-background border border-border/40 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-            <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-10`} />
-            <span className="relative z-10">{space.emoji}</span>
-          </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <h3 className="font-medium text-foreground text-[16px] tracking-tight truncate">
                 {space.name}
               </h3>
               {space.status === "completed" && (
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" title="Completed" />
+                <span className="w-1.5 h-1.5 rounded-full bg-success flex-shrink-0" title="Completed" />
               )}
             </div>
             <p className="text-[13px] font-light text-text-muted truncate mt-0.5">
@@ -279,7 +268,7 @@ function SpaceCardGrid({ space }: { space: KnowledgeSpace }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: -4 }}
                 transition={{ duration: 0.15 }}
-                className="absolute top-full right-0 mt-1 w-40 rounded-[14px] border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
+                className="absolute top-full right-0 mt-1 w-40 rounded border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
                 onMouseLeave={() => setMenuOpen(false)}
               >
                 {["View Details", "Share", "Archive", "Remove"].map(
@@ -345,16 +334,8 @@ function SpaceCardList({ space }: { space: KnowledgeSpace }) {
       variants={cardHover}
       initial="rest"
       whileHover="hover"
-      className="relative rounded-[16px] border border-border/40 overflow-hidden flex items-center cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-[100px]"
+      className="relative rounded border border-border/40 flex items-center cursor-pointer group bg-surface shadow-sm hover:shadow-md transition-all duration-300 h-24 overflow-visible"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.02] pointer-events-none`} />
-
-      {/* Thumbnail */}
-      <div className="w-[100px] h-full flex-shrink-0 flex items-center justify-center text-[32px] relative border-r border-border/30 bg-background/50">
-        <div className={`absolute inset-0 bg-gradient-to-br ${space.bannerGradient} opacity-[0.05]`} />
-        <span className="relative z-10 group-hover:scale-110 transition-transform duration-300">{space.emoji}</span>
-      </div>
-
       {/* Content */}
       <div className="flex-1 px-5 flex items-center justify-between min-w-0 gap-6 relative z-10">
         
@@ -365,7 +346,7 @@ function SpaceCardList({ space }: { space: KnowledgeSpace }) {
               {space.name}
             </h3>
             {space.status === "completed" && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" title="Completed" />
+              <span className="w-1.5 h-1.5 rounded-full bg-success flex-shrink-0" title="Completed" />
             )}
           </div>
           <p className="text-[12px] font-light text-text-muted mt-0.5 truncate">
@@ -417,7 +398,7 @@ function SpaceCardList({ space }: { space: KnowledgeSpace }) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96, y: -4 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute bottom-full right-0 mb-1 w-40 rounded-[14px] border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
+                  className="absolute bottom-full right-0 mb-1 w-40 rounded border border-border/40 overflow-hidden z-20 bg-background shadow-xl"
                   onMouseLeave={() => setMenuOpen(false)}
                 >
                   {["View Details", "Share", "Archive", "Remove"].map(
@@ -594,14 +575,8 @@ export function WorkspaceGrid() {
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold self-start"
-              style={{
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                color: "#fff",
-                boxShadow: "0 0 20px rgba(99,102,241,0.3)",
-              }}
+              className="flex items-center justify-center px-5 py-2.5 rounded text-sm font-semibold self-start bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm"
             >
-              <Plus size={15} />
               Add Space
             </motion.button>
           </div>
@@ -610,7 +585,7 @@ export function WorkspaceGrid() {
           <div className="flex items-center gap-6 flex-wrap">
             {STATS.map((stat, i) => (
               <div key={i} className="flex items-center gap-2">
-                <div style={{ color: "#6366f1" }}>{stat.icon}</div>
+                <div className="text-primary">{stat.icon}</div>
                 <span className="text-sm font-semibold text-foreground">
                   {stat.value}
                 </span>
@@ -653,7 +628,7 @@ export function WorkspaceGrid() {
                   <span className="relative z-10">
                     {tab.label}
                     <span
-                      className={`ml-1.5 text-xs ${activeTab === tab.id ? 'text-indigo-500' : 'text-text-muted'}`}
+                      className={`ml-1.5 text-xs ${activeTab === tab.id ? 'text-primary' : 'text-text-muted'}`}
                     >
                       {tab.count}
                     </span>
@@ -707,11 +682,11 @@ export function WorkspaceGrid() {
                           setSortBy(opt);
                           setSortOpen(false);
                         }}
-                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors hover:bg-surface-hover ${sortBy === opt ? 'text-indigo-500' : 'text-foreground/80'} ${i < arr.length - 1 ? 'border-b border-border/40' : ''}`}
+                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between transition-colors hover:bg-surface-hover ${sortBy === opt ? 'text-primary' : 'text-foreground/80'} ${i < arr.length - 1 ? 'border-b border-border/40' : ''}`}
                       >
                         {SORT_LABELS[opt]}
                         {sortBy === opt && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                         )}
                       </button>
                     ))}
