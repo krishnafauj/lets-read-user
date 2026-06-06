@@ -26,7 +26,8 @@ export function ChatInput() {
               target.style.height = newHeight + 'px';
               target.style.overflowY = target.scrollHeight > 200 ? 'auto' : 'hidden';
             }}
-            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-foreground placeholder:text-text-muted resize-none overflow-hidden leading-relaxed text-[15px] min-h-[40px] p-0 m-0"
+            className="w-full bg-transparent border-0 border-transparent focus:border-transparent focus:ring-0 focus:ring-transparent focus:outline-none outline-none shadow-none text-foreground placeholder:text-text-muted resize-none overflow-hidden leading-relaxed text-[15px] min-h-[40px] p-0 m-0"
+            style={{ outline: 'none', border: 'none', boxShadow: 'none' }}
           />
           
           <div className="flex items-center justify-between mt-2 px-1">

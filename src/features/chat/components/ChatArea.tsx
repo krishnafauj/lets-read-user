@@ -3,6 +3,7 @@
 import React from 'react';
 import { ChatBubble } from '@/features/ai-workspace/components/ChatBubble'; // We can reuse ChatBubble as it's generic UI
 import { ChatInput } from './ChatInput';
+import { ChatHeader } from './ChatHeader';
 
 export function ChatArea() {
   const messages = [
@@ -28,6 +29,7 @@ export function ChatArea() {
   ];
   return (
     <div className="flex-1 flex flex-col min-w-0 min-h-0 bg-transparent h-full">
+      <ChatHeader />
 
       {/* Messages Feed */}
       <div className="flex-1 overflow-y-auto px-8 py-10">
