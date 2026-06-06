@@ -40,7 +40,7 @@ export default function ForYouPage() {
               <input
                 type="text"
                 placeholder="Search authors, books..."
-                className="w-full bg-surface-hover border border-border rounded-full py-3 pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-foreground placeholder:text-text-muted shadow-sm"
+                className="w-full bg-surface-hover border border-border rounded-sm py-3 pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-foreground placeholder:text-text-muted shadow-sm"
               />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={16} />
             </div>

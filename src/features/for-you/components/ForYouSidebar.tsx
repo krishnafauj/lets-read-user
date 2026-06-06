@@ -19,7 +19,7 @@ export const SidebarWidgetContainer = ({ children, title, action }: { children: 
   };
 
   return (
-    <div className="bg-surface-hover rounded-3xl p-5 shadow-sm border border-border">
+    <div className="bg-surface-hover rounded-sm p-5 shadow-sm border border-border">
       <div className="flex items-center justify-between mb-4 relative h-6">
         <AnimatePresence mode="wait">
           {!isSearching ? (
@@ -45,7 +45,7 @@ export const SidebarWidgetContainer = ({ children, title, action }: { children: 
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
               transition={{ duration: 0.15 }}
-              className="absolute -inset-1 px-3 flex items-center gap-2 bg-surface-hover/90 backdrop-blur-md rounded-full z-10 shadow-sm"
+              className="absolute -inset-1 px-3 flex items-center gap-2 bg-surface-hover/90 backdrop-blur-md rounded-sm z-10 shadow-sm"
             >
               <Search size={14} className="text-text-muted shrink-0" />
               <input 
@@ -78,7 +78,7 @@ export const BrowseAuthorsWidget = () => (
         { name: "R.L Stine", books: "400 books", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" },
       ].map((author, i) => (
         <div key={i} className="flex flex-col items-center gap-2 group cursor-pointer">
-          <div className="w-14 h-14 rounded-full overflow-hidden transition-transform group-hover:scale-110 shadow-sm border border-border">
+          <div className="w-14 h-14 rounded-sm overflow-hidden transition-transform group-hover:scale-110 shadow-sm border border-border">
             <Image src={author.img} alt={author.name} width={56} height={56} className="object-cover w-full h-full" />
           </div>
           <div className="text-center">
@@ -88,7 +88,7 @@ export const BrowseAuthorsWidget = () => (
         </div>
       ))}
     </div>
-    <button className="w-full py-2.5 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary/20 transition-colors">
+    <button className="w-full py-2.5 rounded-sm bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors">
       Explore All Authors
     </button>
   </SidebarWidgetContainer>
@@ -98,13 +98,13 @@ export const RecentSearchWidget = () => (
   <SidebarWidgetContainer title="Recent Search" action={<button className="text-[10px] text-text-muted hover:text-foreground">Clear All</button>}>
     <div className="flex flex-wrap gap-2">
       {["Da Vinci Code", "J.K Rowling", "Plot Twist", "Halloween", "Scary", "Biography in Industry", "Weekly Picks"].map((tag, i) => (
-        <span key={i} className="text-[11px] font-medium text-text-muted bg-background hover:bg-border/50 hover:text-foreground cursor-pointer transition-colors px-3 py-1.5 rounded-full border border-border">
+        <span key={i} className="text-[11px] font-medium text-text-muted bg-background hover:bg-border/50 hover:text-foreground cursor-pointer transition-colors px-3 py-1.5 rounded-sm border border-border">
           {tag}
         </span>
       ))}
       {/* Highlighted tags using primary color */}
-      <span className="text-[11px] font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20 cursor-pointer">Da Vinci Code</span>
-      <span className="text-[11px] font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20 cursor-pointer">J.K Rowling</span>
+      <span className="text-[11px] font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-sm border border-primary/20 cursor-pointer">Da Vinci Code</span>
+      <span className="text-[11px] font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-sm border border-primary/20 cursor-pointer">J.K Rowling</span>
     </div>
   </SidebarWidgetContainer>
 );
@@ -125,7 +125,7 @@ export const CategoriesWidget = () => (
       ].map((cat, i) => (
         <span 
           key={i} 
-          className={`text-[11px] font-semibold cursor-pointer transition-all hover:scale-105 px-3 py-1.5 rounded-full border ${cat.color}`}
+          className={`text-[11px] font-semibold cursor-pointer transition-all hover:scale-105 px-3 py-1.5 rounded-sm border ${cat.color}`}
         >
           {cat.name}
         </span>
@@ -143,9 +143,9 @@ export const MenuWidget = () => (
         { title: "Downloaded Books", sub: "Your saved offline books", icon: "⬇️", color: "bg-warning" },
         { title: "Your Dashboard", sub: "Track progress and activity", icon: "🏠", color: "bg-dark-forest" },
       ].map((item, i) => (
-        <div key={i} className="flex items-center gap-3 p-2 rounded-xl hover:bg-background cursor-pointer transition-colors group">
-          <div className={`w-8 h-8 rounded-full ${item.color} flex items-center justify-center text-xs shadow-sm`}>
-            <div className="w-full h-full rounded-full bg-black/10 flex items-center justify-center mix-blend-overlay" />
+        <div key={i} className="flex items-center gap-3 p-2 rounded-sm hover:bg-background cursor-pointer transition-colors group">
+          <div className={`w-8 h-8 rounded-sm ${item.color} flex items-center justify-center text-xs shadow-sm`}>
+            <div className="w-full h-full rounded-sm bg-black/10 flex items-center justify-center mix-blend-overlay" />
           </div>
           <div className="flex-1">
             <h4 className="text-[13px] font-medium text-foreground">{item.title}</h4>

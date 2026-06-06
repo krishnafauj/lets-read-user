@@ -42,12 +42,12 @@ export function AISidebar({ isOpen }: { isOpen: boolean }) {
           <div className="w-[320px] h-full flex flex-col shrink-0">
             {/* Header */}
       <div className="p-5 pb-4">
-        <h2 className="text-foreground font-bold text-lg mb-6 flex items-center gap-2">
+        <h2 className="text-foreground font-semibold text-lg mb-6 flex items-center gap-2">
           <MessageSquare size={18} className="text-primary" />
           AI Workspace
         </h2>
         
-        <button className="w-full bg-primary hover:opacity-90 text-white rounded-xl py-3 px-4 font-semibold text-sm flex items-center justify-center gap-2 transition-opacity mb-4 shadow-lg shadow-primary/20">
+        <button className="w-full bg-primary hover:opacity-90 text-white rounded-sm py-3 px-4 font-semibold text-sm flex items-center justify-center gap-2 transition-opacity mb-4 shadow-lg shadow-primary/20">
           <Plus size={16} /> New Conversation
         </button>
 
@@ -56,7 +56,7 @@ export function AISidebar({ isOpen }: { isOpen: boolean }) {
           <input 
             type="text" 
             placeholder="Search conversations..." 
-            className="w-full bg-surface-hover text-foreground text-sm rounded-xl pl-9 pr-4 py-2.5 outline-none focus:ring-1 focus:ring-primary/50 border border-border placeholder:text-text-muted transition-all"
+            className="w-full bg-surface-hover text-foreground text-sm rounded-sm pl-9 pr-4 py-2.5 outline-none focus:ring-1 focus:ring-primary/50 border border-border placeholder:text-text-muted transition-all"
           />
         </div>
       </div>
@@ -65,14 +65,14 @@ export function AISidebar({ isOpen }: { isOpen: boolean }) {
       <div className="flex-1 overflow-y-auto px-3 pb-6 scrollbar-hide">
         {history.map((group, i) => (
           <div key={i} className="mb-6">
-            <h3 className="px-3 text-[10px] font-bold text-text-muted mb-2 flex items-center gap-1 uppercase tracking-wider">
+            <h3 className="px-3 text-[10px] font-semibold text-text-muted mb-2 flex items-center gap-1 uppercase tracking-wider">
               <Clock size={10} /> {group.group}
             </h3>
             <div className="flex flex-col gap-1">
               {group.items.map((item, j) => (
                 <button 
                   key={j}
-                  className={`text-left p-3 rounded-xl transition-colors ${
+                  className={`text-left p-3 rounded-sm transition-colors ${
                     item.active 
                       ? 'bg-primary/10 border border-primary/20 text-primary' 
                       : 'hover:bg-surface-hover text-foreground border border-transparent'

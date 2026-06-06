@@ -21,11 +21,11 @@ export function ChatBubble({ role, content, time, citations }: ChatBubbleProps) 
         {/* Avatar */}
         <div className="shrink-0 mt-1">
           {isAI ? (
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20">
+            <div className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20">
               <Sparkles size={14} />
             </div>
           ) : (
-            <div className="w-8 h-8 rounded-full bg-surface border border-border flex items-center justify-center text-foreground font-bold text-xs shadow-md">
+            <div className="w-8 h-8 rounded-sm bg-surface border border-border flex items-center justify-center text-foreground font-semibold text-xs shadow-md">
               Y
             </div>
           )}
@@ -34,10 +34,10 @@ export function ChatBubble({ role, content, time, citations }: ChatBubbleProps) 
         {/* Content Box */}
         <div className="flex flex-col">
           <div 
-            className={`p-5 rounded-2xl ${
+            className={`p-5 rounded-sm ${
               isAI 
-                ? 'bg-surface text-foreground border border-border rounded-tl-sm shadow-md' 
-                : 'bg-primary text-primary-foreground rounded-tr-sm shadow-lg shadow-primary/10'
+                ? 'bg-surface text-foreground border border-border rounded-br-3xl shadow-md' 
+                : 'bg-primary text-primary-foreground rounded-bl-3xl shadow-lg shadow-primary/10'
             }`}
           >
             <p className="text-sm leading-relaxed whitespace-pre-wrap">{content}</p>
@@ -48,7 +48,7 @@ export function ChatBubble({ role, content, time, citations }: ChatBubbleProps) 
                 {citations.map((cite, idx) => (
                   <button 
                     key={idx}
-                    className="flex items-center gap-2 bg-background hover:bg-surface-hover border border-border text-xs text-foreground px-3 py-2 rounded-lg transition-colors w-max group"
+                    className="flex items-center gap-2 bg-background hover:bg-surface-hover border border-border text-xs text-foreground px-3 py-2 rounded-sm transition-colors w-max group"
                   >
                     <FileText size={12} className="text-primary" />
                     Cited from: {cite.title}, Page {cite.page}

@@ -26,12 +26,12 @@ export function FlashcardsTab() {
       {/* Study Mode Card */}
       <motion.div
         variants={itemVariants}
-        className="rounded-[20px] border border-border/40 p-6 bg-surface shadow-sm"
+        className="rounded-sm border border-border/40 p-6 bg-surface shadow-sm"
       >
         <div className="flex flex-col md:flex-row items-start gap-8">
           <div className="flex-1 w-full">
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-[14px] bg-amber-500/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-sm bg-amber-500/10 flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-amber-500" />
               </div>
               <h3 className="text-lg font-medium text-foreground tracking-tight">Study Mode</h3>
@@ -42,7 +42,7 @@ export function FlashcardsTab() {
               <select
                 value={selectedSpace}
                 onChange={(e) => setSelectedSpace(e.target.value)}
-                className="w-full max-w-xs px-4 py-3 rounded-[14px] border border-border/40 bg-surface-hover text-foreground text-[14px] font-medium focus:outline-none focus:border-amber-500/50 transition-colors cursor-pointer appearance-none shadow-sm"
+                className="w-full max-w-xs px-4 py-3 rounded-sm border border-border/40 bg-surface-hover text-foreground text-[14px] font-medium focus:outline-none focus:border-amber-500/50 transition-colors cursor-pointer appearance-none shadow-sm"
               >
                 {spaces.map((s) => (
                   <option key={s} value={s} className="bg-surface text-foreground">{s}</option>
@@ -54,7 +54,7 @@ export function FlashcardsTab() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-2 px-6 py-3 rounded-[14px] bg-amber-500 text-white font-medium text-[14px] hover:bg-amber-600 transition-all shadow-sm shadow-amber-500/20"
+                  className="flex items-center gap-2 px-6 py-3 rounded-sm bg-amber-500 text-white font-medium text-[14px] hover:bg-amber-600 transition-all shadow-sm shadow-amber-500/20"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   Study Now
@@ -76,7 +76,7 @@ export function FlashcardsTab() {
             >
               {/* Front */}
               <div
-                className="absolute inset-0 rounded-[20px] border border-border/40 bg-surface shadow-sm flex flex-col items-center justify-center p-4 text-center hover:shadow-md transition-shadow"
+                className="absolute inset-0 rounded-sm border border-border/40 bg-surface shadow-sm flex flex-col items-center justify-center p-4 text-center hover:shadow-md transition-shadow"
                 style={{ backfaceVisibility: "hidden" }}
               >
                 <span className="text-[11px] text-text-muted mb-2 uppercase tracking-widest font-medium">Question</span>
@@ -85,7 +85,7 @@ export function FlashcardsTab() {
               </div>
               {/* Back */}
               <div
-                className="absolute inset-0 rounded-[20px] border border-amber-500/40 bg-amber-500/5 flex flex-col items-center justify-center p-5 text-center shadow-md"
+                className="absolute inset-0 rounded-sm border border-amber-500/40 bg-amber-500/5 flex flex-col items-center justify-center p-5 text-center shadow-md"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               >
                 <span className="text-[11px] text-amber-500 mb-2 uppercase tracking-widest font-medium">Answer</span>
@@ -105,18 +105,18 @@ export function FlashcardsTab() {
               key={deck.id}
               variants={itemVariants}
               whileHover={{ y: -2 }}
-              className="p-5 rounded-[16px] border border-border/40 bg-surface hover:bg-surface-hover/50 hover:shadow-md transition-all cursor-pointer group"
+              className="p-5 rounded-sm border border-border/40 bg-surface hover:bg-surface-hover/50 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-[12px] group-hover:scale-105 transition-transform">{deck.emoji}</span>
+                  <span className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-sm group-hover:scale-105 transition-transform">{deck.emoji}</span>
                   <div>
                     <div className="text-[14px] font-medium text-foreground tracking-tight">{deck.name}</div>
                     <div className="text-[12px] font-light text-text-muted">{deck.cardCount} cards</div>
                   </div>
                 </div>
                 {deck.dueCards > 0 && (
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-medium tracking-wider text-rose-500 uppercase">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-rose-500/10 border border-rose-500/20 text-[10px] font-medium tracking-wider text-rose-500 uppercase">
                     <AlertCircle className="w-3 h-3" />
                     Due: {deck.dueCards}
                   </span>
@@ -128,9 +128,9 @@ export function FlashcardsTab() {
                   <span>Mastery</span>
                   <span className="text-foreground/70">{deck.mastery}%</span>
                 </div>
-                <div className="h-1.5 rounded-full bg-surface-hover overflow-hidden border border-border/20">
+                <div className="h-1.5 rounded-sm bg-surface-hover overflow-hidden border border-border/20">
                   <motion.div
-                    className={`h-full rounded-full bg-gradient-to-r ${deck.color}`}
+                    className={`h-full rounded-sm bg-gradient-to-r ${deck.color}`}
                     initial={{ width: 0 }}
                     animate={{ width: `${deck.mastery}%` }}
                     transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}

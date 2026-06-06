@@ -24,7 +24,7 @@ export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onTo
         {!hideSidebarToggle && (
           <button 
             onClick={onToggleSidebar}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border text-text-muted hover:text-foreground transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-sm bg-surface border border-border text-text-muted hover:text-foreground transition-colors"
             title={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
           >
             {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
@@ -33,7 +33,7 @@ export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onTo
 
         <Link
           href="/ai-workspace"
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border text-text-muted hover:text-foreground transition-colors shrink-0"
+          className="w-8 h-8 flex items-center justify-center rounded-sm bg-surface border border-border text-text-muted hover:text-foreground transition-colors shrink-0"
           title="Back to Workspace"
         >
           <ArrowLeft size={16} />
@@ -56,7 +56,7 @@ export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onTo
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute top-full left-0 mt-3 w-64 bg-surface border border-border rounded-xl shadow-2xl overflow-hidden py-1 z-50"
+                className="absolute top-full left-0 mt-3 w-64 bg-surface border border-border rounded-sm shadow-2xl overflow-hidden py-1 z-50"
               >
                 {["Deep Work — Cal Newport", "The Psychology of Money", "Company of One"].map(book => (
                   <button 
@@ -75,7 +75,7 @@ export function ChatHeader({ isSidebarOpen, onToggleSidebar, isContextOpen, onTo
 
       <button 
         onClick={onToggleContext}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors border ${isContextOpen ? 'bg-surface-hover text-foreground border-border' : 'bg-surface hover:bg-surface-hover text-text-muted hover:text-foreground border-border'}`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-sm text-xs font-semibold transition-colors border ${isContextOpen ? 'bg-surface-hover text-foreground border-border' : 'bg-surface hover:bg-surface-hover text-text-muted hover:text-foreground border-border'}`}
       >
         {isContextOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />} Context
       </button>

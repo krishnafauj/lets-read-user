@@ -16,12 +16,12 @@ export const SearchHeader = () => {
         <div className="flex items-center gap-4 mb-2">
           <Link 
             href="/discover" 
-            className="w-10 h-10 rounded-full bg-surface-hover/50 hover:bg-surface-hover flex items-center justify-center text-text-muted hover:text-foreground transition-all active:scale-95"
+            className="w-10 h-10 rounded-sm bg-surface-hover/50 hover:bg-surface-hover flex items-center justify-center text-text-muted hover:text-foreground transition-all active:scale-95"
             title="Back to Discover"
           >
             <ArrowLeft size={20} />
           </Link>
-          <h1 className="text-3xl font-bold text-foreground">
+          <h1 className="text-3xl font-semibold text-foreground">
             Search Results
           </h1>
         </div>

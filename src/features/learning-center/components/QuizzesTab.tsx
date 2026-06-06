@@ -32,10 +32,10 @@ export function QuizzesTab() {
       {/* Quick Quiz Card */}
       <motion.div
         variants={itemVariants}
-        className="rounded-[20px] border border-border/40 p-6 bg-surface shadow-sm"
+        className="rounded-sm border border-border/40 p-6 bg-surface shadow-sm"
       >
         <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-[14px] bg-primary/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center">
             <Zap className="w-5 h-5 text-primary" />
           </div>
           <h3 className="text-lg font-medium text-foreground tracking-tight">Quick Quiz</h3>
@@ -49,7 +49,7 @@ export function QuizzesTab() {
             <select
               value={selectedSpace}
               onChange={(e) => setSelectedSpace(e.target.value)}
-              className="w-full px-4 py-3 rounded-[14px] border border-border/40 bg-surface-hover text-foreground text-[14px] font-medium focus:outline-none focus:border-primary/50 transition-colors cursor-pointer appearance-none shadow-sm"
+              className="w-full px-4 py-3 rounded-sm border border-border/40 bg-surface-hover text-foreground text-[14px] font-medium focus:outline-none focus:border-primary/50 transition-colors cursor-pointer appearance-none shadow-sm"
             >
               {spaces.map((s) => (
                 <option key={s} value={s} className="bg-surface text-foreground">{s}</option>
@@ -65,7 +65,7 @@ export function QuizzesTab() {
                 <button
                   key={qt.key}
                   onClick={() => setQuizType(qt.key)}
-                  className={`flex-1 py-3 rounded-[14px] text-[13px] font-medium transition-all border shadow-sm ${
+                  className={`flex-1 py-3 rounded-sm text-[13px] font-medium transition-all border shadow-sm ${
                     quizType === qt.key
                       ? "bg-primary border-primary text-white"
                       : "bg-surface-hover border-border/40 text-text-muted hover:border-foreground/20 hover:text-foreground"
@@ -83,7 +83,7 @@ export function QuizzesTab() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-2 px-6 py-3 rounded-[14px] bg-primary text-white font-medium text-[14px] hover:bg-primary-dark transition-all shadow-sm shadow-primary/20"
+            className="flex items-center gap-2 px-6 py-3 rounded-sm bg-primary text-white font-medium text-[14px] hover:bg-primary-dark transition-all shadow-sm shadow-primary/20"
           >
             <Play className="w-4 h-4 fill-current" />
             Start Quiz
@@ -100,14 +100,14 @@ export function QuizzesTab() {
               key={result.id}
               variants={itemVariants}
               whileHover={{ x: 4 }}
-              className="flex items-center gap-4 p-4 rounded-[16px] border border-border/40 bg-surface hover:bg-surface-hover/50 transition-colors shadow-sm cursor-default group"
+              className="flex items-center gap-4 p-4 rounded-sm border border-border/40 bg-surface hover:bg-surface-hover/50 transition-colors shadow-sm cursor-default group"
             >
-              <div className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-[12px] group-hover:scale-105 transition-transform">{result.emoji}</div>
+              <div className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-sm group-hover:scale-105 transition-transform">{result.emoji}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1">
                   <span className="text-[15px] font-medium text-foreground truncate tracking-tight">{result.space}</span>
                   <span
-                    className={`flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase ${
+                    className={`flex items-center px-2 py-0.5 rounded-sm text-[10px] font-medium tracking-wider uppercase ${
                       result.trend > 0 ? "text-emerald-500 bg-emerald-500/10 border border-emerald-500/20" : "text-rose-500 bg-rose-500/10 border border-rose-500/20"
                     }`}
                   >
@@ -128,7 +128,7 @@ export function QuizzesTab() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-[10px] bg-surface-hover border border-border/50 hover:bg-background text-[12px] text-foreground font-medium transition-colors shadow-sm"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-sm bg-surface-hover border border-border/50 hover:bg-background text-[12px] text-foreground font-medium transition-colors shadow-sm"
                 >
                   <RotateCcw size={14} />
                   Retry

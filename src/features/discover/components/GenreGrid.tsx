@@ -21,7 +21,7 @@ export const GenreGrid = () => {
 
   return (
     <motion.section variants={fadeUp} className="mb-16 w-full">
-      <h2 className="text-2xl font-bold text-foreground mb-8">Explore by Genre</h2>
+      <h2 className="text-2xl font-semibold text-foreground mb-8">Explore by Genre</h2>
       
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {GENRES.map((genre, idx) => (
@@ -31,7 +31,7 @@ export const GenreGrid = () => {
             initial="rest"
             whileHover="hover"
             onClick={() => router.push(`/search?tab=books&genre=${encodeURIComponent(genre.name)}`)}
-            className="relative overflow-hidden rounded-3xl cursor-pointer group aspect-[4/3] border border-border shadow-sm"
+            className="relative overflow-hidden rounded-sm cursor-pointer group aspect-[4/3] border border-border shadow-sm"
           >
             {/* Colored Base */}
             <div className={`absolute inset-0 ${genre.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
@@ -45,7 +45,7 @@ export const GenreGrid = () => {
                 {genre.icon}
               </div>
               <div>
-                <h3 className="text-base md:text-lg font-bold text-foreground mb-1 leading-tight">{genre.name}</h3>
+                <h3 className="text-base md:text-lg font-semibold text-foreground mb-1 leading-tight">{genre.name}</h3>
                 <p className="text-xs font-semibold text-text-muted">{genre.count} books</p>
               </div>
             </div>

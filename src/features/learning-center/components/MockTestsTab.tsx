@@ -18,8 +18,8 @@ const itemVariants: Variants = {
 export function MockTestsTab() {
   return (
     <motion.div variants={tabContentVariants} initial="hidden" animate="visible" exit="exit" className="space-y-4">
-      <motion.div variants={itemVariants} className="flex items-center gap-4 p-5 rounded-[16px] border border-border/40 bg-surface shadow-sm">
-        <div className="w-12 h-12 rounded-[14px] bg-emerald-500/10 flex items-center justify-center shrink-0">
+      <motion.div variants={itemVariants} className="flex items-center gap-4 p-5 rounded-sm border border-border/40 bg-surface shadow-sm">
+        <div className="w-12 h-12 rounded-sm bg-emerald-500/10 flex items-center justify-center shrink-0">
           <Timer className="w-6 h-6 text-emerald-500" />
         </div>
         <div>
@@ -34,10 +34,10 @@ export function MockTestsTab() {
             key={test.id}
             variants={itemVariants}
             whileHover={{ y: -2 }}
-            className="p-5 rounded-[16px] border border-border/40 bg-surface hover:bg-surface-hover/50 hover:shadow-md transition-all cursor-default flex flex-col group"
+            className="p-5 rounded-sm border border-border/40 bg-surface hover:bg-surface-hover/50 hover:shadow-md transition-all cursor-default flex flex-col group"
           >
             <div className="flex items-start gap-4 mb-5">
-              <span className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-[12px] group-hover:scale-105 transition-transform shrink-0">{test.emoji}</span>
+              <span className="text-[28px] w-12 h-12 flex items-center justify-center bg-background/50 rounded-sm group-hover:scale-105 transition-transform shrink-0">{test.emoji}</span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between">
                   <div className="pr-3">
@@ -68,7 +68,7 @@ export function MockTestsTab() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex flex-1 items-center justify-center gap-2 px-4 py-2.5 rounded-[12px] bg-emerald-500 hover:bg-emerald-600 text-white text-[13px] font-medium transition-colors shadow-sm shadow-emerald-500/20"
+                className="flex flex-1 items-center justify-center gap-2 px-4 py-2.5 rounded-sm bg-emerald-500 hover:bg-emerald-600 text-white text-[13px] font-medium transition-colors shadow-sm shadow-emerald-500/20"
               >
                 <Play className="w-4 h-4 fill-current" />
                 {test.attempts === 0 ? "Start Test" : "Retake"}
@@ -77,7 +77,7 @@ export function MockTestsTab() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex flex-1 items-center justify-center gap-2 px-4 py-2.5 rounded-[12px] bg-surface-hover border border-border/50 text-foreground text-[13px] font-medium transition-colors hover:bg-background shadow-sm"
+                  className="flex flex-1 items-center justify-center gap-2 px-4 py-2.5 rounded-sm bg-surface-hover border border-border/50 text-foreground text-[13px] font-medium transition-colors hover:bg-background shadow-sm"
                 >
                   <TrendingUp className="w-4 h-4 text-indigo-500" />
                   Improve

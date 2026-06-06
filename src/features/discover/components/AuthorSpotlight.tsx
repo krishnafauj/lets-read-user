@@ -17,7 +17,7 @@ export const AuthorSpotlight = () => {
   return (
     <motion.section variants={fadeUp} className="mb-16 w-full">
       <div className="flex items-end justify-between mb-8 px-2">
-        <h2 className="text-2xl font-bold text-foreground">Author Spotlight</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Author Spotlight</h2>
         <button className="flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-primary transition-colors">
           View all <ChevronRight size={16} />
         </button>
@@ -32,8 +32,8 @@ export const AuthorSpotlight = () => {
             whileHover="hover"
             className="flex flex-col items-center gap-4 group cursor-pointer snap-start shrink-0"
           >
-            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-tr from-surface via-surface-hover to-border group-hover:from-primary group-hover:via-secondary group-hover:to-warning transition-colors duration-500 shadow-md">
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-background">
+            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-sm p-1 bg-gradient-to-tr from-surface via-surface-hover to-border group-hover:from-primary group-hover:via-secondary group-hover:to-warning transition-colors duration-500 shadow-md">
+              <div className="relative w-full h-full rounded-sm overflow-hidden border-4 border-background">
                 <Image 
                   src={author.img} 
                   alt={author.name} 
@@ -43,13 +43,13 @@ export const AuthorSpotlight = () => {
               </div>
               
               {/* Follow button pill that appears on hover */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-semibold uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                 Follow
               </div>
             </div>
             
             <div className="text-center mt-2">
-              <h3 className="text-base md:text-lg font-bold text-foreground group-hover:text-primary transition-colors">{author.name}</h3>
+              <h3 className="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{author.name}</h3>
               <p className="text-xs font-semibold text-text-muted">{author.role}</p>
               <p className="text-[10px] text-text-muted/70 mt-1">{author.followers} Followers</p>
             </div>

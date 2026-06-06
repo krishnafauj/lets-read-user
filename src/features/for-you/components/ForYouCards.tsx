@@ -6,19 +6,19 @@ import Image from "next/image";
 import { cardHover } from "../utils/animations";
 
 export const Badge = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white/90 border border-white/10 ${className}`}>
+  <span className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1 rounded-sm bg-white/20 backdrop-blur-md text-white/90 border border-white/10 ${className}`}>
     {children}
   </span>
 );
 
 export const AddButton = () => (
-  <button className="flex items-center gap-1 bg-white text-black text-xs font-semibold px-4 py-1.5 rounded-full hover:bg-gray-100 transition-colors shadow-lg shadow-black/20">
+  <button className="flex items-center gap-1 bg-white text-black text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-gray-100 transition-colors shadow-lg shadow-black/20">
     <Plus size={14} /> Add
   </button>
 );
 
 export const Card1Monsters = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group">
     <div className="absolute inset-0 bg-[#3E3120] mix-blend-multiply" />
     <Image 
       src="https://images.unsplash.com/photo-1614294149010-950b698f72c0?q=80&w=600&auto=format&fit=crop" 
@@ -29,14 +29,14 @@ export const Card1Monsters = () => (
     <div className="absolute inset-0 bg-gradient-to-t from-[#251A0F] via-[#251A0F]/60 to-transparent" />
     <div className="absolute inset-0 p-6 flex flex-col justify-end">
       <Badge className="mb-4 w-fit bg-white/10 text-white/80">Recommendation</Badge>
-      <h2 className="text-2xl font-bold text-white mb-2 leading-tight">The Monsters and Creatures Compendium</h2>
+      <h2 className="text-2xl font-semibold text-white mb-2 leading-tight">The Monsters and Creatures Compendium</h2>
       <p className="text-sm text-white/60">Discover the terrifying monsters and fascinating beasts of Dungeons & Dragons.</p>
     </div>
   </motion.div>
 );
 
 export const Card2SciFi = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group">
     <Image 
       src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop" 
       alt="Science Fiction" 
@@ -49,7 +49,7 @@ export const Card2SciFi = () => (
         <Badge className="bg-black/40 border-none text-white/80">Genre</Badge>
       </div>
       <div>
-        <h3 className="text-xl font-bold text-white mb-1">Science Fiction</h3>
+        <h3 className="text-xl font-semibold text-white mb-1">Science Fiction</h3>
         <div className="flex items-end justify-between gap-2">
           <p className="text-xs text-white/60 flex-1">Explores futuristic worlds shaped by science and imagination.</p>
           <AddButton />
@@ -60,8 +60,8 @@ export const Card2SciFi = () => (
 );
 
 export const Card3Quote = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl p-6 flex flex-col items-center justify-center text-center overflow-hidden bg-primary bg-gradient-to-br from-primary to-[#007F78] shadow-lg">
-    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-4 border border-white/10 shadow-sm">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm p-6 flex flex-col items-center justify-center text-center overflow-hidden bg-primary bg-gradient-to-br from-primary to-[#007F78] shadow-lg">
+    <div className="w-10 h-10 rounded-sm bg-white/20 flex items-center justify-center mb-4 border border-white/10 shadow-sm">
       <span className="text-2xl font-serif text-white -mt-2">"</span>
     </div>
     <p className="text-sm font-medium text-white/90 leading-relaxed mb-4 font-serif italic">
@@ -74,14 +74,14 @@ export const Card3Quote = () => (
 );
 
 export const Card4Banner = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden bg-surface-hover p-6 md:p-8 flex items-center justify-between group shadow-sm border border-border">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden bg-surface-hover p-6 md:p-8 flex items-center justify-between group shadow-sm border border-border">
     <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-primary/10 to-transparent" />
     <div className="relative z-10 max-w-[60%]">
-      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight tracking-tight">Best of crime and mystery books.</h2>
+      <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 leading-tight tracking-tight">Best of crime and mystery books.</h2>
       <p className="text-sm text-text-muted mb-6 max-w-sm">A gripping collection of the finest crime and mystery stories, filled with twists.</p>
-      <button className="flex items-center gap-3 bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-primary-dark transition-colors shadow-md shadow-primary/20">
+      <button className="flex items-center gap-3 bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-sm hover:bg-primary-dark transition-colors shadow-md shadow-primary/20">
         Explore Books
-        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white">
+        <div className="w-6 h-6 rounded-sm bg-white/20 flex items-center justify-center text-white">
           <ChevronRight size={14} />
         </div>
       </button>
@@ -104,7 +104,7 @@ export const Card4Banner = () => (
 );
 
 export const Card5Fantasy = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group">
     <Image 
       src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" 
       alt="Fantasy" 
@@ -117,7 +117,7 @@ export const Card5Fantasy = () => (
         <Badge className="bg-black/30 border-none text-white/80">Genre</Badge>
       </div>
       <div>
-        <h3 className="text-xl font-bold text-white mb-1">Fantasy</h3>
+        <h3 className="text-xl font-semibold text-white mb-1">Fantasy</h3>
         <div className="flex items-end justify-between gap-2">
           <p className="text-xs text-white/60 flex-1">Explores magical worlds, mythical creatures, and adventures.</p>
           <AddButton />
@@ -128,7 +128,7 @@ export const Card5Fantasy = () => (
 );
 
 export const Card6Goosebumps = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group bg-[#2A3129]">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group bg-[#2A3129]">
     <div className="absolute inset-0 h-2/3">
       <Image 
         src="https://images.unsplash.com/photo-1509557965875-b88c97052f0e?q=80&w=600&auto=format&fit=crop" 
@@ -140,7 +140,7 @@ export const Card6Goosebumps = () => (
     </div>
     <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end bg-gradient-to-t from-[#2A3129] via-[#2A3129] to-transparent pt-20">
       <Badge className="mb-3 w-fit bg-white/5 border-white/10 text-white/70">Halloween Pick</Badge>
-      <h3 className="text-2xl font-bold text-white mb-1 leading-tight">Goosebumps: The Werewolf of fever swamp</h3>
+      <h3 className="text-2xl font-semibold text-white mb-1 leading-tight">Goosebumps: The Werewolf of fever swamp</h3>
       <p className="text-xs font-semibold text-white/50 mb-3 tracking-wider uppercase">R.L Stine</p>
       <p className="text-xs text-white/50 leading-relaxed">A creepy and fun adventure with just the right amount of mystery and chills. Classic Goosebumps at its best.</p>
     </div>
@@ -148,7 +148,7 @@ export const Card6Goosebumps = () => (
 );
 
 export const Card7HarryPotter = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group bg-[#112328]">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group bg-[#112328]">
     <div className="absolute inset-0 h-[70%]">
       <Image 
         src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=600&auto=format&fit=crop" 
@@ -160,14 +160,14 @@ export const Card7HarryPotter = () => (
     </div>
     <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end bg-gradient-to-t from-[#112328] via-[#112328] to-transparent pt-24">
       <Badge className="mb-3 w-fit bg-white/5 border-white/10 text-white/70">Recommendation</Badge>
-      <h3 className="text-2xl font-bold text-white mb-2 leading-tight">Harry Potter and the Prisoner of Azkaban</h3>
+      <h3 className="text-2xl font-semibold text-white mb-2 leading-tight">Harry Potter and the Prisoner of Azkaban</h3>
       <p className="text-xs text-white/50 leading-relaxed">Follows Harry's third year at Hogwarts, where he uncovers the truth about Sirius Black.</p>
     </div>
   </motion.div>
 );
 
 export const Card8Author = () => (
-  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-3xl overflow-hidden group">
+  <motion.div variants={cardHover} initial="rest" whileHover="hover" className="relative w-full h-full rounded-sm overflow-hidden group">
     <Image 
       src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop" 
       alt="Karen William" 
@@ -178,7 +178,7 @@ export const Card8Author = () => (
     <div className="absolute inset-0 p-5 flex flex-col justify-end">
       <div className="flex items-end justify-between">
         <div>
-          <h3 className="text-xl font-bold text-white mb-1">Karen William</h3>
+          <h3 className="text-xl font-semibold text-white mb-1">Karen William</h3>
           <p className="text-xs text-white/60">450 Books</p>
         </div>
         <AddButton />

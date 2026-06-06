@@ -26,10 +26,10 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
         initial="rest"
         whileHover="hover"
         animate="rest"
-        className="group flex items-center gap-4 p-4 rounded-2xl bg-surface-hover/30 border border-border/40 hover:bg-surface hover:shadow-md transition-all cursor-pointer"
+        className="group flex items-center gap-4 p-4 rounded-sm bg-surface-hover/30 border border-border/40 hover:bg-surface hover:shadow-md transition-all cursor-pointer"
       >
         <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 shadow-sm"
+          className="w-12 h-12 rounded-sm flex items-center justify-center text-2xl shrink-0 shadow-sm"
           style={{ background: item.spaceColor + "15" }}
         >
           {item.emoji}
@@ -45,7 +45,7 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
         </div>
         <div className="hidden sm:flex flex-col items-end gap-1.5 shrink-0">
           <span
-            className="px-2.5 py-0.5 rounded-[8px] text-[10px] font-semibold uppercase tracking-wider"
+            className="px-2.5 py-0.5 rounded-sm text-[10px] font-semibold uppercase tracking-wider"
             style={{ background: item.spaceColor + "15", color: item.spaceColor }}
           >
             {item.space}
@@ -62,7 +62,7 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
         )}
         <button
           onClick={(e) => { e.stopPropagation(); setStarred(!starred); }}
-          className="shrink-0 p-2 rounded-full hover:bg-surface-hover/50 transition-colors ml-2"
+          className="shrink-0 p-2 rounded-sm hover:bg-surface-hover/50 transition-colors ml-2"
         >
           <Star
             size={18}
@@ -79,7 +79,7 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
       initial="rest"
       whileHover="hover"
       animate="rest"
-      className="group relative flex flex-col h-[280px] rounded-[24px] overflow-hidden bg-surface border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+      className="group relative flex flex-col h-[280px] rounded-sm overflow-hidden bg-surface border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
     >
       {/* Top Light Colored Block */}
       <div 
@@ -99,7 +99,7 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
 
         <button 
           onClick={(e) => { e.stopPropagation(); setStarred(!starred); }} 
-          className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-black/5 transition-colors z-10"
+          className="absolute top-5 right-5 p-1.5 rounded-sm hover:bg-black/5 transition-colors z-10"
         >
           <Star
             size={18}
@@ -118,20 +118,20 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
 
         <div className="flex flex-wrap gap-2 mt-auto pt-4 relative z-10">
           <span
-            className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md"
+            className="px-3 py-1 rounded-sm text-xs font-medium backdrop-blur-md"
             style={{ backgroundColor: item.spaceColor + "40", color: "var(--color-foreground)" }}
           >
             {item.space}
           </span>
           <span
-            className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md"
+            className="px-3 py-1 rounded-sm text-xs font-medium backdrop-blur-md"
             style={{ backgroundColor: "rgba(255,255,255,0.6)", color: "var(--color-foreground)" }}
           >
             {item.type}
           </span>
           {item.progress !== undefined && (
             <span
-              className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md"
+              className="px-3 py-1 rounded-sm text-xs font-medium backdrop-blur-md"
               style={{ backgroundColor: "rgba(255,255,255,0.6)", color: "var(--color-foreground)" }}
             >
               {item.progress}%
@@ -143,7 +143,7 @@ export function LibraryCard({ item, view }: { item: LibraryItem; view: ViewMode 
       {/* Bottom Action Footer */}
       <div className="p-4 px-5 bg-surface flex items-center justify-between border-t border-border/50 shrink-0">
         <span className="text-[15px] font-medium text-foreground">Explore</span>
-        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-hover text-text-muted group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
+        <div className="w-8 h-8 flex items-center justify-center rounded-sm bg-surface-hover text-text-muted group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
           <ArrowRight size={16} />
         </div>
       </div>

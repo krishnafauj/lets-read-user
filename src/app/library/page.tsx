@@ -106,9 +106,9 @@ export default function LibraryPage() {
     <div className="relative min-h-screen">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute top-[30%] -left-[10%] w-[40%] h-[40%] rounded-full bg-secondary/5 blur-[120px]" />
-        <div className="absolute bottom-[10%] right-[20%] w-[30%] h-[30%] rounded-full bg-primary/5 blur-[100px]" />
+        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-sm bg-primary/5 blur-[120px]" />
+        <div className="absolute top-[30%] -left-[10%] w-[40%] h-[40%] rounded-sm bg-secondary/5 blur-[120px]" />
+        <div className="absolute bottom-[10%] right-[20%] w-[30%] h-[30%] rounded-sm bg-primary/5 blur-[100px]" />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
       </div>
 
@@ -129,10 +129,10 @@ export default function LibraryPage() {
               {libraryItems.length} items saved across your spaces
             </p>
           </div>
-          <div className="flex items-center gap-2 p-1 bg-surface-hover/30 border border-border/50 rounded-xl">
+          <div className="flex items-center gap-2 p-1 bg-surface-hover/30 border border-border/50 rounded-sm">
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-2.5 rounded-lg transition-all ${
+              className={`p-2.5 rounded-sm transition-all ${
                 viewMode === "grid"
                   ? "bg-surface shadow-sm text-foreground"
                   : "text-text-muted hover:text-foreground"
@@ -142,7 +142,7 @@ export default function LibraryPage() {
             </button>
             <button
               onClick={() => setViewMode("list")}
-              className={`p-2.5 rounded-lg transition-all ${
+              className={`p-2.5 rounded-sm transition-all ${
                 viewMode === "list"
                   ? "bg-surface shadow-sm text-foreground"
                   : "text-text-muted hover:text-foreground"
@@ -156,12 +156,12 @@ export default function LibraryPage() {
 
       {/* Tabs */}
       <motion.div variants={itemVariants} className="w-full overflow-x-auto scrollbar-hide mb-8 pb-2">
-        <div className="flex gap-1.5 p-1.5 bg-surface-hover/30 rounded-2xl border border-border/40 w-fit min-w-max">
+        <div className="flex gap-1.5 p-1.5 bg-surface-hover/30 rounded-sm border border-border/40 w-fit min-w-max">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-medium transition-all duration-300 ${
                 activeTab === tab.key
                   ? "text-background"
                   : "text-text-muted hover:text-foreground"
@@ -170,14 +170,14 @@ export default function LibraryPage() {
               {activeTab === tab.key && (
                 <motion.div
                   layoutId="activeLibTab"
-                  className="absolute inset-0 rounded-xl bg-foreground shadow-sm"
+                  className="absolute inset-0 rounded-sm bg-foreground shadow-sm"
                   transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
                 />
               )}
               <span className="relative z-10 flex items-center gap-2 whitespace-nowrap">
                 {tab.icon}
                 {tab.label}
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${activeTab === tab.key ? "bg-background/20 text-background" : "bg-border text-text-muted"}`}>
+                <span className={`text-[10px] px-2 py-0.5 rounded-sm font-semibold ${activeTab === tab.key ? "bg-background/20 text-background" : "bg-border text-text-muted"}`}>
                   {counts[tab.key]}
                 </span>
               </span>
@@ -195,10 +195,10 @@ export default function LibraryPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search your library..."
-            className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-surface/50 border border-border/60 text-sm font-medium text-foreground placeholder:text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 transition-all shadow-sm"
+            className="w-full pl-11 pr-4 py-3.5 rounded-sm bg-surface/50 border border-border/60 text-sm font-medium text-foreground placeholder:text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 transition-all shadow-sm"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-foreground transition-colors p-1 bg-surface-hover rounded-full">
+            <button onClick={() => setQuery("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-foreground transition-colors p-1 bg-surface-hover rounded-sm">
               <X size={14} />
             </button>
           )}
@@ -207,7 +207,7 @@ export default function LibraryPage() {
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl border text-sm font-medium transition-all shadow-sm ${
+            className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3.5 rounded-sm border text-sm font-medium transition-all shadow-sm ${
               showFilters || selectedSpace !== "All Spaces"
                 ? "bg-foreground text-background border-foreground"
                 : "bg-surface border-border/60 text-text-muted hover:text-foreground hover:bg-surface-hover/50 hover:border-foreground/20"
@@ -216,7 +216,7 @@ export default function LibraryPage() {
             <Filter size={16} />
             Filter
             {selectedSpace !== "All Spaces" && (
-              <span className="w-2 h-2 rounded-full bg-background" />
+              <span className="w-2 h-2 rounded-sm bg-background" />
             )}
           </button>
 
@@ -224,7 +224,7 @@ export default function LibraryPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full appearance-none flex items-center gap-2 px-5 py-3.5 pr-10 rounded-2xl bg-surface border border-border/60 text-sm font-medium text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 cursor-pointer transition-all shadow-sm hover:border-foreground/20"
+              className="w-full appearance-none flex items-center gap-2 px-5 py-3.5 pr-10 rounded-sm bg-surface border border-border/60 text-sm font-medium text-text-muted focus:outline-none focus:border-foreground/30 focus:ring-4 focus:ring-foreground/5 cursor-pointer transition-all shadow-sm hover:border-foreground/20"
             >
               {SORT_OPTIONS.map((opt) => (
                <option key={opt} value={opt} className="bg-surface text-foreground font-medium">{opt}</option>
@@ -245,7 +245,7 @@ export default function LibraryPage() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="mb-8 origin-top"
           >
-            <div className="p-6 rounded-3xl bg-surface-hover/30 border border-border/40 flex flex-wrap gap-8 shadow-sm">
+            <div className="p-6 rounded-sm bg-surface-hover/30 border border-border/40 flex flex-wrap gap-8 shadow-sm">
               <div className="flex-1 min-w-[200px]">
                 <label className="text-[11px] font-medium text-text-muted uppercase tracking-wider block mb-3 pl-1">Space</label>
                 <div className="flex flex-wrap gap-2">
@@ -253,7 +253,7 @@ export default function LibraryPage() {
                     <button
                       key={space}
                       onClick={() => setSelectedSpace(space)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all border ${
+                      className={`px-3.5 py-2 rounded-sm text-xs font-medium transition-all border ${
                         selectedSpace === space
                           ? "bg-foreground text-background border-foreground shadow-sm"
                           : "bg-surface-hover/50 text-text-muted border-border/40 hover:text-foreground hover:bg-surface hover:border-foreground/30"
@@ -270,7 +270,7 @@ export default function LibraryPage() {
                   {["Today", "This Week", "This Month", "All Time"].map((d) => (
                     <button
                       key={d}
-                      className="px-3.5 py-2 rounded-xl text-xs font-medium transition-all border bg-surface-hover/50 text-text-muted border-border/40 hover:text-foreground hover:bg-surface hover:border-foreground/30 flex items-center gap-1.5"
+                      className="px-3.5 py-2 rounded-sm text-xs font-medium transition-all border bg-surface-hover/50 text-text-muted border-border/40 hover:text-foreground hover:bg-surface hover:border-foreground/30 flex items-center gap-1.5"
                     >
                       <Calendar size={12} className="opacity-70" />
                       {d}

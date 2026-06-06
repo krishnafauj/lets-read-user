@@ -48,11 +48,11 @@ export const TrendingCarousel = () => {
     <motion.section variants={fadeUp} className="mb-16 w-full">
       <div className="flex items-end justify-between mb-8 px-2">
         <div>
-          <div className="flex items-center gap-2 text-primary font-bold mb-1">
+          <div className="flex items-center gap-2 text-primary font-semibold mb-1">
             <TrendingUp size={20} />
             <span className="uppercase tracking-wider text-xs">Trending Now</span>
           </div>
-          <h2 className="text-3xl font-bold text-foreground">Readers' Top Picks</h2>
+          <h2 className="text-3xl font-semibold text-foreground">Readers' Top Picks</h2>
         </div>
         <button className="hidden sm:flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-primary transition-colors">
           View all <ChevronRight size={16} />
@@ -82,14 +82,14 @@ export const TrendingCarousel = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             
             <div className="absolute inset-0 p-6 flex flex-col justify-between">
-              <div className="self-end bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1 text-yellow-400 text-xs font-bold shadow-xl transform translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+              <div className="self-end bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1 text-yellow-400 text-xs font-semibold shadow-xl transform translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                 <Star size={12} fill="currentColor" /> {book.rating}
               </div>
               
               <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-2xl font-bold text-white mb-1 leading-tight">{book.title}</h3>
+                <h3 className="text-2xl font-semibold text-white mb-1 leading-tight">{book.title}</h3>
                 <p className="text-sm font-medium text-white/60 mb-4">{book.author}</p>
-                <button className="w-full py-3 rounded-xl bg-white/10 hover:bg-primary text-white text-sm font-bold backdrop-blur-md border border-white/20 transition-colors opacity-0 group-hover:opacity-100 duration-300">
+                <button className="w-full py-3 rounded-xl bg-white/10 hover:bg-primary text-white text-sm font-semibold backdrop-blur-md border border-white/20 transition-colors opacity-0 group-hover:opacity-100 duration-300">
                   Read Now
                 </button>
               </div>

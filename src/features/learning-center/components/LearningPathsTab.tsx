@@ -18,7 +18,7 @@ const itemVariants: Variants = {
 export function LearningPathsTab() {
   const statusIcon = (status: PathNode["status"]) => {
     if (status === "completed") return <CheckCircle2 className="w-5 h-5 text-emerald-500" />;
-    if (status === "current") return <div className="w-5 h-5 rounded-full border-2 border-indigo-500 bg-indigo-500/10 flex items-center justify-center"><div className="w-2.5 h-2.5 rounded-full bg-indigo-500" /></div>;
+    if (status === "current") return <div className="w-5 h-5 rounded-sm border-2 border-indigo-500 bg-indigo-500/10 flex items-center justify-center"><div className="w-2.5 h-2.5 rounded-sm bg-indigo-500" /></div>;
     return <Circle className="w-5 h-5 text-text-muted/40" />;
   };
 
@@ -27,13 +27,13 @@ export function LearningPathsTab() {
       {/* Header */}
       <motion.div
         variants={itemVariants}
-        className="rounded-[20px] border border-indigo-500/20 p-6 bg-surface shadow-sm relative overflow-hidden"
+        className="rounded-sm border border-indigo-500/20 p-6 bg-surface shadow-sm relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[60px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[60px] rounded-sm pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="flex items-start justify-between relative z-10">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-[14px] bg-indigo-500/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-sm bg-indigo-500/10 flex items-center justify-center">
                 <Map className="w-5 h-5 text-indigo-500" />
               </div>
               <h3 className="text-lg font-medium text-foreground tracking-tight">Deep Work Mastery Path</h3>
@@ -48,19 +48,19 @@ export function LearningPathsTab() {
       </motion.div>
 
       {/* Path Nodes */}
-      <motion.div variants={itemVariants} className="relative pl-6 md:pl-8">
+      <motion.div variants={itemVariants} className="relative">
         {/* Vertical line connecting nodes */}
-        <div className="absolute top-6 bottom-8 left-8 md:left-10 w-px bg-border/60" />
+        <div className="absolute top-6 bottom-8 left-6 w-px bg-border/60" />
 
         <div className="space-y-6">
           {pathNodes.map((node, i) => (
-            <div key={node.id} className="relative flex items-center gap-6 group">
-              <div className="absolute -left-2 w-12 flex justify-center bg-background py-1">
+            <div key={node.id} className="relative flex items-center gap-4 group">
+              <div className="w-12 flex justify-center bg-background py-2 relative z-10 shrink-0">
                 {statusIcon(node.status)}
               </div>
               
               <div
-                className={`flex-1 flex items-center justify-between p-4 rounded-[16px] border transition-all ${
+                className={`flex-1 flex items-center justify-between p-4 rounded-sm border transition-all ${
                   node.status === "current"
                     ? "border-indigo-500/30 bg-indigo-500/5 shadow-sm"
                     : node.status === "completed"
@@ -84,7 +84,7 @@ export function LearningPathsTab() {
                   <motion.button
                     whileHover={{ scale: 1.05, x: 2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-[12px] bg-indigo-500 text-white text-[13px] font-medium shadow-sm hover:bg-indigo-600 transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-sm bg-indigo-500 text-white text-[13px] font-medium shadow-sm hover:bg-indigo-600 transition-colors"
                   >
                     Continue <ArrowRight className="w-3.5 h-3.5" />
                   </motion.button>

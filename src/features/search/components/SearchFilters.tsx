@@ -37,7 +37,7 @@ export const SearchFilters = ({
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-semibold transition-all whitespace-nowrap ${
               activeTab === tab.id
                 ? "bg-primary text-white shadow-md shadow-primary/20"
                 : "bg-surface-hover text-text-muted hover:text-foreground border border-border"
@@ -55,7 +55,7 @@ export const SearchFilters = ({
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
-        className="flex flex-wrap items-center gap-3 p-4 rounded-2xl bg-surface-hover/50 border border-border mb-4"
+        className="flex flex-wrap items-center gap-3 p-4 rounded-sm bg-surface-hover/50 border border-border mb-4"
       >
         <span className="text-xs font-semibold uppercase tracking-wider text-text-muted mr-2">Quick Filters:</span>
         
@@ -96,7 +96,7 @@ export const SearchFilters = ({
         <div className="ml-auto">
           <button 
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-semibold transition-colors ${
               showAdvanced 
                 ? "bg-primary text-white border-primary shadow-md shadow-primary/20" 
                 : "text-text-muted hover:text-foreground bg-background border border-border hover:border-primary hover:text-primary"
@@ -113,12 +113,12 @@ export const SearchFilters = ({
 
 export const FilterDropdown = ({ label, options, value, onChange }: { label: string, options: string[], value: string, onChange: (v: string) => void }) => (
   <div className="flex flex-col gap-1.5">
-    <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider pl-1">{label}</label>
+    <label className="text-[10px] font-semibold text-text-muted uppercase tracking-wider pl-1">{label}</label>
     <div className="relative group">
       <select 
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none bg-surface/40 backdrop-blur-md border border-border/60 text-[13px] font-medium text-foreground rounded-xl px-3 py-2 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm hover:border-primary/40 hover:bg-surface-hover/60 cursor-pointer"
+        className="w-full appearance-none bg-surface/40 backdrop-blur-md border border-border/60 text-[13px] font-medium text-foreground rounded-sm px-3 py-2 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm hover:border-primary/40 hover:bg-surface-hover/60 cursor-pointer"
       >
         {options.map((opt, i) => (
           <option key={i} value={opt} className="bg-surface text-foreground font-medium py-1">{opt}</option>
@@ -134,7 +134,7 @@ export const FilterDropdown = ({ label, options, value, onChange }: { label: str
 export const FilterChip = ({ label, icon, onRemove }: { label: string, icon?: React.ReactNode, onRemove?: () => void }) => (
   <button 
     onClick={onRemove}
-    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-background border border-border hover:border-primary hover:text-primary transition-colors text-text-muted group"
+    className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium bg-background border border-border hover:border-primary hover:text-primary transition-colors text-text-muted group"
   >
     {icon}
     {label}
