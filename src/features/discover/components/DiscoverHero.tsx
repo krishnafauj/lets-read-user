@@ -68,7 +68,10 @@ export const DiscoverHero = () => {
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => setIsFocused(true)}
+                onFocus={() => {
+                  setIsFocused(true);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
                 onBlur={() => setTimeout(() => setIsFocused(false), 200)}
                 placeholder="Search books, authors, genres, or ISBN..."
                 className="w-full bg-transparent text-foreground placeholder:text-text-muted text-lg outline-none border-none p-0 focus:ring-0"
