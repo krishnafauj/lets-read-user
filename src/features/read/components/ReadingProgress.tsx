@@ -14,8 +14,8 @@ export function ReadingProgress({ progress, chapters }: ReadingProgressProps) {
       <div className="bg-surface-hover p-6 rounded-2xl mb-8 flex items-center gap-6 relative overflow-hidden">
         <div className="flex-1 z-10">
           <div className="flex justify-between items-end mb-2">
-            <span className="font-bold text-sm text-foreground">Reading progress</span>
-            <span className="text-xs font-semibold text-text-muted">{progress}% complete</span>
+            <span className="font-normal text-sm text-foreground">Reading progress</span>
+            <span className="text-xs font-normal text-text-muted">{progress}% complete</span>
           </div>
           <div className="h-2.5 bg-background rounded-full overflow-hidden w-full">
             <div 
@@ -26,15 +26,15 @@ export function ReadingProgress({ progress, chapters }: ReadingProgressProps) {
         </div>
         {/* Decorative graphic on the right */}
         <div className="absolute right-0 -bottom-6 opacity-40 select-none pointer-events-none">
-           <div className="text-[100px] font-black tracking-tighter text-[#F4A261] rotate-12">{"{ }"}</div>
+           <div className="text-[100px] font-normal tracking-tighter text-[#F4A261] rotate-12">{"{ }"}</div>
         </div>
       </div>
 
       {/* Chapters */}
       <div>
         <div className="flex items-center gap-2 mb-4">
-          <h3 className="font-bold text-foreground">Chapters</h3>
-          <span className="bg-surface-hover text-text-muted text-xs font-bold px-2 py-0.5 rounded-full">{chapters.length}</span>
+          <h3 className="font-normal text-foreground">Chapters</h3>
+          <span className="bg-surface-hover text-text-muted text-xs font-normal px-2 py-0.5 rounded-full">{chapters.length}</span>
         </div>
         
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -45,11 +45,11 @@ export function ReadingProgress({ progress, chapters }: ReadingProgressProps) {
                 {chapter.locked && (
                   <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center backdrop-blur-[2px]">
                     <Lock size={20} className="text-white mb-2" />
-                    <span className="text-[10px] font-bold text-black bg-white/90 px-2 py-1 rounded-full">Coming soon</span>
+                    <span className="text-[10px] font-normal text-black bg-white/90 px-2 py-1 rounded-full">Coming soon</span>
                   </div>
                 )}
               </div>
-              <p className="text-xs font-bold text-foreground text-center truncate">{chapter.title}</p>
+              <p className="text-xs font-normal text-foreground text-center truncate">{chapter.title}</p>
             </div>
           ))}
         </div>

@@ -1,19 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { MessageSquare, ChevronRight, ArrowUpRight } from "lucide-react";
 import { recentChats } from "../apis/mockData";
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export function RecentConversations() {
   return (
     <motion.section variants={itemVariants} className="space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold flex items-center gap-2">
+        <h2 className="text-xl font-normal flex items-center gap-2">
           <MessageSquare size={20} className="text-primary" />
           Recent AI Conversations
         </h2>
@@ -38,7 +38,7 @@ export function RecentConversations() {
                 {chat.emoji}
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold mb-1 text-primary uppercase tracking-wider">
+                <p className="text-xs font-normal mb-1 text-primary uppercase tracking-wider">
                   {chat.space}
                 </p>
                 <p className="text-base truncate font-medium text-foreground group-hover:text-primary transition-colors">
@@ -51,7 +51,7 @@ export function RecentConversations() {
               <span className="text-sm hidden sm:block text-text-muted font-medium">
                 {chat.timestamp}
               </span>
-              <button className="text-sm font-bold flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <button className="text-sm font-normal flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                 View <ArrowUpRight size={14} />
               </button>
             </div>

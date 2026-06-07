@@ -1,18 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { BarChart3, TrendingUp } from "lucide-react";
 import { statCards } from "../apis/mockData";
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export function QuickStats() {
   return (
     <motion.section variants={itemVariants} className="space-y-5">
-      <h2 className="text-xl font-bold flex items-center gap-2">
+      <h2 className="text-xl font-normal flex items-center gap-2">
         <BarChart3 size={20} className="text-primary" />
         Your progress
       </h2>
@@ -31,7 +31,7 @@ export function QuickStats() {
                 {stat.icon}
               </div>
               <span
-                className={`text-xs font-bold flex items-center gap-1 px-2 py-1 rounded-md ${
+                className={`text-xs font-normal flex items-center gap-1 px-2 py-1 rounded-md ${
                   stat.trendUp 
                     ? "text-success bg-success/10" 
                     : "text-destructive bg-destructive/10"
@@ -42,7 +42,7 @@ export function QuickStats() {
               </span>
             </div>
             <div>
-              <p className="text-3xl font-bold tracking-tight text-foreground">{stat.value}</p>
+              <p className="text-3xl font-normal tracking-tight text-foreground">{stat.value}</p>
               <p className="text-sm mt-1 text-text-muted font-medium">
                 {stat.label}
               </p>

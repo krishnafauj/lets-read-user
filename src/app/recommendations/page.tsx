@@ -74,49 +74,54 @@ export default function RecommendationsPage() {
         initial="hidden"
         animate="visible"
       >
-        {/* Header */}
-        <div className="w-full mb-8 flex flex-col items-start gap-4">
-          <Link 
-            href="/discover" 
-            className="w-10 h-10 rounded-sm bg-surface-hover/50 hover:bg-surface-hover flex items-center justify-center text-text-muted hover:text-foreground transition-all active:scale-95"
-            title="Back to Discover"
-          >
-            <ArrowLeft size={20} />
-          </Link>
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-2 flex items-center gap-3">
-              Recommended for You
-            </h1>
-            <p className="text-sm md:text-base text-text-muted max-w-xl">
+        {/* Modern Header & Toggle Section */}
+        <div className="w-full mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8 relative">
+          {/* Subtle background glow */}
+          <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none -z-10" />
+          
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-5">
+              <Link 
+                href="/discover" 
+                className="w-12 h-12 shrink-0 rounded-sm bg-surface/50 border border-border/50 hover:bg-surface hover:border-primary/30 flex items-center justify-center text-text-muted hover:text-foreground transition-all active:scale-95 shadow-sm backdrop-blur-md group"
+                title="Back to Discover"
+              >
+                <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform" />
+              </Link>
+              <h1 className="text-4xl md:text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent tracking-tight">
+                Recommended for You
+              </h1>
+            </div>
+            <p className="text-[15px] text-text-muted max-w-xl leading-relaxed ml-[68px]">
               A highly curated feed of books and authors tailored precisely to your reading history, learning paths, and active spaces.
             </p>
           </div>
-        </div>
 
-        {/* Toggle */}
-        <div className="flex gap-1.5 p-1.5 rounded-sm bg-surface border border-border/40 w-fit min-w-max shadow-sm mb-10">
-          <button
-            onClick={() => setView("books")}
-            className={`relative flex items-center gap-2 px-6 py-2.5 rounded-sm text-sm font-semibold transition-all duration-300 ${
-              view === "books" ? "text-white" : "text-text-muted hover:text-foreground"
-            }`}
-          >
-            {view === "books" && (
-              <motion.div layoutId="recTab" className="absolute inset-0 rounded-sm bg-primary shadow-md" />
-            )}
-            <span className="relative z-10 flex items-center gap-2"><BookOpen size={16} /> Books</span>
-          </button>
-          <button
-            onClick={() => setView("authors")}
-            className={`relative flex items-center gap-2 px-6 py-2.5 rounded-sm text-sm font-semibold transition-all duration-300 ${
-              view === "authors" ? "text-white" : "text-text-muted hover:text-foreground"
-            }`}
-          >
-            {view === "authors" && (
-              <motion.div layoutId="recTab" className="absolute inset-0 rounded-sm bg-primary shadow-md" />
-            )}
-            <span className="relative z-10 flex items-center gap-2"><Users size={16} /> Authors</span>
-          </button>
+          {/* Toggle */}
+          <div className="flex gap-1.5 p-1.5 rounded-sm bg-surface/60 backdrop-blur-md border border-border/40 w-fit min-w-max shadow-sm relative z-10 ml-[68px] lg:ml-0">
+            <button
+              onClick={() => setView("books")}
+              className={`relative flex items-center gap-2 px-6 py-2.5 rounded-sm text-sm font-semibold transition-all duration-300 ${
+                view === "books" ? "text-white" : "text-text-muted hover:text-foreground"
+              }`}
+            >
+              {view === "books" && (
+                <motion.div layoutId="recTab" className="absolute inset-0 rounded-sm bg-primary shadow-lg shadow-primary/20" />
+              )}
+              <span className="relative z-10 flex items-center gap-2"><BookOpen size={16} /> Books</span>
+            </button>
+            <button
+              onClick={() => setView("authors")}
+              className={`relative flex items-center gap-2 px-6 py-2.5 rounded-sm text-sm font-semibold transition-all duration-300 ${
+                view === "authors" ? "text-white" : "text-text-muted hover:text-foreground"
+              }`}
+            >
+              {view === "authors" && (
+                <motion.div layoutId="recTab" className="absolute inset-0 rounded-sm bg-primary shadow-lg shadow-primary/20" />
+              )}
+              <span className="relative z-10 flex items-center gap-2"><Users size={16} /> Authors</span>
+            </button>
+          </div>
         </div>
 
         {/* Content Sections */}
@@ -138,7 +143,7 @@ export default function RecommendationsPage() {
                       <h2 className="text-xl font-semibold text-foreground">{section.title}</h2>
                     </div>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                       {section.books.map((book, i) => (
                         <motion.div key={i} variants={hoverScale} initial="rest" whileHover="hover" className="group cursor-pointer">
                           <div className="relative aspect-[2/3] w-full rounded-sm overflow-hidden mb-3 border border-border shadow-sm group-hover:shadow-xl transition-shadow">
@@ -180,7 +185,7 @@ export default function RecommendationsPage() {
                       <h2 className="text-xl font-semibold text-foreground">{section.title}</h2>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                       {section.authors.map((author, i) => (
                         <motion.div key={i} variants={fadeUp} className="flex flex-col items-center gap-4 p-6 rounded-sm bg-surface border border-border hover:border-primary/30 transition-colors group cursor-pointer shadow-sm hover:shadow-md text-center">
                           <div className="relative w-24 h-24 rounded-sm overflow-hidden border-2 border-border group-hover:border-primary transition-colors">

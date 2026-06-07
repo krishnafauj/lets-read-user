@@ -1,14 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Sparkles, Brain, Star, ArrowUpRight, ChevronLeft, ChevronRight, Hash, ArrowRight } from "lucide-react";
 import { recommendations } from "../apis/mockData";
 import Link from "next/link";
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export function Recommendations() {
@@ -17,7 +17,7 @@ export function Recommendations() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Sparkles size={20} className="text-warning" />
-          <h2 className="text-xl font-semibold">Recommended for you</h2>
+          <h2 className="text-xl font-normal">Recommended for you</h2>
         </div>
         <Link href="/recommendations" className="text-sm flex items-center gap-1 font-medium text-text-muted hover:text-foreground transition-colors">
           See all <ChevronRight size={14} />
@@ -42,14 +42,14 @@ export function Recommendations() {
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
                 
                 {/* Rating neatly tucked inside image */}
-                <div className="absolute top-3 right-3 z-10 flex items-center gap-1 text-[11px] font-semibold text-white bg-black/30 px-2 py-1 rounded-md backdrop-blur-md border border-white/10 group-hover:border-white/30 transition-colors">
+                <div className="absolute top-3 right-3 z-10 flex items-center gap-1 text-[11px] font-normal text-white bg-black/30 px-2 py-1 rounded-md backdrop-blur-md border border-white/10 group-hover:border-white/30 transition-colors">
                   <Star size={12} className="text-warning fill-warning" /> {rec.rating}
                 </div>
               </div>
               
               {/* Content */}
               <div className="flex flex-col flex-1">
-                <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                <h3 className="font-normal text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1">
                   {rec.title}
                 </h3>
                 <p className="text-sm text-text-muted mt-0.5 line-clamp-1">
@@ -67,7 +67,7 @@ export function Recommendations() {
                 {/* Minimalist Tags that elegantly wrap */}
                 <div className="flex flex-wrap gap-x-2 gap-y-1 mt-auto">
                   {rec.tags.map(tag => (
-                    <span key={tag} className="text-[10px] font-semibold text-text-muted opacity-80 uppercase tracking-widest hover:text-primary transition-colors cursor-default">
+                    <span key={tag} className="text-[10px] font-normal text-text-muted opacity-80 uppercase tracking-widest hover:text-primary transition-colors cursor-default">
                       #{tag}
                     </span>
                   ))}
@@ -84,7 +84,7 @@ export function Recommendations() {
             <div className="w-12 h-12 rounded-sm bg-surface border border-border flex items-center justify-center text-text-muted group-hover:text-primary group-hover:border-primary/50 transition-colors mb-3 shadow-sm">
               <ArrowRight size={20} />
             </div>
-            <span className="text-sm font-semibold text-text-muted group-hover:text-primary transition-colors text-center">
+            <span className="text-sm font-normal text-text-muted group-hover:text-primary transition-colors text-center">
               See all
             </span>
           </Link>

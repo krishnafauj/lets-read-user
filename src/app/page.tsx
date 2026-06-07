@@ -154,7 +154,7 @@ export default function HomePage() {
         
         {/* Continue Studying Section */}
         <section className="flex flex-col shrink-0 mb-6">
-          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+          <h2 className="text-lg font-normal text-foreground mb-3 flex items-center gap-2">
             Continue Studying
           </h2>
           <div 
@@ -173,9 +173,9 @@ export default function HomePage() {
             {/* Content Details */}
             <div className="flex-1 min-w-0 z-10 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-sm">Currently Reading</span>
+                <span className="text-[10px] uppercase tracking-wider font-normal text-primary bg-primary/10 px-2 py-0.5 rounded-sm">Currently Reading</span>
               </div>
-              <h3 className="font-bold text-[22px] text-foreground truncate group-hover:text-primary transition-colors duration-300">
+              <h3 className="font-normal text-[22px] text-foreground truncate group-hover:text-primary transition-colors duration-300">
                 {continueStudyingData.title}
               </h3>
               <p className="text-sm text-text-muted mt-1 truncate max-w-lg">
@@ -194,7 +194,7 @@ export default function HomePage() {
                     <div className="absolute top-0 right-0 bottom-0 w-8 bg-gradient-to-l from-white/30 to-transparent"></div>
                   </motion.div>
                 </div>
-                <span className="text-xs font-bold text-foreground bg-surface px-2.5 py-1 rounded-sm border border-border shadow-sm">
+                <span className="text-xs font-normal text-foreground bg-surface px-2.5 py-1 rounded-sm border border-border shadow-sm">
                   {continueStudyingData.progress}%
                 </span>
               </div>
@@ -209,7 +209,7 @@ export default function HomePage() {
               >
                 <Info size={18} />
               </button>
-              <button className="flex items-center gap-2 px-6 py-3 rounded-sm bg-foreground text-background font-semibold text-sm hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group-hover:scale-105">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-sm bg-foreground text-background font-normal text-sm hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group-hover:scale-105">
                 Resume
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </button>
@@ -220,8 +220,8 @@ export default function HomePage() {
         {/* Recommended Section */}
         <section className="flex flex-col shrink-0 mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-bold text-foreground">Recommended</h2>
-            <button className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1 bg-primary/10 px-3 py-1.5 rounded-sm">
+            <h2 className="text-lg font-normal text-foreground">Recommended</h2>
+            <button className="text-sm font-normal text-primary hover:text-primary/80 transition-colors flex items-center gap-1 bg-primary/10 px-3 py-1.5 rounded-sm">
               See All <ChevronRight size={14} />
             </button>
           </div>
@@ -244,7 +244,7 @@ export default function HomePage() {
                     <Info size={14} />
                   </button>
                 </div>
-                <h3 className="font-bold text-sm text-foreground truncate">{book.title}</h3>
+                <h3 className="font-normal text-sm text-foreground truncate">{book.title}</h3>
                 <p className="text-[11px] text-text-muted mt-0.5 truncate">{book.author}</p>
               </motion.div>
             ))}
@@ -257,7 +257,7 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-sm bg-surface border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors duration-300 shadow-sm">
                 <ChevronRight className="text-text-muted group-hover:text-white transition-colors w-5 h-5" />
               </div>
-              <span className="text-sm font-bold text-foreground mt-3 group-hover:text-primary transition-colors">See All</span>
+              <span className="text-sm font-normal text-foreground mt-3 group-hover:text-primary transition-colors">See All</span>
             </motion.div>
           </div>
         </section>
@@ -265,7 +265,7 @@ export default function HomePage() {
         {/* Categories Section */}
         <section className="flex flex-col mt-4">
           <div className="flex items-center justify-between mb-3 shrink-0">
-            <h2 className="text-lg font-bold text-foreground">Categories</h2>
+            <h2 className="text-lg font-normal text-foreground">Categories</h2>
             <button className="p-1.5 bg-primary/10 text-primary rounded-sm hover:bg-primary/20 transition-colors">
               <Settings2 size={16} />
             </button>
@@ -309,7 +309,7 @@ export default function HomePage() {
                   </button>
 
                   {book.featured && (
-                    <div className="absolute bottom-2 right-2 bg-black/70 backdrop-blur-md text-yellow-400 text-[10px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1">
+                    <div className="absolute bottom-2 right-2 bg-black/70 backdrop-blur-md text-yellow-400 text-[10px] font-normal px-1.5 py-0.5 rounded flex items-center gap-1">
                       <Star size={10} fill="currentColor" /> {book.rating}
                     </div>
                   )}
@@ -321,7 +321,7 @@ export default function HomePage() {
                 </div>
                 
                 {/* Details */}
-                <h3 className="font-bold text-sm text-foreground truncate">{book.title}</h3>
+                <h3 className="font-normal text-sm text-foreground truncate">{book.title}</h3>
                 <p className="text-[11px] text-text-muted mt-0.5 truncate">{book.author}</p>
               </motion.div>
             ))}
@@ -367,7 +367,7 @@ export default function HomePage() {
                 </motion.div>
 
                 {/* Title & Author */}
-                <h2 className="text-xl font-bold mb-1 text-center truncate w-full px-4">{selectedBook.title}</h2>
+                <h2 className="text-xl font-normal mb-1 text-center truncate w-full px-4">{selectedBook.title}</h2>
                 <p className="text-sm text-white/60 mb-4 text-center">{selectedBook.author}</p>
 
                 {/* Rating */}
@@ -379,23 +379,23 @@ export default function HomePage() {
                        <Star size={16} fill="currentColor" />
                     </div>
                   </div>
-                  <span className="text-white text-sm font-bold ml-2">{selectedBook.rating || "4.8"}</span>
+                  <span className="text-white text-sm font-normal ml-2">{selectedBook.rating || "4.8"}</span>
                 </div>
 
                 {/* Stats Row */}
                 <div className="flex justify-between w-full px-4 mb-5">
                   <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold">320</span>
+                    <span className="text-lg font-normal">320</span>
                     <span className="text-[10px] text-white/50 uppercase tracking-wider">Pages</span>
                   </div>
                   <div className="w-px h-8 bg-white/10" />
                   <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold">643</span>
+                    <span className="text-lg font-normal">643</span>
                     <span className="text-[10px] text-white/50 uppercase tracking-wider">Ratings</span>
                   </div>
                   <div className="w-px h-8 bg-white/10" />
                   <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold">110</span>
+                    <span className="text-lg font-normal">110</span>
                     <span className="text-[10px] text-white/50 uppercase tracking-wider">Reviews</span>
                   </div>
                 </div>
@@ -409,7 +409,7 @@ export default function HomePage() {
               {/* Action Button */}
               <button 
                 onClick={() => router.push(`/read/${selectedBook.id}`)}
-                className="w-full bg-[#00BEAA] hover:bg-[#007F78] transition-colors text-white font-bold py-3.5 rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-[#00BEAA]/20 shrink-0 mt-3"
+                className="w-full bg-[#00BEAA] hover:bg-[#007F78] transition-colors text-white font-normal py-3.5 rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-[#00BEAA]/20 shrink-0 mt-3"
               >
                 Read Now
                 <BookOpen size={18} />

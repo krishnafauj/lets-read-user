@@ -1,20 +1,20 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ChevronRight, ChevronLeft, ArrowRight, BookOpen } from "lucide-react";
 import { learningCards } from "../apis/mockData";
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export function ContinueLearning() {
   return (
     <motion.section variants={itemVariants} className="space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold flex items-center gap-2">
+        <h2 className="text-xl font-normal flex items-center gap-2">
           <BookOpen size={20} className="text-primary" />
           Continue learning
         </h2>
@@ -39,14 +39,14 @@ export function ContinueLearning() {
 
               {/* Left Text Part */}
               <div className="flex-1 p-5 flex flex-col justify-center relative bg-background pl-6">
-                <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                <h3 className="font-normal text-base leading-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
                   {card.title}
                 </h3>
                 <p className="text-sm text-text-muted mt-1.5 line-clamp-1">
                   By {card.author}
                 </p>
                 
-                <div className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider">
+                <div className="mt-3 flex items-center gap-1.5 text-[11px] font-normal text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider">
                   Resume <ArrowRight size={12} />
                 </div>
               </div>

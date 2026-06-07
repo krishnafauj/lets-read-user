@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Flame } from "lucide-react";
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export function StreakBanner() {
@@ -18,7 +18,7 @@ export function StreakBanner() {
         }}
       >
         <div
-          className="rounded-2xl px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          className="rounded-2xl px-6 py-5 flex flex-col gap-5 h-full justify-center"
           style={{ background: "#18181B" }}
         >
           <div className="flex items-center gap-4">
@@ -29,7 +29,7 @@ export function StreakBanner() {
               🔥
             </div>
             <div>
-              <p className="text-xl font-bold">47 Day Streak!</p>
+              <p className="text-xl font-normal text-white">47 Day Streak!</p>
               <p className="text-sm mt-0.5" style={{ color: "#A1A1AA" }}>
                 Keep going! 3 more days to reach your goal
               </p>
@@ -39,7 +39,7 @@ export function StreakBanner() {
           <div className="flex flex-col gap-2 min-w-[200px]">
             <div className="flex justify-between text-xs" style={{ color: "#71717A" }}>
               <span>Progress to 50 days</span>
-              <span className="font-semibold text-indigo-400">47 / 50</span>
+              <span className="font-normal text-indigo-400">47 / 50</span>
             </div>
             <div
               className="h-2 rounded-full overflow-hidden"
@@ -52,7 +52,7 @@ export function StreakBanner() {
                 }}
                 initial={{ width: 0 }}
                 animate={{ width: "94%" }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+                transition={{ duration: 1.2, ease: "easeOut" as const, delay: 0.5 }}
               />
             </div>
             <p className="text-xs font-medium text-indigo-400 flex items-center gap-1">

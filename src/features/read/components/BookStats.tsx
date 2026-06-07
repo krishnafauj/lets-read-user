@@ -11,9 +11,9 @@ function Stat({ label, value, trend, trendUp }: StatProps) {
   return (
     <div className="flex flex-col border-b-2 border-transparent hover:border-primary pb-2 transition-colors cursor-default">
       <div className="flex items-end gap-2 mb-1">
-        <span className="text-2xl font-bold text-foreground">{value}</span>
+        <span className="text-2xl font-light text-foreground">{value}</span>
         {trend && (
-          <span className={`text-[10px] font-bold mb-1 ${trendUp ? 'text-emerald-500' : 'text-red-500'}`}>
+          <span className={`text-[10px] font-normal mb-1 ${trendUp ? 'text-emerald-500' : 'text-red-500'}`}>
             {trendUp ? '▲' : '▼'} {trend}
           </span>
         )}

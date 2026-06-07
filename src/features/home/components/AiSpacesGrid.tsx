@@ -1,19 +1,35 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ChevronRight, LayoutGrid, MessageSquare, Target } from "lucide-react";
 import { spaceCards } from "../apis/mockData";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
 };
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
 
 export function AiSpacesGrid() {
   return (
-    <motion.section variants={itemVariants} className="space-y-5">
+    <motion.section 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-5"
+    >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold flex items-center gap-2">
+        <h2 className="text-xl font-normal flex items-center gap-2">
           <LayoutGrid size={20} className="text-primary" />
           Your AI Spaces
         </h2>
@@ -26,6 +42,7 @@ export function AiSpacesGrid() {
         {spaceCards.map((space) => (
           <motion.div
             key={space.id}
+            variants={itemVariants}
             whileHover={{ y: -4 }}
             className="rounded-2xl bg-surface border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:border-primary/40 group relative overflow-hidden flex flex-col"
           >
@@ -48,7 +65,7 @@ export function AiSpacesGrid() {
                   </div>
                   
                   <div className="flex flex-col justify-center">
-                    <h3 className="font-bold text-lg leading-tight text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                    <h3 className="font-normal text-lg leading-tight text-foreground group-hover:text-primary transition-colors line-clamp-1">
                       {space.title}
                     </h3>
                     <p className="text-[13px] text-text-muted mt-1 line-clamp-1">
@@ -72,7 +89,7 @@ export function AiSpacesGrid() {
                     {space.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] uppercase tracking-widest font-bold text-text-muted group-hover:text-foreground/70 transition-colors"
+                        className="text-[9px] uppercase tracking-widest font-normal text-text-muted group-hover:text-foreground/70 transition-colors"
                       >
                         #{tag}
                       </span>

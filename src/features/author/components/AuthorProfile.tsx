@@ -41,11 +41,11 @@ export function AuthorProfile({ authorId }: { authorId: string }) {
     <div className="flex-1 overflow-y-auto bg-background min-h-0">
       <div className="max-w-7xl mx-auto px-8 py-12">
         
-        {/* Hero Section */}
-        <div className="flex flex-col lg:flex-row gap-12 mb-16">
+        {/* Two Column Layout */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           
-          {/* Left: Author Image */}
-          <div className="w-full lg:w-80 shrink-0">
+          {/* Left Sidebar */}
+          <div className="w-full lg:w-[320px] shrink-0 flex flex-col gap-6">
             <div className="relative aspect-square rounded-sm overflow-hidden shadow-md bg-surface border border-border group">
               <img 
                 src={author.image} 
@@ -56,103 +56,110 @@ export function AuthorProfile({ authorId }: { authorId: string }) {
                 <Star className="w-5 h-5 text-primary fill-primary/20" />
               </button>
             </div>
+            
+            <div>
+              <h1 className="text-3xl font-semibold text-foreground/90 mb-2">{author.name}</h1>
+              <div className="flex items-center gap-2 text-[13px] text-text-muted font-medium mb-6">
+                <span className="font-semibold text-foreground/80">Origin:</span>
+                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5"/> {author.birthplace}</span>
+              </div>
+              <button className="w-full py-2.5 bg-foreground text-background font-semibold rounded-sm hover:bg-primary hover:text-white transition-colors shadow-sm">
+                Follow Author
+              </button>
+            </div>
           </div>
 
-          {/* Right: Author Bio */}
-          <div className="flex-1 flex flex-col pt-2">
-            <h1 className="text-4xl font-semibold text-foreground/90 mb-4">{author.name}</h1>
+          {/* Right Content */}
+          <div className="flex-1 min-w-0 flex flex-col">
             
-            <div className="prose prose-sm text-[15px] leading-relaxed text-text-muted max-w-3xl whitespace-pre-wrap mb-6 font-light">
+            {/* Bio Box */}
+            <div className="prose prose-sm text-[15px] leading-relaxed text-text-muted max-w-none whitespace-pre-wrap mb-10 font-light bg-surface/50 p-6 rounded-sm border border-border">
               {author.bio}
             </div>
 
-            <div className="flex items-center gap-2 text-[13px] text-text-muted mt-auto pt-4 border-t border-border/50 font-medium">
-              <span className="font-semibold text-foreground/80">Origin:</span>
-              <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5"/> {author.birthplace}</span>
-            </div>
+            {/* Tabbed Content Section */}
+            <Tabs.Root defaultValue="books" className="w-full">
+              <Tabs.List className="flex gap-8 border-b border-border mb-8">
+                <Tabs.Trigger value="books" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
+                  Books by the Author
+                </Tabs.Trigger>
+                <Tabs.Trigger value="posts" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
+                  Posts & Articles
+                </Tabs.Trigger>
+                <Tabs.Trigger value="activity" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
+                  Recent Activity
+                </Tabs.Trigger>
+              </Tabs.List>
+
+              <Tabs.Content value="books" className="outline-none">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                  {books.map((book, i) => (
+                    <div key={i} className="group cursor-pointer flex flex-col">
+                      <div className={`aspect-[2/3] w-full rounded-sm ${book.coverColor} mb-3 shadow-sm border border-border/10 flex items-center justify-center relative overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-md`}>
+                        
+                        {/* Bookmark Button */}
+                        <button className="absolute top-2 right-2 w-8 h-8 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 z-10">
+                          <Bookmark className="w-4 h-4 text-white" />
+                        </button>
+
+                        <Book className="w-10 h-10 text-white/40" />
+                        <div className="absolute bottom-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent">
+                          <p className="text-white text-[10px] font-medium uppercase tracking-wider">{author.name}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <h3 className="text-[14px] font-semibold text-foreground/90 group-hover:text-primary transition-colors line-clamp-1 mb-0.5">{book.title}</h3>
+                        <p className="text-[12px] text-text-muted font-medium mb-3">{book.year}</p>
+                      </div>
+
+                      {/* Get Button */}
+                      <button className="w-full py-1.5 bg-surface border border-border hover:bg-surface-hover rounded text-[12px] font-semibold text-text-muted hover:text-foreground transition-colors">
+                        Get Book
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </Tabs.Content>
+
+              <Tabs.Content value="posts" className="outline-none">
+                <div className="max-w-3xl flex flex-col gap-4">
+                  {posts.map((post, i) => (
+                    <div key={i} className="p-6 rounded-sm bg-surface border border-border hover:border-primary/30 transition-all shadow-sm cursor-pointer group">
+                      <h3 className="text-lg font-semibold text-foreground/90 mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
+                      <p className="text-[13px] text-text-muted font-medium mb-4">{post.date}</p>
+                      
+                      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border/50 text-[13px] text-text-muted font-medium">
+                        <span className="flex items-center gap-1.5 hover:text-primary transition-colors"><Heart className="w-4 h-4" /> {post.likes} Likes</span>
+                        <span className="flex items-center gap-1.5 hover:text-primary transition-colors"><MessageSquare className="w-4 h-4" /> {post.comments} Comments</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Tabs.Content>
+
+              <Tabs.Content value="activity" className="outline-none">
+                <div className="max-w-3xl flex flex-col gap-4">
+                  {recentActivity.map((activity, i) => (
+                    <div flex items-start gap-4 p-5 rounded-sm bg-surface border border-border shadow-sm key={i}>
+                      <div className="mt-1 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        {activity.action.includes("Like") ? <Heart className="w-4 h-4" /> : <Star className="w-4 h-4" />}
+                      </div>
+                      <div>
+                        <p className="text-[14px] text-foreground font-medium mb-1">
+                          <span className="font-medium">{author.name}</span> {activity.action.toLowerCase()}: <span className="font-semibold text-foreground/90 hover:text-primary cursor-pointer transition-colors">{activity.target}</span>
+                        </p>
+                        <p className="text-[12px] text-text-muted">{activity.time}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Tabs.Content>
+
+            </Tabs.Root>
+
           </div>
         </div>
-
-        {/* Tabbed Content Section */}
-        <Tabs.Root defaultValue="books" className="w-full mt-10">
-          <Tabs.List className="flex gap-8 border-b border-border mb-8">
-            <Tabs.Trigger value="books" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
-              Books by the Author
-            </Tabs.Trigger>
-            <Tabs.Trigger value="posts" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
-              Posts & Articles
-            </Tabs.Trigger>
-            <Tabs.Trigger value="activity" className="pb-3 text-[16px] font-medium text-text-muted hover:text-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary transition-all outline-none">
-              Recent Activity
-            </Tabs.Trigger>
-          </Tabs.List>
-
-          <Tabs.Content value="books" className="outline-none">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {books.map((book, i) => (
-                <div key={i} className="group cursor-pointer flex flex-col">
-                  <div className={`aspect-[2/3] w-full rounded-sm ${book.coverColor} mb-3 shadow-sm border border-border/10 flex items-center justify-center relative overflow-hidden transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-md`}>
-                    
-                    {/* Bookmark Button */}
-                    <button className="absolute top-2 right-2 w-8 h-8 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 z-10">
-                      <Bookmark className="w-4 h-4 text-white" />
-                    </button>
-
-                    <Book className="w-10 h-10 text-white/40" />
-                    <div className="absolute bottom-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent">
-                      <p className="text-white text-[10px] font-medium uppercase tracking-wider">{author.name}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <h3 className="text-[14px] font-semibold text-foreground/90 group-hover:text-primary transition-colors line-clamp-1 mb-0.5">{book.title}</h3>
-                    <p className="text-[12px] text-text-muted font-medium mb-3">{book.year}</p>
-                  </div>
-
-                  {/* Get Button */}
-                  <button className="w-full py-1.5 bg-surface border border-border hover:bg-surface-hover rounded text-[12px] font-semibold text-text-muted hover:text-foreground transition-colors">
-                    Get Book
-                  </button>
-                </div>
-              ))}
-            </div>
-          </Tabs.Content>
-
-          <Tabs.Content value="posts" className="outline-none">
-            <div className="max-w-3xl flex flex-col gap-4">
-              {posts.map((post, i) => (
-                <div key={i} className="p-6 rounded-sm bg-surface border border-border hover:border-primary/30 transition-all shadow-sm cursor-pointer group">
-                  <h3 className="text-lg font-semibold text-foreground/90 mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
-                  <p className="text-[13px] text-text-muted font-medium mb-4">{post.date}</p>
-                  
-                  <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border/50 text-[13px] text-text-muted font-medium">
-                    <span className="flex items-center gap-1.5 hover:text-primary transition-colors"><Heart className="w-4 h-4" /> {post.likes} Likes</span>
-                    <span className="flex items-center gap-1.5 hover:text-primary transition-colors"><MessageSquare className="w-4 h-4" /> {post.comments} Comments</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Tabs.Content>
-
-          <Tabs.Content value="activity" className="outline-none">
-            <div className="max-w-3xl flex flex-col gap-4">
-              {recentActivity.map((activity, i) => (
-                <div key={i} className="flex items-start gap-4 p-5 rounded-sm bg-surface border border-border shadow-sm">
-                  <div className="mt-1 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    {activity.action.includes("Like") ? <Heart className="w-4 h-4" /> : <Star className="w-4 h-4" />}
-                  </div>
-                  <div>
-                    <p className="text-[14px] text-foreground font-medium mb-1">
-                      <span className="font-medium">{author.name}</span> {activity.action.toLowerCase()}: <span className="font-semibold text-foreground/90 hover:text-primary cursor-pointer transition-colors">{activity.target}</span>
-                    </p>
-                    <p className="text-[12px] text-text-muted">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Tabs.Content>
-
-        </Tabs.Root>
 
       </div>
     </div>

@@ -40,7 +40,7 @@ export function NetworkSidebar({ isOpen, onClose }: NetworkSidebarProps) {
             {/* Header */}
             <div className="p-6 pb-4 border-b border-border bg-surface sticky top-0 z-10">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold">All Activity</h2>
+                <h2 className="text-xl font-normal">All Activity</h2>
                 <button 
                   onClick={onClose}
                   className="p-1.5 rounded-full hover:bg-surface-hover text-text-muted hover:text-foreground transition-colors"
@@ -65,13 +65,13 @@ export function NetworkSidebar({ isOpen, onClose }: NetworkSidebarProps) {
               {filteredActivities.length > 0 ? (
                 filteredActivities.map((act, i) => (
                   <div key={i} className="flex gap-4">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-sm ${act.color}`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-normal text-sm shrink-0 shadow-sm ${act.color}`}>
                       {act.initials}
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-sm">{act.user}</span>
-                        <span className="flex items-center gap-1 text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+                        <span className="font-normal text-sm">{act.user}</span>
+                        <span className="flex items-center gap-1 text-[10px] font-normal text-text-muted uppercase tracking-wider">
                           {act.icon} {act.action}
                         </span>
                       </div>
@@ -84,7 +84,7 @@ export function NetworkSidebar({ isOpen, onClose }: NetworkSidebarProps) {
               ) : (
                 <div className="flex flex-col items-center justify-center h-40 text-text-muted">
                   <Search size={32} className="mb-2 opacity-20" />
-                  <p className="text-sm font-semibold">No activity found</p>
+                  <p className="text-sm font-normal">No activity found</p>
                   <p className="text-xs opacity-70">Try a different search term</p>
                 </div>
               )}

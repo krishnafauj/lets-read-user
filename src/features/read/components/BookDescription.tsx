@@ -23,7 +23,7 @@ export function BookDescription({ text }: BookDescriptionProps) {
       
       <button 
         onClick={() => setExpanded(!expanded)}
-        className="text-primary text-sm font-semibold mt-2 hover:underline flex items-center gap-1"
+        className="text-primary text-sm font-normal mt-2 hover:underline flex items-center gap-1"
       >
         {expanded ? (
           <>Show less <ChevronUp size={14} /></>

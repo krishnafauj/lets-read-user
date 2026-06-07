@@ -23,8 +23,8 @@ export function CommentsSection() {
   return (
     <div className="bg-surface-hover/50 p-6 rounded-2xl border border-border">
       <div className="flex items-center gap-3 mb-4">
-        <h3 className="font-bold text-lg text-foreground">Comments</h3>
-        <span className="bg-white/50 text-foreground text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">30</span>
+        <h3 className="font-normal text-lg text-foreground">Comments</h3>
+        <span className="bg-white/50 text-foreground text-xs font-normal px-2 py-0.5 rounded-full shadow-sm">30</span>
       </div>
 
       {/* Input Box */}
@@ -34,7 +34,7 @@ export function CommentsSection() {
           className="w-full bg-transparent resize-none outline-none text-sm text-foreground placeholder:text-text-muted/60 min-h-[60px]"
         />
         <div className="flex justify-end mt-2">
-          <button className="bg-[#F4A261] hover:bg-[#E76F51] text-white text-xs font-bold px-5 py-2 rounded-lg transition-colors shadow-sm">
+          <button className="bg-[#F4A261] hover:bg-[#E76F51] text-white text-xs font-normal px-5 py-2 rounded-lg transition-colors shadow-sm">
             Send
           </button>
         </div>
@@ -49,17 +49,17 @@ export function CommentsSection() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-xs text-foreground">{comment.user}</span>
+                <span className="font-normal text-xs text-foreground">{comment.user}</span>
                 <span className="text-[10px] text-text-muted">• {comment.time}</span>
               </div>
               <p className="text-xs text-foreground/80 leading-relaxed mb-2">
                 {comment.text}
               </p>
               <div className="flex items-center gap-4">
-                <button className="flex items-center gap-1 text-[10px] font-semibold text-text-muted hover:text-foreground transition-colors">
+                <button className="flex items-center gap-1 text-[10px] font-normal text-text-muted hover:text-foreground transition-colors">
                   <Reply size={12} /> Reply
                 </button>
-                <button className="flex items-center gap-1 text-[10px] font-semibold text-text-muted hover:text-primary transition-colors">
+                <button className="flex items-center gap-1 text-[10px] font-normal text-text-muted hover:text-primary transition-colors">
                   <ThumbsUp size={12} /> {comment.likes}
                 </button>
               </div>
