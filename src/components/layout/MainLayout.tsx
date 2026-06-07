@@ -13,6 +13,11 @@ interface MainLayoutProps {
 export function MainLayout({ children, className }: MainLayoutProps) {
   const pathname = usePathname()
   const isAiChat = (pathname.startsWith('/ai-workspace/') && pathname.split('/').length > 3) || pathname.startsWith('/chat/');
+  const isAuthPage = pathname === '/login' || pathname.startsWith('/login/');
+
+  if (isAuthPage) {
+    return <main className={cn("min-h-screen bg-white", className)}>{children}</main>;
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
